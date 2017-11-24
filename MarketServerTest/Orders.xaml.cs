@@ -10,8 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
+using QuikSharp.DataStructures.Transaction;
 namespace MarketServerTest
 {
     /// <summary>
@@ -27,8 +26,8 @@ namespace MarketServerTest
 
         public void InitializeBidsTable()
         {
-            List<QuikSharp.DataStructures.Transaction.Order> list = new List<QuikSharp.DataStructures.Transaction.Order>();
-            list = QuikConnector.GetBids();
+            List<Order> list = new List<Order>();
+            list = QuikConnector.GetOrders();
             foreach (var item in list)
             {
                 OrdersTable.Items.Add(new ColumnsForOrders

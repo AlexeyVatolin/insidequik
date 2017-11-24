@@ -64,9 +64,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="QuikConnector.cs" />
+
     <Compile Include="SendBid.xaml.cs">
       <DependentUpon>SendBid.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="Tool.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

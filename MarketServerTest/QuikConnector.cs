@@ -13,6 +13,7 @@ namespace MarketServerTest
     {
         private static Quik Quik;
         public static bool isConnected { get; private set; }
+        public delegate void OnQuoteDoDelegate(OrderBook quote);
 
         public static bool Connect()
         {
@@ -26,10 +27,6 @@ namespace MarketServerTest
             return false;
         }
 
-        public static OrderBook SubscribeToOrderBook()
-        {
-            return new OrderBook();
-        }
         public static void SendBid(string ticker, decimal price, int qty, Operation operationType, bool marketPrice)
         {
             try
@@ -78,5 +75,34 @@ namespace MarketServerTest
             }
             return res;
         }
+
+        //TODO: разобраться что значит эта мифическая строка SPBFUT,TQBR..
+        public static void SubscribeToOrderBook(string ticker, QuoteHandler quoteDoDelegate) { 
+            string classCode = Quik.Class.GetSecurityClass("SPBFUT,TQBR,TQBS,TQNL,TQLV,TQNE,TQOB", ticker).Result;
+            if (!string.IsNullOrEmpty(classCode))
+            {
+                var tool = new Tool(Quik, ticker, classCode);
+                if (!string.IsNullOrEmpty(tool.Name))
+                {
+                    Quik.OrderBook.Subscribe(tool.ClassCode, tool.SecurityCode).Wait();
+                    bool isSubscribedToolOrderBook = Quik.OrderBook.IsSubscribed(tool.ClassCode, tool.SecurityCode).Result;
+                    if (isSubscribedToolOrderBook)
+                    {
+                        Console.WriteLine("Успешно подписался на " + ticker); //TODO: убрать когда будет проверено
+                        Quik.Events.OnQuote += quoteDoDelegate;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+
+        }
+
     }
 }

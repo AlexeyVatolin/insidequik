@@ -7,7 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Content="run" HorizontalAlignment="Left" Margin="67,115,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="set bid" HorizontalAlignment="Left" Margin="291,114,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="set bid" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
+
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Connect_Click"/>
+        <Button Content="Select ticker" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="75" Click="Select_Ticker_Click"/>
+        <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="10,53,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="120"/>
+        <ListView Name="OrderBooksListView" HorizontalAlignment="Left" Height="245" Margin="135,10,0,0" VerticalAlignment="Top" Width="164">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding price}"/>
+                    <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding quantity}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
     </Grid>
 </Window>

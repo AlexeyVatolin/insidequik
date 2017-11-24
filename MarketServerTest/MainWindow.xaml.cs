@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuikSharp.DataStructures;
 
 namespace MarketServerTest
 {
@@ -25,16 +26,40 @@ namespace MarketServerTest
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Connect_Click(object sender, RoutedEventArgs e)
         {
             QuikConnector.Connect();
             MessageBox.Show(QuikConnector.isConnected.ToString());
         }
 
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             SendBid sendbid = new SendBid();
             sendbid.Show();
+        }
+        private void Select_Ticker_Click(object sender, RoutedEventArgs e)
+        {
+            QuikConnector.SubscribeToOrderBook(Ticker.Text, OnQuoteDo);
+        }
+
+        public void OnQuoteDo(OrderBook quote)
+        {
+            if (quote.sec_code.ToUpperInvariant() == "SBER") //Функция срабатывает на все подписанные стаканы
+            {                                               //на сервере нужно придумать способ распихивать стаканы только
+                Console.WriteLine("Стакан обновлен");       //тем, кому они реально нужны
+                OrderBooksListView.Dispatcher.Invoke(() => OrderBooksListView.Items.Clear());
+                foreach (var quoteBid in quote.bid)
+                {
+                    OrderBooksListView.Dispatcher.Invoke(() => OrderBooksListView.Items.Add(quoteBid));
+                }
+
+                foreach (var quoteOffer in quote.offer)
+                {
+                    OrderBooksListView.Dispatcher.Invoke(() => OrderBooksListView.Items.Add(quoteOffer));
+                }
+            }
+
         }
     }
 }

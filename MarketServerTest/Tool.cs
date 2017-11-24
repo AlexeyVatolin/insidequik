@@ -1,7 +1,11 @@
 ﻿using System;
 using QuikSharp;
 
-public class Tool   
+
+  
+
+public class Tool
+
 {
     Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
 

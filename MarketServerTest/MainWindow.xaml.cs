@@ -28,7 +28,10 @@ namespace MarketServerTest
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             QuikConnector.Connect();
-            MessageBox.Show(QuikConnector.isConnected.ToString());
+            //MessageBox.Show(QuikConnector.isConnected.ToString());
+            new Orders().Show();
+            //new Deals().Show();
+            
         }
     }
 }

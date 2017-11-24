@@ -1,0 +1,33 @@
+﻿<Window x:Class="MarketServerTest.Deals"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MarketServerTest"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{StaticResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Таблица заявок" Height="452.529" Width="972.538">
+    <Grid>
+
+        <DataGrid Margin="10,3,10,10" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер" Binding="{Binding Date}" Width="100"/>
+                <DataGridTextColumn Header="Время" Binding="{Binding Shift}" Width="100"/>
+                <DataGridTextColumn Header="Период" Binding="{Binding Ticker}" Width="100"/>
+                <DataGridTextColumn Header="Заявка" Binding="{Binding Ticker}" Width="100"/>
+                <DataGridTextColumn Header="Бумага" Binding="{Binding High}" Width="100"/>
+                <DataGridTextColumn Header="Операция" Binding="{Binding Low}" Width="80"/>
+                <DataGridTextColumn Header="Счет" Binding="{Binding Low}" Width="100"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Low}" Width="80"/>
+                <DataGridTextColumn Header="Объем" Binding="{Binding Low}" Width="70"/>
+                <DataGridTextColumn Header="Комментарий" Binding="{Binding Low}" Width="105"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QuikSharp;
 using QuikSharp.DataStructures;
+using System.Windows;
 
 namespace MarketServerTest
 {
@@ -12,7 +13,7 @@ namespace MarketServerTest
     {
         private static Quik Quik;
         public static bool isConnected { get; private set; }
-
+        private static  List<QuikSharp.DataStructures.Transaction.Order> list = new List<QuikSharp.DataStructures.Transaction.Order>();
         public static bool Connect()
         {
             Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
@@ -23,6 +24,11 @@ namespace MarketServerTest
             }
             isConnected = false;
             return false;
+        }
+
+        public static List<QuikSharp.DataStructures.Transaction.Order> GetBids()
+        {
+            return Quik.Orders.GetOrders().Result;
         }
 
         public static OrderBook SubscribeToOrderBook()

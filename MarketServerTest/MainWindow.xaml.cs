@@ -30,5 +30,11 @@ namespace MarketServerTest
             QuikConnector.Connect();
             MessageBox.Show(QuikConnector.isConnected.ToString());
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SendBid sendbid = new SendBid();
+            sendbid.Show();
+        }
     }
 }

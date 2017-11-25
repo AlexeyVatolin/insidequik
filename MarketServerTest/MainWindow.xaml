@@ -20,6 +20,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="Get orders" HorizontalAlignment="Left" Margin="55,212,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
 
 
     </Grid>

@@ -74,12 +74,19 @@
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColumnsForOrders.cs" />
+    <Compile Include="OrdersBook.xaml.cs">
+      <DependentUpon>OrdersBook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Trades.xaml.cs">
       <DependentUpon>Trades.xaml</DependentUpon>
     </Compile>
     <Compile Include="QuikConnector.cs" />
     <Compile Include="Tool.cs" />
     <Page Include="Orders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OrdersBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

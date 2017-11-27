@@ -14,7 +14,7 @@ namespace MarketServerTest
     {
         private static Quik Quik;
         public static bool isConnected { get; private set; }
-        private static  List<Order> list = new List<Order>();
+        private static List<Order> list = new List<Order>();
         public delegate void OnQuoteDoDelegate(OrderBook quote);
 
         public static bool Connect()
@@ -79,7 +79,7 @@ namespace MarketServerTest
             try
             {
                 res = _quik.Orders.CreateOrder(newOrder).Result;
-                if (res<0) Console.WriteLine("Всё очень плохо...");
+                if (res < 0) Console.WriteLine("Всё очень плохо...");
             }
             catch
             {
@@ -88,31 +88,41 @@ namespace MarketServerTest
             return res;
         }
 
-        public static void SubscribeToOrderBook(string ticker, QuoteHandler quoteDoDelegate) { 
-            string classCode = Quik.Class.GetSecurityClass("SPBFUT,TQBR,TQBS,TQNL,TQLV,TQNE,TQOB", ticker).Result;
-            if (!string.IsNullOrEmpty(classCode))
+        public static void SubscribeToOrderBook(string ticker, QuoteHandler quoteDoDelegate)
+        {
+            var tool = createTool(ticker);
+            if (!string.IsNullOrEmpty(tool.Name))
             {
-                var tool = new Tool(Quik, ticker, classCode);
-                if (!string.IsNullOrEmpty(tool.Name))
+                Quik.OrderBook.Subscribe(tool.ClassCode, tool.SecurityCode).Wait();
+                bool isSubscribedToolOrderBook = Quik.OrderBook.IsSubscribed(tool.ClassCode, tool.SecurityCode).Result;
+                if (isSubscribedToolOrderBook)
                 {
-                    Quik.OrderBook.Subscribe(tool.ClassCode, tool.SecurityCode).Wait();
-                    bool isSubscribedToolOrderBook = Quik.OrderBook.IsSubscribed(tool.ClassCode, tool.SecurityCode).Result;
-                    if (isSubscribedToolOrderBook)
-                    {
-                        Console.WriteLine("Успешно подписался на " + ticker); //TODO: убрать когда будет проверено
-                        Quik.Events.OnQuote += quoteDoDelegate;
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
+                    Console.WriteLine("Успешно подписался на " + ticker); //TODO: убрать когда будет проверено
+                    Quik.Events.OnQuote += quoteDoDelegate;
                 }
                 else
                 {
                     throw new Exception();
                 }
             }
+            else
+            {
+                throw new Exception();
+            }
 
+        }
+
+        public static void UnsubsckibeFromOrderBook(string ticker)
+        {
+            var tool = createTool(ticker);
+            if (!string.IsNullOrEmpty(tool.Name))
+            {
+                Quik.OrderBook.Unsubscribe(tool.ClassCode, tool.SecurityCode).Wait();
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
     }

@@ -40,12 +40,13 @@ namespace MarketServerTest
                     if (items.OrderNum == item.OrderNum)
                     {
                         direction = items.Operation.ToString();
-                        data = items.Datetime.hour.ToString() + ":" + items.Datetime.min.ToString() + ":" + items.Datetime.sec.ToString() + "." + items.Datetime.ms.ToString();
+                        data = items.Datetime.hour + ":" + items.Datetime.min + ":" + items.Datetime.sec
+                            + "." + items.Datetime.ms;
                     }
                 }
                 TradesTable.Items.Add(new ColumnsForTrades
                 {
-                    Company = item.SecCode.ToString(), //инструмент
+                    Company = item.SecCode, //инструмент
                     Value = item.Value.ToString(), //объем в денежных единицах
                     Quantity = item.Quantity.ToString(), // предположительно объем бумаг
                     Date = data, // дата сделки

@@ -1,0 +1,28 @@
+﻿<Window x:Class="MarketServerTest.Trades"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MarketServerTest"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{StaticResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Таблица сделок" Height="453.837" Width="724.473">
+    <Grid>
+        <DataGrid Name="TradesTable" Margin="10,3,10,10" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="100"/>
+                <DataGridTextColumn Header="Операция" Binding="{Binding Direction}" Width="100"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="80"/>
+                <DataGridTextColumn Header="Объем в денежных ед." Binding="{Binding Value}" Width="155"/>
+                <DataGridTextColumn Header="Время" Binding="{Binding Date}" Width="110"/>
+                <DataGridTextColumn Header="Период в мс" Binding="{Binding Time}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -20,6 +20,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="Сделки" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
 
 
     </Grid>

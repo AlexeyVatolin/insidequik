@@ -66,5 +66,10 @@ namespace MarketServerTest
         {
             new Orders().Show();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            new Trades().Show();
+        }
     }
 }

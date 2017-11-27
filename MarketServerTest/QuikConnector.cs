@@ -34,6 +34,10 @@ namespace MarketServerTest
             return Quik.Orders.GetOrders().Result;
         }
 
+        public static List<Trade> GetTrades()
+        {
+            return Quik.Trading.GetTrades().Result;
+        }
 
         public static void SendBid(string ticker, decimal price, int qty, Operation operationType, bool marketPrice)
         {

@@ -69,12 +69,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ColumnsForTrades.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColumnsForOrders.cs" />
-    <Compile Include="Deals.xaml.cs">
-      <DependentUpon>Deals.xaml</DependentUpon>
+    <Compile Include="Trades.xaml.cs">
+      <DependentUpon>Trades.xaml</DependentUpon>
     </Compile>
     <Compile Include="QuikConnector.cs" />
     <Compile Include="Tool.cs" />
@@ -82,7 +83,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Deals.xaml">
+    <Page Include="Trades.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

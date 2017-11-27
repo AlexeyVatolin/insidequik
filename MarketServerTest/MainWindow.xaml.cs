@@ -26,12 +26,26 @@ namespace MarketServerTest
         public MainWindow()
         {
             InitializeComponent();
+            GetOrdersBook.IsEnabled = false;
+            Ticker.IsEnabled = false;
+            SetOrder.IsEnabled = false;
+            GetTrades.IsEnabled = false;
+            GetOrders.IsEnabled = false;
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
         {
             QuikConnector.Connect();
             MessageBox.Show(QuikConnector.isConnected.ToString());
+            if (QuikConnector.isConnected==true)
+            {
+                Connect.IsEnabled = false;
+                GetOrdersBook.IsEnabled = true;
+                Ticker.IsEnabled = true;
+                SetOrder.IsEnabled = true;
+                GetTrades.IsEnabled = true;
+                GetOrders.IsEnabled = true;
+            }
         }
 
 

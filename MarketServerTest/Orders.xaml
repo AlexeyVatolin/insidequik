@@ -12,11 +12,12 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Таблица заявок" Height="453.837" Width="724.473">
+        Title="Таблица заявок" Height="453.837" Width="824.902">
     <Grid>
         <DataGrid Name="OrdersTable" Margin="10,3,10,10" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="100"/>
+                <DataGridTextColumn Header="Режим торгов" Binding="{Binding ClassCode}" Width="110"/>
                 <DataGridTextColumn Header="Операция" Binding="{Binding Operation}" Width="80"/>
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="80"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>

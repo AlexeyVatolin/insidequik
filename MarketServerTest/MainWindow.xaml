@@ -13,9 +13,11 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Content="Set bid" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
-        <Button Content="Connect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="141" Click="Connect_Click"/>
-        <Button Content="Get orders book" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="141" Click="Select_Ticker_Click"/>
+        <Button Name="Connect" Content="Connect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="141" Click="Connect_Click"/>
+        <Button Name="SetOrder" Content="Set order" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
+        <Button Name ="GetOrdersBook" Content="Get orders book" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="141" Click="Select_Ticker_Click"/>
+        <Button Name="GetTrades" Content="Get trades" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_2"/>
+        <Button Name="GetOrders" Content="Get orders" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="10,53,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
         <ListView Name="OrderBooksListView" HorizontalAlignment="Left" Height="299" Margin="192,10,0,0" VerticalAlignment="Top" Width="273">
             <ListView.View>
@@ -25,7 +27,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Get trades" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_2"/>
-        <Button Content="Get orders" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
+        
     </Grid>
 </Window>

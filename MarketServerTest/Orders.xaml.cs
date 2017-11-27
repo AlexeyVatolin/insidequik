@@ -32,11 +32,12 @@ namespace MarketServerTest
             {
                 OrdersTable.Items.Add(new ColumnsForOrders
                 {
-                    Time = item.Datetime.hour.ToString() + ":" + item.Datetime.min.ToString() + ":" + item.Datetime.sec.ToString(),
                     Company = item.SecCode.ToString(),
+                    ClassCode = item.ClassCode.ToString(),
                     Operation = item.Operation.ToString(),
                     Quantity = item.Quantity.ToString(),
                     Price = item.Price.ToString(),
+                    Time = item.Datetime.hour.ToString() + ":" + item.Datetime.min.ToString() + ":" + item.Datetime.sec.ToString(),
                     Balance = item.Balance.ToString(),
                     Value = item.Value.ToString(),
                     State = item.State.ToString()

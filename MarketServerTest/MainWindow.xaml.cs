@@ -21,6 +21,8 @@ namespace MarketServerTest
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private string currentTicker;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,12 +42,13 @@ namespace MarketServerTest
         }
         private void Select_Ticker_Click(object sender, RoutedEventArgs e)
         {
+            currentTicker = Ticker.Text;
             QuikConnector.SubscribeToOrderBook(Ticker.Text, OnQuoteDo);
         }
 
         public void OnQuoteDo(OrderBook quote)
         {
-            if (quote.sec_code.ToUpperInvariant() == "SBER") //Функция срабатывает на все подписанные стаканы
+            if (quote.sec_code.ToUpperInvariant() == currentTicker) //Функция срабатывает на все подписанные стаканы
             {                                               //на сервере нужно придумать способ распихивать стаканы только
                 Console.WriteLine("Стакан обновлен");       //тем, кому они реально нужны
                 OrderBooksListView.Dispatcher.Invoke(() => OrderBooksListView.Items.Clear());

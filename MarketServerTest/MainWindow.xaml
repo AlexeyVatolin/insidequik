@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketServerTest"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{StaticResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Content="set bid" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
-        <Button Content="Connect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Connect_Click"/>
-        <Button Content="Select ticker" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="75" Click="Select_Ticker_Click"/>
-        <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="10,53,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="120"/>
-        <ListView Name="OrderBooksListView" HorizontalAlignment="Left" Height="245" Margin="135,10,0,0" VerticalAlignment="Top" Width="164">
+        <Button Content="Set bid" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="141" Click="Connect_Click"/>
+        <Button Content="Get orders book" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="141" Click="Select_Ticker_Click"/>
+        <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="10,53,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
+        <ListView Name="OrderBooksListView" HorizontalAlignment="Left" Height="299" Margin="192,10,0,0" VerticalAlignment="Top" Width="273">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding price}"/>
@@ -19,7 +25,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Get trades" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_2"/>
-        <Button Content="Get orders" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
+        <Button Content="Get trades" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_2"/>
+        <Button Content="Get orders" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
     </Grid>
 </Window>

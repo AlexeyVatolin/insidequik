@@ -1,7 +1,6 @@
---~ Copyright Ⓒ 2015 Victor Baybekov
+--~ // Licensed under the Apache License, Version 2.0. See LICENSE.txt in the project root for license information.
 
 local socket = require ("socket")
---local json = require "cjson"
 local json = require ("dkjson")
 local qsutils = {}
 
@@ -48,7 +47,8 @@ function split(inputstr, sep)
     if sep == nil then
         sep = "%s"
     end
-    local t={} ; i=1
+    local t={}
+    local i=1
     for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
         t[i] = str
         i = i + 1
@@ -57,7 +57,6 @@ function split(inputstr, sep)
 end
 
 function from_json(str)
-    -- local status, msg= pcall(json.decode, str) -- cjson
     local status, msg= pcall(json.decode, str, 1, json.null) -- dkjson
     if status then
         return msg
@@ -67,7 +66,6 @@ function from_json(str)
 end
 
 function to_json(msg)
-    -- local status, str= pcall(json.encode, msg) -- cjson
     local status, str= pcall(json.encode, msg, { indent = false }) -- dkjson
     if status then
         return str
@@ -101,28 +99,36 @@ local callback_client
 --- accept client on server
 local function getResponseServer()
     print('Waiting for a client')
-    local i = 0
-    while true do
-        local status, client, err = pcall(response_server.accept, response_server )
-        if status and client then
-            return client
-        else
-            log(err, 3)
-        end
-    end
+	local i = 0
+	if not response_server then
+		log("Cannot bind to response_server, probably the port is already in use", 3)
+	else
+		while true do
+			local status, client, err = pcall(response_server.accept, response_server )
+			if status and client then
+				return client
+			else
+				log(err, 3)
+			end
+		end
+	end
 end
 
 local function getCallbackClient()
     print('Waiting for a client')
-    local i = 0
-    while true do
-        local status, client, err = pcall(callback_server.accept, callback_server)
-        if status and client then
-            return client
-        else
-            log(err, 3)
-        end
-    end
+	local i = 0
+	if not callback_server then
+		log("Cannot bind to callback_server, probably the port is already in use", 3)
+	else
+		while true do
+			local status, client, err = pcall(callback_server.accept, callback_server)
+			if status and client then
+				return client
+			else
+				log(err, 3)
+			end
+		end
+	end
 end
 
 function qsutils.connect()

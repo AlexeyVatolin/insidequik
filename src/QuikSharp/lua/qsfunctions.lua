@@ -1,4 +1,4 @@
---~ Copyright Ⓒ 2015 Victor Baybekov
+--~ // Licensed under the Apache License, Version 2.0. See LICENSE.txt in the project root for license information.
 
 package.path = package.path .. ";" .. ".\\?.lua;" .. ".\\?.luac"
 package.cpath = package.cpath .. ";" .. '.\\clibs\\?.dll'
@@ -18,8 +18,9 @@ function qsfunctions.dispatch_and_process(msg)
             return msg
         end
     else
+		log(to_json(msg), 3)
+		msg.lua_error = "Command not implemented in Lua qsfunctions module: " .. msg.cmd
         msg.cmd = "lua_error"
-        msg.lua_error = "Command not implemented in Lua qsfunctions module: " .. msg.cmd
         return msg
     end
 end
@@ -127,11 +128,54 @@ function qsfunctions.sleep(msg)
     return msg
 end
 
---- Функция для вывода отладочной информации. 
+--- Функция для вывода отладочной информации.
 function qsfunctions.PrintDbgStr(msg)
     log(msg.data, 0)
     msg.data = ""
     return msg
+end
+
+-- Выводит на график метку
+function qsfunctions.addLabel(msg)
+	local spl = split(msg.data, "|")
+	local price, curdate, curtime, qty, path, id, algmnt, bgnd = spl[1], spl[2], spl[3], spl[4], spl[5], spl[6], spl[7], spl[8]
+	label = {
+			TEXT = "",
+			IMAGE_PATH = path,
+			ALIGNMENT = algmnt,
+			YVALUE = tostring(price),
+			DATE = tostring(curdate),
+			TIME = tostring(curtime),
+			R = 255,
+			G = 255,
+			B = 255,
+			TRANSPARENCY = 0,
+			TRANSPARENT_BACKGROUND = bgnd,
+			FONT_FACE_NAME = "Arial",
+			FONT_HEIGHT = "15",
+			HINT = " " .. tostring(price) .. " " .. tostring(qty)
+			}
+	local res = AddLabel(id, label)
+	msg.data = res
+	return msg
+end
+
+-- Удаляем выбранную метку
+function qsfunctions.delLabel(msg)
+	local spl = split(msg.data, "|")
+	local tag, id = spl[1], spl[2]
+	DelLabel(tag, tonumber(id))
+	msg.data = ""
+	return msg
+end
+
+-- Удаляем все метки с графика
+function qsfunctions.delAllLabels(msg)
+	local spl = split(msg.data, "|")
+	local id = spl[1]
+	DelAllLabels(id)
+	msg.data = ""
+	return msg
 end
 
 ---------------------
@@ -159,12 +203,62 @@ function qsfunctions.getClassSecurities(msg)
     return msg
 end
 
---- Функция позволяет узнать, заказан ли с сервера стакан по указанному классу и бумаге.
+--- Функция получает информацию по указанному классу и бумаге.
 function qsfunctions.getSecurityInfo(msg)
     local spl = split(msg.data, "|")
     local class_code, sec_code = spl[1], spl[2]
     msg.data = getSecurityInfo(class_code, sec_code)
     return msg
+end
+
+--- Функция предназначена для определения класса по коду инструмента из заданного списка классов.
+function qsfunctions.getSecurityClass(msg)
+    local spl = split(msg.data, "|")
+    local classes_list, sec_code = spl[1], spl[2]
+
+	for class_code in string.gmatch(classes_list,"%a+") do
+		if getSecurityInfo(class_code,sec_code) then
+			msg.data = class_code
+			return msg
+		end
+	end
+	msg.data = ""
+	return msg
+end
+
+--- Функция возвращает код клиента
+function qsfunctions.getClientCode(msg)
+	for i=0,getNumberOf("MONEY_LIMITS")-1 do
+		local clientcode = getItem("MONEY_LIMITS",i).client_code
+		if clientcode ~= nil then
+			msg.data = clientcode
+			return msg
+		end
+    end
+	return msg
+end
+
+--- Функция возвращает торговый счет для запрашиваемого кода класса
+function qsfunctions.getTradeAccount(msg)
+	for i=0,getNumberOf("trade_accounts")-1 do
+		local trade_account = getItem("trade_accounts",i)
+		if string.find(trade_account.class_codes,msg.data,1,1) then
+			msg.data = trade_account.trdaccid
+			return msg
+		end
+	end
+	return msg
+end
+
+--- Функция возвращает торговые счета в системе 
+function qsfunctions.getTradeAccounts(msg)
+local ListAccounts={}
+	for i=0,getNumberOf("trade_accounts")-1 do
+		local trade_accounts = getItem("trade_accounts",i)
+		table.insert(ListAccounts,trade_accounts)
+	end
+	msg.data=ListAccounts
+	return msg
 end
 
 
@@ -218,8 +312,8 @@ function qsfunctions.sendTransaction(msg)
     end
 end
 
---- Функция предназначена для получения значений всех параметров биржевой информации из Таблицы текущих значений параметров. 
--- С помощью этой функции можно получить любое из значений Таблицы текущих значений параметров для заданных кодов класса и бумаги. 
+--- Функция предназначена для получения значений всех параметров биржевой информации из Таблицы текущих значений параметров.
+-- С помощью этой функции можно получить любое из значений Таблицы текущих значений параметров для заданных кодов класса и бумаги.
 
 function qsfunctions.getParamEx(msg)
     local spl = split(msg.data, "|")
@@ -228,11 +322,35 @@ function qsfunctions.getParamEx(msg)
     return msg
 end
 
--- Функция предназначена для получения информации по бумажным лимитам. 
+-- Функция предназначена для получения информации по бумажным лимитам.
 function qsfunctions.getDepo(msg)
     local spl = split(msg.data, "|")
     local clientCode, firmId, secCode, account = spl[1], spl[2], spl[3], spl[4]
     msg.data = getDepo(clientCode, firmId, secCode, account)
+    return msg
+end
+
+-- Функция предназначена для получения информации по бумажным лимитам.
+function qsfunctions.getDepoEx(msg)
+    local spl = split(msg.data, "|")
+    local firmId, clientCode, secCode, account, limit_kind = spl[1], spl[2], spl[3], spl[4], spl[5]
+    msg.data = getDepoEx(firmId, clientCode, secCode, account, tonumber(limit_kind))
+    return msg
+end
+
+-- Функция для получения информации по денежным лимитам.
+function qsfunctions.getMoney(msg)
+    local spl = split(msg.data, "|")
+    local client_code, firm_id, tag, curr_code = spl[1], spl[2], spl[3], spl[4]
+    msg.data = getMoney(client_code, firm_id, tag, curr_code)
+    return msg
+end
+
+-- Функция для получения информации по денежным лимитам указанного типа.
+function qsfunctions.getMoneyEx(msg)
+    local spl = split(msg.data, "|")
+    local firm_id, client_code, tag, curr_code, limit_kind = spl[1], spl[2], spl[3], spl[4], spl[5]
+    msg.data = getMoneyEx(firm_id, client_code, tag, curr_code, tonumber(limit_kind))
     return msg
 end
 
@@ -249,7 +367,57 @@ function qsfunctions.getFuturesHolding(msg)
     return msg
 end
 
---- Возвращает заявку по её номеру ---
+-- Функция возвращает таблицу заявок (всю или по заданному инструменту)
+function qsfunctions.get_orders(msg)
+	if msg.data ~= "" then
+		local spl = split(msg.data, "|")
+		class_code, sec_code = spl[1], spl[2]
+	end
+
+	local orders = {}
+	for i = 0, getNumberOf("orders") - 1 do
+		local order = getItem("orders", i)
+		if msg.data == "" or (order.class_code == class_code and order.sec_code == sec_code) then
+			table.insert(orders, order)
+		end
+	end
+	msg.data = orders
+	return msg
+end
+
+-- Функция возвращает заявку по заданному инструменту и ID-транзакции
+function qsfunctions.getOrder_by_ID(msg)
+	if msg.data ~= "" then
+		local spl = split(msg.data, "|")
+		class_code, sec_code, trans_id = spl[1], spl[2], spl[3]
+	end
+
+	local order_num = 0
+	local res
+	for i = 0, getNumberOf("orders") - 1 do
+		local order = getItem("orders", i)
+		if order.class_code == class_code and order.sec_code == sec_code and order.trans_id == tonumber(trans_id) and order.order_num > order_num then
+			order_num = order.order_num
+			res = order
+		end
+	end
+	msg.data = res
+	return msg
+end
+
+---- Функция возвращает заявку по номеру
+function qsfunctions.getOrder_by_Number(msg)
+	for i=0,getNumberOf("orders")-1 do
+		local order = getItem("orders",i)
+		if order.order_num == tonumber(msg.data) then
+			msg.data = order
+			return msg
+		end
+	end
+	return msg
+end
+
+--- Возвращает заявку по её номеру и классу инструмента ---
 --- На основе http://help.qlua.org/ch4_5_1_1.htm ---
 function qsfunctions.get_order_by_number(msg)
 	local spl = split(msg.data, "|")
@@ -273,6 +441,107 @@ function qsfunctions.get_depo_limits(msg)
 	end
 	msg.data = depo_limits
 	return msg
+end
+
+-- Функция возвращает таблицу сделок (всю или по заданному инструменту)
+function qsfunctions.get_trades(msg)
+	if msg.data ~= "" then
+		local spl = split(msg.data, "|")
+		class_code, sec_code = spl[1], spl[2]
+	end
+
+	local trades = {}
+	for i = 0, getNumberOf("trades") - 1 do
+		local trade = getItem("trades", i)
+		if msg.data == "" or (trade.class_code == class_code and trade.sec_code == sec_code) then
+			table.insert(trades, trade)
+		end
+	end
+	msg.data = trades
+	return msg
+end
+
+-- Функция возвращает таблицу сделок по номеру заявки
+function qsfunctions.get_Trades_by_OrderNumber(msg)
+	local order_num = tonumber(msg.data)
+
+	local trades = {}
+	for i = 0, getNumberOf("trades") - 1 do
+		local trade = getItem("trades", i)
+		if trade.order_num == order_num then
+			table.insert(trades, trade)
+		end
+	end
+	msg.data = trades
+	return msg
+end
+
+-- Функция предназначена для получения значений параметров таблицы «Клиентский портфель», соответствующих идентификатору участника торгов «firmid» и коду клиента «client_code».
+function qsfunctions.getPortfolioInfo(msg)
+    local spl = split(msg.data, "|")
+    local firmId, clientCode = spl[1], spl[2]
+    msg.data = getPortfolioInfo(firmId, clientCode)
+    return msg
+end
+
+-- Функция предназначена для получения значений параметров таблицы «Клиентский портфель», соответствующих идентификатору участника торгов «firmid», коду клиента «client_code» и виду лимита «limit_kind».
+function qsfunctions.getPortfolioInfoEx(msg)
+    local spl = split(msg.data, "|")
+    local firmId, clientCode, limit_kind = spl[1], spl[2], spl[3]
+    msg.data = getPortfolioInfoEx(firmId, clientCode, tonumber(limit_kind))
+    return msg
+end
+
+
+--------------------------
+-- OptionBoard functions --
+--------------------------
+function qsfunctions.getOptionBoard(msg)
+    local spl = split(msg.data, "|")
+    local classCode, secCode = spl[1], spl[2]
+	local result, err = getOptions(classCode, secCode)
+	if result then
+		msg.data = result
+	else
+		log("Option board returns nil", 3)
+		msg.data = nil
+	end
+    return msg
+end
+
+function getOptions(classCode,secCode)
+	--classCode = "SPBOPT"
+--BaseSecList="RIZ6"
+local SecList = getClassSecurities(classCode) --все сразу
+local t={}
+local p={}
+for sec in string.gmatch(SecList, "([^,]+)") do --перебираем опционы по очереди.
+            local Optionbase=getParamEx(classCode,sec,"optionbase").param_image
+            local Optiontype=getParamEx(classCode,sec,"optiontype").param_image
+            if (string.find(secCode,Optionbase)~=nil) then
+
+
+                p={
+                    ["code"]=getParamEx(classCode,sec,"code").param_image,
+					["Name"]=getSecurityInfo(classCode,sec).name,
+					["DAYS_TO_MAT_DATE"]=getParamEx(classCode,sec,"DAYS_TO_MAT_DATE").param_value+0,
+					["BID"]=getParamEx(classCode,sec,"BID").param_value+0,
+					["OFFER"]=getParamEx(classCode,sec,"OFFER").param_value+0,
+					["OPTIONBASE"]=getParamEx(classCode,sec,"optionbase").param_image,
+					["OPTIONTYPE"]=getParamEx(classCode,sec,"optiontype").param_image,
+					["Longname"]=getParamEx(classCode,sec,"longname").param_image,
+					["shortname"]=getParamEx(classCode,sec,"shortname").param_image,
+					["Volatility"]=getParamEx(classCode,sec,"volatility").param_value+0,
+					["Strike"]=getParamEx(classCode,sec,"strike").param_value+0
+                    }
+
+
+
+                        table.insert( t, p )
+            end
+
+end
+return t
 end
 
 --------------------------
@@ -325,31 +594,72 @@ function qsfunctions.get_candles(msg)
 	return msg
 end
 
+--- Возвращаем все свечи по заданному инструменту и интервалу
+function qsfunctions.get_candles_from_data_source(msg)
+	local ds, is_error = create_data_source(msg)
+	if not is_error then
+		--- датасорс изначально приходит пустой, нужно некоторое время подождать пока он заполниться данными
+		repeat sleep(1) until ds:Size() > 0
+
+		local count = tonumber(split(msg.data, "|")[4]) --- возвращаем последние count свечей. Если равен 0, то возвращаем все доступные свечи.
+		local class, sec, interval = get_candles_param(msg)
+		local candles = {}
+		local start_i = count == 0 and 1 or math.max(1, ds:Size() - count + 1)
+		for i = start_i, ds:Size() do
+			local candle = fetch_candle(ds, i)
+			candle.sec = sec
+			candle.class = class
+			candle.interval = interval
+			table.insert(candles, candle)
+		end
+		ds:Close()
+		msg.data = candles
+	end
+	return msg
+end
+
+function create_data_source(msg)
+	local class, sec, interval = get_candles_param(msg)
+	local ds, error_descr = CreateDataSource(class, sec, interval)
+	local is_error = false
+	if(error_descr ~= nil) then
+		msg.cmd = "lua_create_data_source_error"
+		msg.lua_error = error_descr
+		is_error = true
+	elseif ds == nil then
+		msg.cmd = "lua_create_data_source_error"
+		msg.lua_error = "Can't create data source for " .. class .. ", " .. sec .. ", " .. tostring(interval)
+		is_error = true
+	end
+	return ds, is_error
+end
+
+function fetch_candle(data_source, index)
+	local candle = {}
+	candle.low   = data_source:L(index)
+	candle.close = data_source:C(index)
+	candle.high = data_source:H(index)
+	candle.open = data_source:O(index)
+	candle.volume = data_source:V(index)
+	candle.datetime = data_source:T(index)
+	return candle
+end
+
 --- Словарь открытых подписок (datasources) на свечи
 data_sources = {}
 last_indexes = {}
 
 --- Подписаться на получения свечей по заданному инструмент и интервалу
 function qsfunctions.subscribe_to_candles(msg)
-	local class, sec, interval = get_candles_param(msg)
-	local ds, error_descr = CreateDataSource(class, sec, interval)
-
-	if(error_descr ~= nil) then
-		msg.cmd = "lua_create_data_source_error"
-		msg.lua_error = error_descr
-		return msg
-	end
-	
-	if ds == nil then
-		msg.cmd = "lua_create_data_source_error"
-		msg.lua_error = "Can't create data source for " .. class .. ", " .. sec .. ", " .. tostring(interval)
-	else
+	local ds, is_error = create_data_source(msg)
+	if not is_error then
+		local class, sec, interval = get_candles_param(msg)
 		local key = get_key(class, sec, interval)
 		data_sources[key] = ds
 		last_indexes[key] = ds:Size()
 		ds:SetUpdateCallback(
-			function(index) 
-				data_source_callback(index, class, sec, interval) 
+			function(index)
+				data_source_callback(index, class, sec, interval)
 			end)
 	end
 	return msg
@@ -360,14 +670,7 @@ function data_source_callback(index, class, sec, interval)
 	if index ~= last_indexes[key] then
 		last_indexes[key] = index
 
-		local candle = {}
-		candle.low   = data_sources[key]:L(index - 1)
-		candle.close = data_sources[key]:C(index - 1)
-		candle.high = data_sources[key]:H(index - 1)
-		candle.open = data_sources[key]:O(index - 1)
-		candle.volume = data_sources[key]:V(index - 1)
-		candle.datetime = data_sources[key]:T(index - 1)
-
+		local candle = fetch_candle(data_sources[key], index - 1)
 		candle.sec = sec
 		candle.class = class
 		candle.interval = interval

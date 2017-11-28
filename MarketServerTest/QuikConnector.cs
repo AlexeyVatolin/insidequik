@@ -43,7 +43,7 @@ namespace MarketServerTest
         {
             try
             {
-                Tool tool = createTool(ticker);
+                Tool tool = CreateTool(ticker);
                 if (marketPrice == true)
                 {
                     price = Math.Round(tool.LastPrice + tool.Step * 5, tool.PriceAccuracy);
@@ -52,7 +52,7 @@ namespace MarketServerTest
             }
             catch { }
         }
-        static Tool createTool(string ticker)
+        static Tool CreateTool(string ticker)
         {
             string classCode = "";
             try
@@ -90,7 +90,7 @@ namespace MarketServerTest
 
         public static void SubscribeToOrderBook(string ticker, QuoteHandler quoteDoDelegate)
         {
-            var tool = createTool(ticker);
+            var tool = CreateTool(ticker);
             if (!string.IsNullOrEmpty(tool.Name))
             {
                 Quik.OrderBook.Subscribe(tool.ClassCode, tool.SecurityCode).Wait();
@@ -114,7 +114,7 @@ namespace MarketServerTest
 
         public static void UnsubsckibeFromOrderBook(string ticker)
         {
-            var tool = createTool(ticker);
+            var tool = CreateTool(ticker);
             if (!string.IsNullOrEmpty(tool.Name))
             {
                 Quik.OrderBook.Unsubscribe(tool.ClassCode, tool.SecurityCode).Wait();

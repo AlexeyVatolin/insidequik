@@ -28,7 +28,7 @@ namespace MarketServerTest
             QuikConnector.SubscribeToOrderBook(ticker, OnQuoteDo);
         }
 
-        public async void OnQuoteDo(OrderBook quote)
+        public void OnQuoteDo(OrderBook quote)
         {
             if (quote.sec_code.ToUpperInvariant() == ticker) //Функция срабатывает на все подписанные стаканы
             {

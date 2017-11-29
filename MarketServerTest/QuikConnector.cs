@@ -11,7 +11,7 @@ using QuikSharp.DataStructures.Transaction;
 namespace MarketServerTest
 {
     static class QuikConnector
-    {
+    { 
         private static Quik Quik;
         public static bool isConnected { get; private set; }
         private static List<Order> list = new List<Order>();

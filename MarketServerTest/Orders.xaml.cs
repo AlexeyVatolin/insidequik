@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using QuikSharp.DataStructures.Transaction;
+
 namespace MarketServerTest
 {
     /// <summary>
@@ -26,20 +16,20 @@ namespace MarketServerTest
 
         public void InitializeBidsTable()
         {
-            List<Order> list = new List<Order>();
-            list = QuikConnector.GetOrders();
+            var list = QuikConnector.GetOrders();
             foreach (var item in list)
             {
                 OrdersTable.Items.Add(new ColumnsForOrders
                 {
-                    Company = item.SecCode.ToString(),
-                    ClassCode = item.ClassCode.ToString(),
+                    Company = item.SecCode,
+                    ClassCode = item.ClassCode,
                     Operation = item.Operation.ToString(),
                     Quantity = item.Quantity.ToString(),
-                    Price = item.Price.ToString(),
-                    Time = item.Datetime.hour.ToString() + ":" + item.Datetime.min.ToString() + ":" + item.Datetime.sec.ToString(),
+                    Price = item.Price.ToString(CultureInfo.InvariantCulture),
+                    Time = item.Datetime.hour.ToString("00") + ":" + item.Datetime.min.ToString("00")
+                    + ":" + item.Datetime.sec.ToString("00") + "." + item.Datetime.ms,
                     Balance = item.Balance.ToString(),
-                    Value = item.Value.ToString(),
+                    Value = item.Value.ToString(CultureInfo.InvariantCulture),
                     State = item.State.ToString()
                 });
             }

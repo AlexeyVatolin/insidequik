@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using QuikSharp.DataStructures.Transaction;
 
 namespace MarketServerTest
@@ -25,29 +15,23 @@ namespace MarketServerTest
             InitializeComponent();
             InitializeTable();
         }
-
-
+        
         public void InitializeTable()
         {
-            List<Trade> ListTrade = QuikConnector.GetTrades();
-            List<Order> ListOrder = QuikConnector.GetOrders();
-            string direction = null;
-            string data = null;
-            foreach (var item in ListTrade)
+            List<Trade> listTrades = QuikConnector.GetTrades();
+            List<Order> listOrders = QuikConnector.GetOrders();
+            foreach (var item in listTrades)
             {
-                foreach (var items in ListOrder)
-                {
-                    if (items.OrderNum == item.OrderNum)
-                    {
-                        direction = items.Operation.ToString();
-                        data = items.Datetime.hour + ":" + items.Datetime.min + ":" + items.Datetime.sec
-                            + "." + items.Datetime.ms;
-                    }
-                }
+                var listOrderItem = listOrders.Find(i => i.OrderNum == item.OrderNum);
+                var direction = listOrderItem.Operation.ToString();
+
+                var data = listOrderItem.Datetime.hour.ToString("00") + ":" + listOrderItem.Datetime.min.ToString("00") 
+                    + ":" + listOrderItem.Datetime.sec.ToString("00") + "." + listOrderItem.Datetime.ms;
+
                 TradesTable.Items.Add(new ColumnsForTrades
                 {
                     Company = item.SecCode, //инструмент
-                    Value = item.Value.ToString(), //объем в денежных единицах
+                    Value = item.Value.ToString(CultureInfo.InvariantCulture), //объем в денежных единицах
                     Quantity = item.Quantity.ToString(), // предположительно объем бумаг
                     Date = data, // дата сделки
                     Time = item.Period.ToString(), // время в милисекундах
@@ -55,5 +39,5 @@ namespace MarketServerTest
                 });
             }
         }
-}
+    }
 }

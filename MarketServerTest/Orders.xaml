@@ -12,9 +12,19 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Таблица заявок" Height="453.837" Width="824.902">
+        Title="Таблица заявок" Height="453.837" Width="835.072">
     <Grid>
-        <DataGrid Name="OrdersTable" Margin="10,3,10,10" IsReadOnly="True" >
+        <DataGrid Name="OrdersTable" Margin="10,3,10,10" IsReadOnly="True">
+            <DataGrid.Resources>
+                <ContextMenu x:Key="RowMenu" Name="Menu">
+                    <MenuItem Header="Отменить заявку" Click="Cancel_Click"/>
+                </ContextMenu>
+            </DataGrid.Resources>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                    <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="100"/>
                 <DataGridTextColumn Header="Режим торгов" Binding="{Binding ClassCode}" Width="110"/>

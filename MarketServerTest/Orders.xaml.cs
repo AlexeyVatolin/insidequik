@@ -18,30 +18,31 @@ namespace MarketServerTest
     /// </summary>
     public partial class Orders : Window
     {
+        List<Order> list = new List<Order>();
         public Orders()
         {
             InitializeComponent();
-            InitializeBidsTable();
+            InitializeOrdersTable();
+            QuikConnector.SubscribeToOrders(OrdersRefresh);
         }
 
-        public void InitializeBidsTable()
+        public void OrdersRefresh(Order order)
         {
-            List<Order> list = new List<Order>();
+            list.Add(order);
+            OrdersTable.Items.Add(new ColumnsForOrders(order));
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            QuikConnector.CancelOrder(list[OrdersTable.SelectedIndex]);
+        }
+
+        public void InitializeOrdersTable()
+        {
             list = QuikConnector.GetOrders();
             foreach (var item in list)
             {
-                OrdersTable.Items.Add(new ColumnsForOrders
-                {
-                    Company = item.SecCode.ToString(),
-                    ClassCode = item.ClassCode.ToString(),
-                    Operation = item.Operation.ToString(),
-                    Quantity = item.Quantity.ToString(),
-                    Price = item.Price.ToString(),
-                    Time = item.Datetime.hour.ToString() + ":" + item.Datetime.min.ToString() + ":" + item.Datetime.sec.ToString(),
-                    Balance = item.Balance.ToString(),
-                    Value = item.Value.ToString(),
-                    State = item.State.ToString()
-                });
+                OrdersTable.Items.Add(new ColumnsForOrders(item));
             }
         }
     }

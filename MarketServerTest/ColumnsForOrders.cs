@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuikSharp.DataStructures.Transaction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,18 @@ namespace MarketServerTest
         public string Balance { get; set; }
         public string Value { get; set; }
         public string State { get; set; }
+
+        public ColumnsForOrders(Order item)
+        { 
+            Company = item.SecCode;
+            ClassCode = item.ClassCode;
+            Operation = item.Operation.ToString();
+            Quantity = item.Quantity.ToString();
+            Price = item.Datetime.hour.ToString("00") + ":" + item.Datetime.min.ToString("00")
+                    + ":" + item.Datetime.sec.ToString("00") + "." + item.Datetime.ms;
+            Balance = item.Balance.ToString();
+            Value = item.Value.ToString();
+            State = item.State.ToString();
+        }
     }
 }

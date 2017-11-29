@@ -39,12 +39,17 @@ namespace MarketServerTest
             return Quik.Trading.GetTrades().Result;
         }
 
+        public static void CancelOrder(Order order)
+        {
+            Quik.Orders.KillOrder(order);
+        }
+
         public static void SendBid(string ticker, decimal price, int qty, Operation operationType, bool marketPrice)
         {
             try
             {
                 Tool tool = CreateTool(ticker);
-                if (marketPrice == true)
+                if (marketPrice)
                 {
                     price = Math.Round(tool.LastPrice + tool.Step * 5, tool.PriceAccuracy);
                 }
@@ -52,6 +57,12 @@ namespace MarketServerTest
             }
             catch { }
         }
+
+        public static void SubscribeToOrders(OrderHandler ordersRefresh)
+        {
+            Quik.Events.OnOrder += ordersRefresh;
+        }
+
         static Tool CreateTool(string ticker)
         {
             string classCode = "";

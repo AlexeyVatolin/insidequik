@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
+using QuikSharp.DataStructures.Transaction;
 
 namespace MarketServerTest
 {
@@ -8,30 +10,31 @@ namespace MarketServerTest
     /// </summary>
     public partial class Orders : Window
     {
+        List<Order> list = new List<Order>();
         public Orders()
         {
             InitializeComponent();
-            InitializeBidsTable();
+            InitializeOrdersTable();
+            QuikConnector.SubscribeToOrders(OrdersRefresh);
         }
 
-        public void InitializeBidsTable()
+        public void OrdersRefresh(Order order)
         {
-            var list = QuikConnector.GetOrders();
+            list.Add(order);
+            OrdersTable.Dispatcher.Invoke(() => OrdersTable.Items.Add(new ColumnsForOrders(order)));
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            QuikConnector.CancelOrder(list[OrdersTable.SelectedIndex]);
+        }
+
+        public void InitializeOrdersTable()
+        {
+            list = QuikConnector.GetOrders();
             foreach (var item in list)
             {
-                OrdersTable.Items.Add(new ColumnsForOrders
-                {
-                    Company = item.SecCode,
-                    ClassCode = item.ClassCode,
-                    Operation = item.Operation.ToString(),
-                    Quantity = item.Quantity.ToString(),
-                    Price = item.Price.ToString(CultureInfo.InvariantCulture),
-                    Time = item.Datetime.hour.ToString("00") + ":" + item.Datetime.min.ToString("00")
-                    + ":" + item.Datetime.sec.ToString("00") + "." + item.Datetime.ms,
-                    Balance = item.Balance.ToString(),
-                    Value = item.Value.ToString(CultureInfo.InvariantCulture),
-                    State = item.State.ToString()
-                });
+                OrdersTable.Items.Add(new ColumnsForOrders(item));
             }
         }
     }

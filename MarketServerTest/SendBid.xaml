@@ -11,15 +11,17 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="SendBid" Height="300" Width="300">
+        Title="Новая заявка" Height="300" Width="300" MaxWidth="300" MaxHeight="300">
     <Grid>
-        <Button Content="Buy" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" Width="75" Click="Buy_Click"/>
-        <Button Content="Sell" HorizontalAlignment="Left" Margin="196,205,0,0" VerticalAlignment="Top" Width="75" Click="Sell_Click"/>
-        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="23" Margin="10,77,0,0" TextWrapping="Wrap" Text="226,12" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="23" Margin="151,77,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="151,59,0,0" TextWrapping="Wrap" Text="Количество" VerticalAlignment="Top"/>
-        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="23" Margin="10,52,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="120"/>
-        <CheckBox x:Name="MarketPrice" Content="Рыночная цена" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top"/>
+        <Button Content="Купить" HorizontalAlignment="Left" Margin="22,205,0,0" VerticalAlignment="Top" Width="92" Click="Buy_Click"/>
+        <Button Content="Продать" HorizontalAlignment="Left" Margin="180,205,0,0" VerticalAlignment="Top" Width="91" Click="Sell_Click"/>
+        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="23" Margin="151,70,0,0" TextWrapping="Wrap" Text="226,12" VerticalAlignment="Top" Width="120" FontSize="14"/>
+        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="23" Margin="151,98,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="22,102,0,0" TextWrapping="Wrap" Text="Количество" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="23" Margin="151,42,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="120" FontSize="14"/>
+        <CheckBox x:Name="MarketPrice" Content="Рыночная цена" HorizontalAlignment="Left" Margin="22,138,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="22,74,0,0" TextWrapping="Wrap" Text="Цена" VerticalAlignment="Top" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="22,46,0,0" TextWrapping="Wrap" Text="Бумага" VerticalAlignment="Top" FontSize="14"/>
 
     </Grid>
 </Window>

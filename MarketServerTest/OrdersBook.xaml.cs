@@ -57,15 +57,15 @@ namespace MarketServerTest
                 {
                     if (quote.bid.Length == OrderBookOfferListView.Items.Count)
                     {
-                        for (int i = 0; i < quote.bid.Length; i++)
+                        for (int i = 0; i < quote.offer.Length; i++)
                         {
-                            OrderBookOfferListView.Items[i] = quote.bid[i];
+                            OrderBookOfferListView.Items[i] = quote.offer[i];
                         }
                     }
                     else
                     {
                         OrderBookOfferListView.Items.Clear();
-                        foreach (var quoteBid in quote.bid)
+                        foreach (var quoteBid in quote.offer)
                         {
                             OrderBookOfferListView.Items.Add(quoteBid);
                         }

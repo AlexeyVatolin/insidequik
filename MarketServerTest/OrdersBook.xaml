@@ -42,14 +42,14 @@
                         <GridViewColumn Header="Цена">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding price}" Foreground="Red" Width="50" TextAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock x:Name="Txt" Text="{Binding price}" Foreground="Red" Width="50" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Количество">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding quantity}" Foreground="Red" Width="90" TextAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock x:Name="Txt" Text="{Binding quantity}" Foreground="Red" Width="90" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -72,14 +72,14 @@
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding price}" Foreground="Green" Width="50" TextAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock x:Name="Txt" Text="{Binding price}" Foreground="Green" Width="50" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding quantity}" Foreground="Green" Width="110" TextAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock x:Name="Txt" Text="{Binding quantity}" Foreground="Green" Width="110" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

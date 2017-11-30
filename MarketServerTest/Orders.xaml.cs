@@ -15,13 +15,31 @@ namespace MarketServerTest
         {
             InitializeComponent();
             InitializeOrdersTable();
-            QuikConnector.SubscribeToOrders(OrdersRefresh);
+            QuikConnector.SubscribeToOrdersRefresh(OrdersRefresh);
         }
 
         public void OrdersRefresh(Order order)
         {
-            list.Add(order);
-            OrdersTable.Dispatcher.Invoke(() => OrdersTable.Items.Add(new ColumnsForOrders(order)));
+            for (int i=0; i < list.Count; i++)
+            {
+                if (list[i].OrderNum == order.OrderNum)
+                {
+                    list[i] = order;
+                    OrdersTable.Dispatcher.Invoke(() =>
+                    {
+                        OrdersTable.Items[i] = new ColumnsForOrders(order);
+                    });
+                    break;
+                }
+                else if (i == list.Count - 1) 
+                {
+                    list.Add(order);
+                    OrdersTable.Dispatcher.Invoke(() =>
+                    {
+                        OrdersTable.Items.Add(new ColumnsForOrders(order));
+                    });
+                }
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

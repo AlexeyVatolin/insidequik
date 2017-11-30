@@ -25,7 +25,8 @@ namespace MarketServerTest
             ClassCode = item.ClassCode;
             Operation = item.Operation.ToString();
             Quantity = item.Quantity.ToString();
-            Price = item.Datetime.hour.ToString("00") + ":" + item.Datetime.min.ToString("00")
+            Price = item.Price.ToString();
+            Time = item.Datetime.hour.ToString("00") + ":" + item.Datetime.min.ToString("00")
                     + ":" + item.Datetime.sec.ToString("00") + "." + item.Datetime.ms;
             Balance = item.Balance.ToString();
             Value = item.Value.ToString();

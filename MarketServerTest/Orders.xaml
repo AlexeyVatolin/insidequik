@@ -12,7 +12,7 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Таблица заявок" Height="453.837" Width="835.072">
+        Title="Таблица заявок" Height="453.837" Width="851.598">
     <Grid>
         <DataGrid Name="OrdersTable" Margin="10,3,10,10" IsReadOnly="True">
             <DataGrid.Resources>
@@ -27,11 +27,11 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="100"/>
-                <DataGridTextColumn Header="Режим торгов" Binding="{Binding ClassCode}" Width="110"/>
+                <DataGridTextColumn Header="Режим торгов" Binding="{Binding ClassCode}" Width="105"/>
                 <DataGridTextColumn Header="Операция" Binding="{Binding Operation}" Width="80"/>
-                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="80"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="72"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
-                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="100"/>
+                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="108"/>
                 <DataGridTextColumn Header="Остаток" Binding="{Binding Balance}" Width="70"/>
                 <DataGridTextColumn Header="Объем" Binding="{Binding Value}" Width="70"/>
                 <DataGridTextColumn Header="Состояние" Binding="{Binding State}" Width="100"/>

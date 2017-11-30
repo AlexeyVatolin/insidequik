@@ -58,11 +58,14 @@ namespace MarketServerTest
             catch { }
         }
 
-        public static void SubscribeToOrders(OrderHandler ordersRefresh)
+        public static void SubscribeToOrdersRefresh(OrderHandler ordersRefresh)
         {
             Quik.Events.OnOrder += ordersRefresh;
         }
-
+        public static void SubscribeToTradesRefresh(TradeHandler tradesRefresh)
+        {
+            Quik.Events.OnTrade += tradesRefresh;
+        }
         static Tool CreateTool(string ticker)
         {
             string classCode = "";

@@ -10,7 +10,8 @@ namespace MarketServerTest
     /// </summary>
     public partial class Orders : Window
     {
-        List<Order> list = new List<Order>();
+        private object locker = new object();
+        private List<Order> list = new List<Order>();
         public Orders()
         {
             InitializeComponent();
@@ -20,18 +21,18 @@ namespace MarketServerTest
 
         public void OrdersRefresh(Order order)
         {
-            for (int i=0; i < list.Count; i++)
+            lock (locker)
             {
-                if (list[i].OrderNum == order.OrderNum)
-                {
-                    list[i] = order;
+                int index = list.FindIndex(i => i.OrderNum == order.OrderNum);
+                if (index > 0 && list[index] != order)
+                { 
+                    list[index] = order;
                     OrdersTable.Dispatcher.Invoke(() =>
                     {
-                        OrdersTable.Items[i] = new ColumnsForOrders(order);
+                        OrdersTable.Items[index] = new ColumnsForOrders(order);
                     });
-                    break;
                 }
-                else if (i == list.Count - 1) 
+                else
                 {
                     list.Add(order);
                     OrdersTable.Dispatcher.Invoke(() =>

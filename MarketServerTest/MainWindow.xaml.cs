@@ -35,14 +35,7 @@ namespace MarketServerTest
         private void Connect_Click(object sender, RoutedEventArgs e)
         {
             QuikConnector.Connect();
-            if (QuikConnector.isConnected)
-            {
-                MessageBox.Show("Connected to QUIK");
-            }
-            else
-            {
-                MessageBox.Show("Some error while connectiong to QUIK");
-            }
+            MessageBox.Show(QuikConnector.isConnected ? "Connected to QUIK" : "Some error while connectiong to QUIK");
             if (QuikConnector.isConnected)
             {
                 Connect.IsEnabled = false;
@@ -53,7 +46,6 @@ namespace MarketServerTest
                 GetOrders.IsEnabled = true;
             }
         }
-
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

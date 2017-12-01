@@ -24,13 +24,16 @@ namespace MarketServerTest
             lock (locker)
             {
                 int index = list.FindIndex(i => i.OrderNum == order.OrderNum);
-                if (index > 0 && list[index] != order)
-                { 
-                    list[index] = order;
-                    OrdersTable.Dispatcher.Invoke(() =>
+                if (index > 0)
+                {
+                    if (list[index] != order)
                     {
-                        OrdersTable.Items[index] = new ColumnsForOrders(order);
-                    });
+                        list[index] = order;
+                        OrdersTable.Dispatcher.Invoke(() =>
+                        {
+                            OrdersTable.Items[index] = new ColumnsForOrders(order);
+                        });
+                    }
                 }
                 else
                 {

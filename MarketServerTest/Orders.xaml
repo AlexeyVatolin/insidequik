@@ -16,6 +16,21 @@
     <Grid>
         <DataGrid Name="OrdersTable" Margin="10,3,10,10" IsReadOnly="True">
             <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding State}" Value="Active">
+                            <Setter Property="Background" Value="Green"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="Completed">
+                            <Setter Property="Foreground" Value="LightGreen"/>
+                            <Setter Property="Background" Value="#FF303030"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="Canceled">
+                            <Setter Property="Foreground" Value="Gray"/>
+                            <Setter Property="Background" Value="#FF303030"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
                 <ContextMenu x:Key="RowMenu" Name="Menu">
                     <MenuItem Header="Отменить заявку" Click="Cancel_Click"/>
                 </ContextMenu>

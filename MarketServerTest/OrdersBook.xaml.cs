@@ -71,14 +71,7 @@ namespace MarketServerTest
                         }
                     }
                 });
-                Console.WriteLine("quote.bid = " + quote.bid.Length);             
-                Console.WriteLine("quote.offer = " + quote.offer.Length);
             }
-        }
-
-        private void ChangeListViewContent(OrderBook quote)
-        {
-            
         }
 
         private void OrdersBook_OnClosed(object sender, EventArgs e)

@@ -15,9 +15,23 @@
         Title="Таблица сделок" Height="453.837" Width="724.473">
     <Grid>
         <DataGrid Name="TradesTable" Margin="10,3,10,10" IsReadOnly="True" >
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operation}" Value="Sell">
+                            <Setter Property="Foreground" Value="Red"/>
+                            <Setter Property="Background" Value="#FF303030"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operation}" Value="Buy">
+                            <Setter Property="Foreground" Value="LightGreen"/>
+                            <Setter Property="Background" Value="#FF303030"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="100"/>
-                <DataGridTextColumn Header="Операция" Binding="{Binding Opeartion}" Width="100"/>
+                <DataGridTextColumn Header="Операция" Binding="{Binding Operation}" Width="100"/>
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="80"/>
                 <DataGridTextColumn Header="Объем в денежных ед." Binding="{Binding Value}" Width="155"/>
                 <DataGridTextColumn Header="Время" Binding="{Binding Date}" Width="110"/>

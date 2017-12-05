@@ -32,9 +32,9 @@ namespace MarketServerTest
 
         public void TradesRefresh(Trade trade)
         {
-            List<Order> listOrders = QuikConnector.GetOrders();
             lock (locker)
             {
+                List<Order> listOrders = QuikConnector.GetOrders();
                 int index = listTrades.FindIndex(i => i.OrderNum == trade.OrderNum);
                 if (index > 0)
                 {

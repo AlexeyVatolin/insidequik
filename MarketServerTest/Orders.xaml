@@ -24,10 +24,12 @@
                         <DataTrigger Binding="{Binding State}" Value="Completed">
                             <Setter Property="Foreground" Value="LightGreen"/>
                             <Setter Property="Background" Value="#FF303030"/>
+                            <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding State}" Value="Canceled">
                             <Setter Property="Foreground" Value="Gray"/>
                             <Setter Property="Background" Value="#FF303030"/>
+                            <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

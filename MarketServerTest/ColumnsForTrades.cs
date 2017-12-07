@@ -15,7 +15,7 @@ namespace MarketServerTest
         public string Quantity { get; set; }
         public string Value { get; set; }
         public string Date { get; set; }
-        public string Opeartion { get; set; }
+        public string Operation { get; set; }
 
         public ColumnsForTrades(Trade trade, Order order)
         {
@@ -26,7 +26,7 @@ namespace MarketServerTest
             Quantity = trade.Quantity.ToString(); // предположительно объем бумаг
             Date = date; // дата сделки
             Time = trade.Period.ToString(); // время в милисекундах
-            Opeartion = order.Operation.ToString(); // покупка/продажа
+            Operation = order.Operation.ToString(); // покупка/продажа
         }
     }
 }

@@ -12,9 +12,26 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Таблица заявок" Height="453.837" Width="851.598">
+        Title="Таблица заявок" Height="350.866" Width="686.335">
     <Grid>
         <DataGrid Name="OrdersTable" Margin="10,3,10,10" IsReadOnly="True">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalAlignment"  Value="Center"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="HorizontalAlignment"  Value="Center"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
@@ -24,32 +41,34 @@
                         <DataTrigger Binding="{Binding State}" Value="Completed">
                             <Setter Property="Foreground" Value="LightGreen"/>
                             <Setter Property="Background" Value="#FF303030"/>
-                        </DataTrigger>
+                                    <Setter Property="ContextMenu" Value="{x:Null}"/>
+                                </DataTrigger>
                         <DataTrigger Binding="{Binding State}" Value="Canceled">
                             <Setter Property="Foreground" Value="Gray"/>
                             <Setter Property="Background" Value="#FF303030"/>
+                            <Setter Property="ContextMenu" Value="{x:Null}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
                 <ContextMenu x:Key="RowMenu" Name="Menu">
-                    <MenuItem Header="Отменить заявку" Click="Cancel_Click"/>
+                    <MenuItem Header="Отменить заявку" Click="Cancel_Click" FontSize="14"/>
                 </ContextMenu>
             </DataGrid.Resources>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                    <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                    <Setter Property="ContextMenu" Value="{StaticResource RowMenu}"/>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="100"/>
-                <DataGridTextColumn Header="Режим торгов" Binding="{Binding ClassCode}" Width="105"/>
+                <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="60"/>
+                <DataGridTextColumn Header="Режим торгов" Binding="{Binding ClassCode}" Width="95"/>
                 <DataGridTextColumn Header="Операция" Binding="{Binding Operation}" Width="80"/>
-                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="72"/>
-                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
-                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="108"/>
-                <DataGridTextColumn Header="Остаток" Binding="{Binding Balance}" Width="70"/>
-                <DataGridTextColumn Header="Объем" Binding="{Binding Value}" Width="70"/>
-                <DataGridTextColumn Header="Состояние" Binding="{Binding State}" Width="100"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="50"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="50"/>
+                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="90"/>
+                <DataGridTextColumn Header="Остаток" Binding="{Binding Balance}" Width="55"/>
+                <DataGridTextColumn Header="Объем" Binding="{Binding Value}" Width="60"/>
+                <DataGridTextColumn Header="Состояние" Binding="{Binding State}" Width="70"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

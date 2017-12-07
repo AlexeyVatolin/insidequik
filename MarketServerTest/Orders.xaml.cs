@@ -21,21 +21,18 @@ namespace MarketServerTest
 
         public void OrdersRefresh(Order order)
         {
-            lock (locker)
+            for (int i = 0; i < list.Count; i++)
             {
-                int index = list.FindIndex(i => i.OrderNum == order.OrderNum);
-                if (index > 0)
+                if (list[i].OrderNum == order.OrderNum)
                 {
-                    if (list[index] != order)
+                    list[i] = order;
+                    OrdersTable.Dispatcher.Invoke(() =>
                     {
-                        list[index] = order;
-                        OrdersTable.Dispatcher.Invoke(() =>
-                        {
-                            OrdersTable.Items[index] = new ColumnsForOrders(order);
-                        });
-                    }
+                        OrdersTable.Items[i] = new ColumnsForOrders(order);
+                    });
+                    break;
                 }
-                else
+                else if (i == list.Count - 1)
                 {
                     list.Add(order);
                     OrdersTable.Dispatcher.Invoke(() =>

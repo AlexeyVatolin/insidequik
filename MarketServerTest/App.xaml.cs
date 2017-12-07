@@ -6,6 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using Microsoft.HockeyApp;//for logs
+
+
 namespace MarketServerTest
 {
     /// <summary>
@@ -13,5 +16,15 @@ namespace MarketServerTest
     /// </summary>
     public partial class App : Application
     {
+        private App()
+        {   //hockeayapp logs
+            HockeyClient.Current.Configure("ec1a26cdd29c48ada16e2ae641920989");
+        }
+       protected override async void OnStartup(StartupEventArgs e)
+        {
+            //hockeayapp logs
+            HockeyClient.Current.Configure("ec1a26cdd29c48ada16e2ae641920989");
+            await HockeyClient.Current.SendCrashesAsync(true);
+        }
     }
 }

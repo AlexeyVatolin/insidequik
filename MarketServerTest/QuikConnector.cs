@@ -151,5 +151,27 @@ namespace MarketServerTest
             }
         }
 
+        public static async void GetCurrentClassesAndSecuritites()
+        {
+            string[] classes = await Quik.Class.GetClassesList();
+            var classesAndSecuritiesList = new Dictionary<ClassInfo, List<SecurityInfo>>();
+
+            foreach (var @class in classes)
+            {
+                ClassInfo classInfo = await Quik.Class.GetClassInfo(@class);
+                string[] classSecurities = await Quik.Class.GetClassSecurities(@class);
+                foreach (var classSecurity in classSecurities)
+                {
+                    SecurityInfo securityInfo = await Quik.Class.GetSecurityInfo(@class, classSecurity);
+                    if (!classesAndSecuritiesList.ContainsKey(classInfo))
+                    {
+                        classesAndSecuritiesList.Add(classInfo, new List<SecurityInfo>());
+                    }
+                    classesAndSecuritiesList[classInfo].Add(securityInfo);
+                }
+
+            }
+        }
+
     }
 }

@@ -12,7 +12,7 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Таблица СТОП-заявок" Height="312.211" Width="501.461">
+        Title="Таблица СТОП-заявок" Height="312.211" Width="677.091">
     <Grid>
         <DataGrid Name="StopOrdersTable" Margin="10,3,10,10" IsReadOnly="True">
             <DataGrid.ColumnHeaderStyle>
@@ -51,7 +51,7 @@
                     </Style.Triggers>
                 </Style>
                 <ContextMenu x:Key="RowMenu" Name="Menu">
-                    <MenuItem Header="Отменить СТОП-заявку" Click="MenuItem_Click" FontSize="14"/>
+                    <MenuItem Header="Отменить СТОП-заявку" Click="Cancel_Click" FontSize="14"/>
                 </ContextMenu>
             </DataGrid.Resources>
             <DataGrid.RowStyle>
@@ -61,11 +61,13 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="60"/>
+                <DataGridTextColumn Header="Операция" Binding="{Binding Operation}" Width="80"/>
                 <DataGridTextColumn Header="Стоп-цена" Binding="{Binding StopPrice}" Width="75"/>
                 <DataGridTextColumn Header="Стоп-лимит цена" Binding="{Binding StopLimPrice}" Width="115"/>
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="50"/>
-                <DataGridTextColumn Header="Исп.кол-во" Binding="{Binding ActQuantity}" Width="80"/>
                 <DataGridTextColumn Header="Акт.кол-во" Binding="{Binding ExecQuantity}" Width="80"/>
+                <DataGridTextColumn Header="Исп.кол-во" Binding="{Binding ActQuantity}" Width="80"/>
+                <DataGridTextColumn Header="Состояние" Binding="{Binding State}" Width="70"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

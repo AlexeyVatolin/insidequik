@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuikSharp.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,47 @@ namespace MarketServerTest
     /// </summary>
     public partial class StopOrders : Window
     {
+        private List<StopOrder> stopOrdersList = new List<StopOrder>();
         public StopOrders()
         {
             InitializeComponent();
+            InitializeStopOrdersTable();
+            QuikConnector.SubscribeToStopOrdersRefresh(StopOrdersRefresh);
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        public void InitializeStopOrdersTable()
         {
-
+            stopOrdersList = QuikConnector.GetStopOrders();
+            foreach(var item in stopOrdersList)
+            {
+                StopOrdersTable.Items.Add(new ColumnsForStopOrders(item));
+            }
+        }
+        public void StopOrdersRefresh(StopOrder stopOrder)
+        {
+            for (int i = 0; i < stopOrdersList.Count; i++)
+            {
+                if (stopOrdersList[i].OrderNum == stopOrder.OrderNum)
+                {
+                    stopOrdersList[i] = stopOrder;
+                    StopOrdersTable.Dispatcher.Invoke(() =>
+                    {
+                        StopOrdersTable.Items[i] = new ColumnsForStopOrders(stopOrder);
+                    });
+                    break;
+                }
+                else if (i == stopOrdersList.Count - 1)
+                {
+                    stopOrdersList.Add(stopOrder);
+                    StopOrdersTable.Dispatcher.Invoke(() =>
+                    {
+                        StopOrdersTable.Items.Add(new ColumnsForStopOrders(stopOrder));
+                    });
+                }
+            }
+        }
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            QuikConnector.CancelStopOrder(stopOrdersList[StopOrdersTable.SelectedIndex]);
         }
     }
 }

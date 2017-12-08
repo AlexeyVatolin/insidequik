@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ColumnsForStopOrders.cs" />
     <Compile Include="ColumnsForTrades.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>

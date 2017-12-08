@@ -43,6 +43,14 @@ namespace MarketServerTest
         {
             Quik.Orders.KillOrder(order);
         }
+        public static void CancelStopOrder(StopOrder stopOrder)
+        {
+            Quik.StopOrders.KillStopOrder(stopOrder);
+        }
+        public static List<StopOrder> GetStopOrders()
+        {
+            return Quik.StopOrders.GetStopOrders().Result;
+        }
 
         public static void SendBid(string ticker, decimal price, int qty, Operation operationType, bool marketPrice)
         {
@@ -65,6 +73,10 @@ namespace MarketServerTest
         public static void SubscribeToTradesRefresh(TradeHandler tradesRefresh)
         {
             Quik.Events.OnTrade += tradesRefresh;
+        }
+        public static void SubscribeToStopOrdersRefresh(StopOrderFunctions.StopOrderHandler stopOrdersRefresh)
+        {
+            Quik.StopOrders.NewStopOrder += stopOrdersRefresh;
         }
         static Tool CreateTool(string ticker)
         {

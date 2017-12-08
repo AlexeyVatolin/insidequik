@@ -21,7 +21,6 @@ namespace MarketServerTest
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string currentTicker;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,12 +29,15 @@ namespace MarketServerTest
             SetOrder.IsEnabled = false;
             GetTrades.IsEnabled = false;
             GetOrders.IsEnabled = false;
+            GetStopOrders.IsEnabled = false;
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
         {
             QuikConnector.Connect();
-            MessageBox.Show(QuikConnector.isConnected ? "Connected to QUIK" : "Some error while connectiong to QUIK");
+            //MessageBox.Show(QuikConnector.isConnected ? "Connected to QUIK" : "Some error while connectiong to QUIK");
+            Message.Text = QuikConnector.isConnected ? "Connected to QUIK" : "Some error while connecting to QUIK";
+            IsConnected.IsOpen = true;
             if (QuikConnector.isConnected)
             {
                 Connect.IsEnabled = false;
@@ -44,6 +46,7 @@ namespace MarketServerTest
                 SetOrder.IsEnabled = true;
                 GetTrades.IsEnabled = true;
                 GetOrders.IsEnabled = true;
+                GetStopOrders.IsEnabled = true;
             }
         }
 
@@ -52,7 +55,6 @@ namespace MarketServerTest
             SendBid sendbid = new SendBid();
             sendbid.Show();
         }
-        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -67,6 +69,11 @@ namespace MarketServerTest
         private void GetOrdersBook_OnClickr_Click(object sender, RoutedEventArgs e)
         {
             new OrdersBook(Ticker.Text).Show();
+        }
+
+        private void GetStopOrders_Click(object sender, RoutedEventArgs e)
+        {
+            new StopOrders().Show();
         }
     }
 }

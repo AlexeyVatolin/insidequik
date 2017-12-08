@@ -33,5 +33,27 @@ namespace MarketServerTest
         {
             QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell, MarketPrice.IsChecked.Value);
         }
+
+        private void PriceBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if ((!Char.IsDigit(e.Text, 0)) && (e.Text != ",") && (e.Text != "."))
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void QuantityBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void QuantityBoxAndPriceBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
     }
 }

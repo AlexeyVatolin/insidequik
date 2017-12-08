@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketServerTest"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -11,7 +12,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="350" Width="399.51">
+        Title="MainWindow" Height="372.549" Width="399.51">
     <Grid>
         <Button Name="Connect" Content="Подключиться" HorizontalAlignment="Left" Margin="124,29,0,0" VerticalAlignment="Top" Width="141" Click="Connect_Click"/>
         <Button Name ="GetOrdersBook" Content="Стакан заявок" HorizontalAlignment="Left" Margin="124,100,0,0" VerticalAlignment="Top" Width="141" Click="GetOrdersBook_OnClickr_Click"/>
@@ -19,5 +20,22 @@
         <Button Name="GetTrades" Content="Таблица сделок" HorizontalAlignment="Left" Margin="124,188,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_2"/>
         <Button Name="GetOrders" Content="Таблица заявок" HorizontalAlignment="Left" Margin="124,231,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="124,72,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
+        <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="104,276,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>
+        <materialDesign:DialogHost x:Name="IsConnected">
+            <materialDesign:DialogHost.DialogContent >
+                <Grid Width="250" Background="{StaticResource MaterialDesignPaper}" TextElement.Foreground="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="Message" TextWrapping="Wrap" Grid.Row="0" FontSize="16" Text="" VerticalAlignment="Center" Margin="5,15" TextAlignment="Center"
+                 HorizontalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    <Button Grid.Row="1" Width="50" Name="OK" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Content="ОК" HorizontalAlignment="Center"/>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </Window>

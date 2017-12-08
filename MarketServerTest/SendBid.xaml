@@ -15,8 +15,10 @@
     <Grid>
         <Button Content="Купить" HorizontalAlignment="Left" Margin="22,205,0,0" VerticalAlignment="Top" Width="92" Click="Buy_Click"/>
         <Button Content="Продать" HorizontalAlignment="Left" Margin="180,205,0,0" VerticalAlignment="Top" Width="91" Click="Sell_Click"/>
-        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="23" Margin="151,70,0,0" TextWrapping="Wrap" Text="226,12" VerticalAlignment="Top" Width="120" FontSize="14"/>
-        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="23" Margin="151,98,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120" FontSize="14"/>
+        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="23" Margin="151,70,0,0" TextWrapping="Wrap" Text="226,12" VerticalAlignment="Top" Width="120" FontSize="14" 
+                 PreviewTextInput="PriceBox_PreviewTextInput" PreviewKeyDown="QuantityBoxAndPriceBox_PreviewKeyDown"/>
+        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="23" Margin="151,98,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120" FontSize="14" 
+                 PreviewTextInput="QuantityBox_PreviewTextInput" PreviewKeyDown="QuantityBoxAndPriceBox_PreviewKeyDown"/>
         <TextBlock HorizontalAlignment="Left" Margin="22,102,0,0" TextWrapping="Wrap" Text="Количество" VerticalAlignment="Top" FontSize="14"/>
         <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="23" Margin="151,42,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="120" FontSize="14"/>
         <CheckBox x:Name="MarketPrice" Content="Рыночная цена" HorizontalAlignment="Left" Margin="22,138,0,0" VerticalAlignment="Top" FontSize="14"/>

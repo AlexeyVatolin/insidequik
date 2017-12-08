@@ -83,6 +83,9 @@
     <Compile Include="OrdersBook.xaml.cs">
       <DependentUpon>OrdersBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StopOrders.xaml.cs">
+      <DependentUpon>StopOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Trades.xaml.cs">
       <DependentUpon>Trades.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OrdersBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StopOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

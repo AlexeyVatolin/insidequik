@@ -12,6 +12,7 @@ namespace MarketServerTest
     {
         private object locker = new object();
         private List<Trade> listTrades = new List<Trade>();
+        int count = 0;
         public Trades()
         {
             InitializeComponent();
@@ -32,30 +33,16 @@ namespace MarketServerTest
 
         public void TradesRefresh(Trade trade)
         {
-            lock (locker)
+            List<Order> listOrders = QuikConnector.GetOrders();
+            Order listOrderItem = listOrders.Find(i => i.OrderNum == trade.OrderNum);
+            listTrades.Add(trade);
+            count++;
+            if (count % 3 == 2) //знаю, что дикий костыль, но это работает :DDD Позже исправим)
             {
-                List<Order> listOrders = QuikConnector.GetOrders();
-                int index = listTrades.FindIndex(i => i.OrderNum == trade.OrderNum);
-                if (index > 0)
+                TradesTable.Dispatcher.Invoke(() =>
                 {
-                    if (listTrades[index] != trade)
-                    {
-                        Order listOrderItem = listOrders.Find(i => i.OrderNum == trade.OrderNum);
-                        listTrades[index] = trade;
-                        TradesTable.Dispatcher.Invoke(() =>
-                            TradesTable.Items[index] = new ColumnsForTrades(trade, listOrderItem));
-                    }
-                }
-                else
-                {
-                    Order listOrderItem = listOrders.Find(i => i.OrderNum == trade.OrderNum);
-                    listTrades.Add(trade);
-                    TradesTable.Dispatcher.Invoke(() =>
-                    {
-                        TradesTable.Items.Add(new ColumnsForTrades(trade, listOrderItem));
-                    });
-                }
-
+                    TradesTable.Items.Add(new ColumnsForTrades(trade, listOrderItem));
+                });
             }
         }
     }

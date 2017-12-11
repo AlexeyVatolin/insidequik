@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -151,23 +152,22 @@ namespace MarketServerTest
             }
         }
 
-        public static async Task<Dictionary<ClassInfo, List<SecurityInfo>>> GetCurrentClassesAndSecuritites()
+        public static async Task<ObservableCollection<ClassesAndSecuritiesNode>> GetCurrentClassesAndSecuritites()
         {
             string[] classes = await Quik.Class.GetClassesList();
-            var classesAndSecuritiesList = new Dictionary<ClassInfo, List<SecurityInfo>>();
+            var classesAndSecuritiesList = new ObservableCollection<ClassesAndSecuritiesNode>();
 
             foreach (var @class in classes)
             {
                 ClassInfo classInfo = await Quik.Class.GetClassInfo(@class);
+                var currentItem = new ClassesAndSecuritiesNode {ClassInfo = classInfo,
+                    SecurityInfos = new ObservableCollection<SecurityInfo>()};
+                classesAndSecuritiesList.Add(currentItem);
                 string[] classSecurities = await Quik.Class.GetClassSecurities(@class);
                 foreach (var classSecurity in classSecurities)
                 {
                     SecurityInfo securityInfo = await Quik.Class.GetSecurityInfo(@class, classSecurity);
-                    if (!classesAndSecuritiesList.ContainsKey(classInfo))
-                    {
-                        classesAndSecuritiesList.Add(classInfo, new List<SecurityInfo>());
-                    }
-                    classesAndSecuritiesList[classInfo].Add(securityInfo);
+                    currentItem.SecurityInfos.Add(securityInfo);
                 }
 
             }

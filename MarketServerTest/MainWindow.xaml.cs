@@ -30,6 +30,7 @@ namespace MarketServerTest
             GetTrades.IsEnabled = false;
             GetOrders.IsEnabled = false;
             GetStopOrders.IsEnabled = false;
+            ShowCurrentTrades.IsEnabled = false;
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
@@ -47,6 +48,7 @@ namespace MarketServerTest
                 GetTrades.IsEnabled = true;
                 GetOrders.IsEnabled = true;
                 GetStopOrders.IsEnabled = true;
+                ShowCurrentTrades.IsEnabled = true;
             }
         }
 
@@ -61,7 +63,7 @@ namespace MarketServerTest
             new Orders().Show();
         }
 
-        private void ShowCurrentTrades_Click_(object sender, RoutedEventArgs e)
+        private void ShowCurrentTrades_Click(object sender, RoutedEventArgs e)
         {
             var createNewSecurititesWindow = new CreateNewSecurititesWindow();
             createNewSecurititesWindow.Show();
@@ -76,6 +78,11 @@ namespace MarketServerTest
         private void GetStopOrders_Click(object sender, RoutedEventArgs e)
         {
             new StopOrders().Show();
+        }
+
+        private void GetTrades_OnClick(object sender, RoutedEventArgs e)
+        {
+            new Trades().Show();
         }
     }
 }

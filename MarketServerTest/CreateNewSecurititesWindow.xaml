@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketServerTest"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        xmlns:dataStructures="clr-namespace:QuikSharp.DataStructures;assembly=QUIKSharp"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -14,15 +16,17 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="CreateNewSecurititesWindow" Height="300" Width="300">
     <Grid>
-        <TreeView x:Name="SecurititesTree">
-            <TreeViewItem>
-                <TreeViewItem.Header>
-                    <CheckBox Name="Toyota" Content="Toyota"/>
-                </TreeViewItem.Header>
-                <CheckBox Name="CoffieCheckBox" Content="Camry"/>
-                <CheckBox Name="IcedTeaCheckBox" Content="Corolla"/>
-                <CheckBox Name="MangoShakeCheckBox" Content="Supra"/>
-            </TreeViewItem>
+        <TreeView x:Name="SecurititesTree" ItemsSource="{Binding}" 
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:ClassesAndSecuritiesNode}" ItemsSource="{Binding SecurityInfos}">
+                    <CheckBox Content="{Binding ClassInfo.Name}"/>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type dataStructures:SecurityInfo}">
+                    <CheckBox Content="{Binding Name}"></CheckBox>
+                </DataTemplate>
+            </TreeView.Resources>
         </TreeView>
 
         <materialDesign:DialogHost x:Name="Loading">

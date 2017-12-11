@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace MarketServerTest
     /// </summary>
     public partial class CreateNewSecurititesWindow : Window
     {
-        private Dictionary<ClassInfo, List<SecurityInfo>> сlassesAndSecuritites;
+        private ObservableCollection<ClassesAndSecuritiesNode> сlassesAndSecuritites { get; set; }
         public CreateNewSecurititesWindow()
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace MarketServerTest
         {
             Loading.IsOpen = true;
             сlassesAndSecuritites = await QuikConnector.GetCurrentClassesAndSecuritites();
+            SecurititesTree.ItemsSource = сlassesAndSecuritites;
             Loading.IsOpen = false;
         }
     }

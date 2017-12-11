@@ -12,28 +12,12 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Таблица сделок" Height="341.967" Width="599.89">
+        Title="Таблица сделок" Height="341.967" Width="642.037">
     <Grid>
-        <DataGrid Name="TradesTable" Margin="10,3,10,10" IsReadOnly="True" >
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalAlignment"  Value="Center"/>
-                    <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.CellStyle>
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="HorizontalAlignment"  Value="Center"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Transparent"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.CellStyle>
-            <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
+        <ListView Name="TradesTable">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="20"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Operation}" Value="Sell">
                             <Setter Property="Foreground" Value="Red"/>
@@ -45,15 +29,62 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="60"/>
-                <DataGridTextColumn Header="Операция" Binding="{Binding Operation}" Width="80"/>
-                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="50"/>
-                <DataGridTextColumn Header="Объем в денежных ед." Binding="{Binding Value}" Width="170"/>
-                <DataGridTextColumn Header="Время" Binding="{Binding Date}" Width="90"/>
-                <DataGridTextColumn Header="Период в мс" Binding="{Binding Time}" Width="85"/>
-            </DataGrid.Columns>
-        </DataGrid>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignPaper}"/>
+                            <Setter Property="Height" Value="20"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="Бумага">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Company}" Width="60" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Операция">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Operation}" Width="80" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Кол-во">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Quantity}" Width="50" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Объем в денежных ед.">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Value}" Width="170" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Время">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Date}" Width="90" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Период в мс">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Time}" Width="85" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

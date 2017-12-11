@@ -12,28 +12,18 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Таблица СТОП-заявок" Height="312.211" Width="677.091">
+        Title="Таблица СТОП-заявок" Height="312.211" Width="720.818">
     <Grid>
-        <DataGrid Name="StopOrdersTable" Margin="10,3,10,10" IsReadOnly="True">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalAlignment"  Value="Center"/>
-                    <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.CellStyle>
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="HorizontalAlignment"  Value="Center"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Transparent"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.CellStyle>
-            <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
+        <ListView Name="StopOrdersTable">
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu" Name="Menu">
+                    <MenuItem Header="Отменить заявку" Click="Cancel_Click" FontSize="14" Height="18"/>
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="20"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding State}" Value="Active">
                             <Setter Property="Background" Value="Green"/>
@@ -50,26 +40,77 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-                <ContextMenu x:Key="RowMenu" Name="Menu">
-                    <MenuItem Header="Отменить СТОП-заявку" Click="Cancel_Click" FontSize="14"/>
-                </ContextMenu>
-            </DataGrid.Resources>
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                    <Setter Property="ContextMenu" Value="{StaticResource RowMenu}"/>
-                </Style>
-            </DataGrid.RowStyle>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Бумага" Binding="{Binding Company}" Width="60"/>
-                <DataGridTextColumn Header="Операция" Binding="{Binding Operation}" Width="80"/>
-                <DataGridTextColumn Header="Стоп-цена" Binding="{Binding StopPrice}" Width="75"/>
-                <DataGridTextColumn Header="Стоп-лимит цена" Binding="{Binding StopLimPrice}" Width="115"/>
-                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="50"/>
-                <DataGridTextColumn Header="Акт.кол-во" Binding="{Binding ExecQuantity}" Width="80"/>
-                <DataGridTextColumn Header="Исп.кол-во" Binding="{Binding ActQuantity}" Width="80"/>
-                <DataGridTextColumn Header="Состояние" Binding="{Binding State}" Width="70"/>
-            </DataGrid.Columns>
-        </DataGrid>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignPaper}"/>
+                            <Setter Property="Height" Value="20"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="Бумага">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Company}" Width="60" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Операция">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Operation}" Width="80" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Стоп-цена">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding StopPrice}" Width="75" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Стоп-лимит цена">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding StopLimPrice}" Width="115" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Кол-во">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Quantity}" Width="50" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Акт.кол-во">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding ActQuantity}" Width="80" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Исп.кол-во">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding ExecQuantity}" Width="55" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Состояние">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding State}" Width="70" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
 

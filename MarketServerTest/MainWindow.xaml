@@ -12,12 +12,13 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="372.549" Width="399.51">
+        Title="MainWindow" Height="443.549" Width="399.51">
     <Grid>
         <Button Name="Connect" Content="Подключиться" HorizontalAlignment="Left" Margin="124,29,0,0" VerticalAlignment="Top" Width="141" Click="Connect_Click"/>
         <Button Name ="GetOrdersBook" Content="Стакан заявок" HorizontalAlignment="Left" Margin="124,100,0,0" VerticalAlignment="Top" Width="141" Click="GetOrdersBook_OnClickr_Click"/>
         <Button Name="SetOrder" Content="Новая заявка" HorizontalAlignment="Left" Margin="124,143,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
-        <Button Name="GetTrades" Content="Таблица сделок" HorizontalAlignment="Left" Margin="124,188,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_2"/>
+        <Button Name="GetTrades" Content="Таблица сделок" HorizontalAlignment="Left" Margin="124,188,0,0" VerticalAlignment="Top" Width="141" Click="ShowCurrentTrades_Click_"/>
+        <Button Name="ShowCurrentTrades" Content="Текущие торги" HorizontalAlignment="Left" Margin="124,322,0,0" VerticalAlignment="Top" Width="141" Click="ShowCurrentTrades_Click_"/>
         <Button Name="GetOrders" Content="Таблица заявок" HorizontalAlignment="Left" Margin="124,231,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="124,72,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
         <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="104,276,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>

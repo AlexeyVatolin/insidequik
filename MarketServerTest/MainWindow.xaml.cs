@@ -61,9 +61,11 @@ namespace MarketServerTest
             new Orders().Show();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void ShowCurrentTrades_Click_(object sender, RoutedEventArgs e)
         {
-            new Trades().Show();
+            var createNewSecurititesWindow = new CreateNewSecurititesWindow();
+            createNewSecurititesWindow.Show();
+            createNewSecurititesWindow.Initialize();
         }
 
         private void GetOrdersBook_OnClickr_Click(object sender, RoutedEventArgs e)

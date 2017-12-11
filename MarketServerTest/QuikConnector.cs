@@ -151,7 +151,7 @@ namespace MarketServerTest
             }
         }
 
-        public static async void GetCurrentClassesAndSecuritites()
+        public static async Task<Dictionary<ClassInfo, List<SecurityInfo>>> GetCurrentClassesAndSecuritites()
         {
             string[] classes = await Quik.Class.GetClassesList();
             var classesAndSecuritiesList = new Dictionary<ClassInfo, List<SecurityInfo>>();
@@ -171,6 +171,7 @@ namespace MarketServerTest
                 }
 
             }
+            return classesAndSecuritiesList;
         }
 
     }

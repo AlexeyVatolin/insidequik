@@ -57,6 +57,7 @@
       <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -77,6 +78,9 @@
     </ApplicationDefinition>
     <Compile Include="ColumnsForStopOrders.cs" />
     <Compile Include="ColumnsForTrades.cs" />
+    <Compile Include="CreateNewSecurititesWindow.xaml.cs">
+      <DependentUpon>CreateNewSecurititesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
@@ -92,6 +96,10 @@
     </Compile>
     <Compile Include="QuikConnector.cs" />
     <Compile Include="Tool.cs" />
+    <Page Include="CreateNewSecurititesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Orders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

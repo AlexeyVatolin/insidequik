@@ -161,13 +161,13 @@ namespace MarketServerTest
             {
                 ClassInfo classInfo = await Quik.Class.GetClassInfo(@class);
                 var currentItem = new ClassesAndSecuritiesNode {ClassInfo = classInfo,
-                    SecurityInfos = new ObservableCollection<SecurityInfo>()};
+                    SecurityInfos = new ObservableCollection<SecurityInfoRow>()};
                 classesAndSecuritiesList.Add(currentItem);
                 string[] classSecurities = await Quik.Class.GetClassSecurities(@class);
                 foreach (var classSecurity in classSecurities)
                 {
                     SecurityInfo securityInfo = await Quik.Class.GetSecurityInfo(@class, classSecurity);
-                    currentItem.SecurityInfos.Add(securityInfo);
+                    currentItem.SecurityInfos.Add(new SecurityInfoRow {Parent = currentItem, SecurityInfo = securityInfo});
                 }
 
             }

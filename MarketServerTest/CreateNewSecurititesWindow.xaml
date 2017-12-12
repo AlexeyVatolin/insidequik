@@ -14,35 +14,49 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="CreateNewSecurititesWindow" Height="300" Width="300">
+        Title="CreateNewSecurititesWindow" Height="401.928" Width="357.831">
     <Grid>
-        <TreeView x:Name="SecurititesTree" ItemsSource="{Binding}" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TreeView x:Name="SecurititesTree" ItemsSource="{Binding}" Grid.Row="0" 
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling">
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type local:ClassesAndSecuritiesNode}" ItemsSource="{Binding SecurityInfos}">
-                    <CheckBox Content="{Binding ClassInfo.Name}"/>
-                </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type dataStructures:SecurityInfo}">
-                    <CheckBox Content="{Binding Name}"></CheckBox>
-                </DataTemplate>
-            </TreeView.Resources>
-        </TreeView>
-
-        <materialDesign:DialogHost x:Name="Loading">
-            <materialDesign:DialogHost.DialogContent >
-                <Grid Background="{StaticResource MaterialDesignPaper}">
-                    <StackPanel Orientation="Horizontal"  Margin="15 0 15 0">
-                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="36" Height="36"
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type local:ClassesAndSecuritiesNode}" ItemsSource="{Binding SecurityInfos}">
+                        <CheckBox  IsChecked="{Binding IsChecked}" 
+                              Content="{Binding ClassInfo.Name}" 
+                               PreviewMouseDown="ParentCheckbox_OnPreviewMouseDown"
+                               Checked="ParentCheckbox_OnChecked" Unchecked="ParentCheckbox_OnUnchecked"/>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type local:SecurityInfoRow}">
+                        <CheckBox IsChecked ="{Binding IsChecked}" Content="{Binding SecurityInfo.Name}" 
+                              PreviewMouseDown="ChildCheckbox_OnPreviewMouseDown"
+                              Checked="ChildCheckbox_OnChecked" Unchecked="ChildCheckbox_OnUnchecked"></CheckBox>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+            <Button Name="Create" Content="Создать таблицу" VerticalAlignment="Bottom" Grid.Row="1"
+                HorizontalAlignment="Center" Width="156" Margin="20" Click="Create_OnClick"></Button>
+        </Grid>
+        <Grid>
+            <materialDesign:DialogHost x:Name="Loading">
+                <materialDesign:DialogHost.DialogContent >
+                    <Grid Background="{StaticResource MaterialDesignPaper}">
+                        <StackPanel Orientation="Horizontal"  Margin="15 0 15 0">
+                            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="36" Height="36"
                                  IsIndeterminate="True"
                                  x:Name="IndeterminateToDeterminateCircularProgress"
                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" />
-                        <TextBlock Name="Message" TextWrapping="Wrap" FontSize="16" Text="Загрузка.." VerticalAlignment="Center" TextAlignment="Center"
+                            <TextBlock Name="Message" TextWrapping="Wrap" FontSize="16" Text="Загрузка.." VerticalAlignment="Center" TextAlignment="Center"
                                HorizontalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="White"
                                    Margin="15 0 10 0"/>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:DialogHost.DialogContent>
-        </materialDesign:DialogHost>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+        </Grid>
     </Grid>
 </Window>

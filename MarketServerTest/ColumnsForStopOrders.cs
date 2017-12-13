@@ -23,7 +23,7 @@ namespace MarketServerTest
             Company = stopOrder.SecCode;
             Operation = stopOrder.Operation.ToString();
             StopPrice = stopOrder.ConditionPrice.ToString();
-            StopLimPrice = stopOrder.ConditionPrice2.ToString();
+            StopLimPrice = stopOrder.Price.ToString();
             Quantity = stopOrder.Quantity.ToString();
             ActQuantity = (stopOrder.Quantity - stopOrder.FilledQuantity).ToString();
             ExecQuantity = stopOrder.FilledQuantity.ToString();

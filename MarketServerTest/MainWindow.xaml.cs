@@ -31,6 +31,7 @@ namespace MarketServerTest
             GetOrders.IsEnabled = false;
             GetStopOrders.IsEnabled = false;
             ShowCurrentTrades.IsEnabled = false;
+            SetStopOrder.IsEnabled = false;
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
@@ -49,6 +50,7 @@ namespace MarketServerTest
                 GetOrders.IsEnabled = true;
                 GetStopOrders.IsEnabled = true;
                 ShowCurrentTrades.IsEnabled = true;
+                SetStopOrder.IsEnabled = true;
             }
         }
 
@@ -83,6 +85,11 @@ namespace MarketServerTest
         private void GetTrades_OnClick(object sender, RoutedEventArgs e)
         {
             new Trades().Show();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            new StopOrderBid().Show();
         }
     }
 }

@@ -99,6 +99,9 @@
     <Compile Include="Securities.xaml.cs">
       <DependentUpon>Securities.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StopOrderBid.xaml.cs">
+      <DependentUpon>StopOrderBid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StopOrders.xaml.cs">
       <DependentUpon>StopOrders.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Securities.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StopOrderBid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

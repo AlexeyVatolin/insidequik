@@ -257,5 +257,39 @@ namespace MarketServerTest
             return classesAndSecuritiesList;
         }
 
+        public static void SendStopOrderBid(string ticker, decimal price, decimal price2, int qty, Operation operation)
+        {
+            try
+            {
+                Tool tool = CreateTool(ticker);
+                long tranctionID = NewStopOrder(Quik, tool, operation, price, price2, qty);
+            }
+            catch { }
+        }
+
+        static long NewStopOrder(Quik quik, Tool tool, Operation operation, decimal price, decimal price2, int qty)
+        {
+            long res = 0;
+            StopOrder stopOrder = new StopOrder();
+            stopOrder.ClassCode = tool.ClassCode;
+            stopOrder.SecCode = tool.SecurityCode;
+            stopOrder.Operation = operation;
+            stopOrder.Price = price2;
+            stopOrder.ConditionPrice = price;
+            stopOrder.Quantity = qty;
+            stopOrder.Account = tool.AccountID;
+            stopOrder.StopOrderType = StopOrderType.StopLimit;
+            try
+            {
+                res = quik.StopOrders.CreateStopOrder(stopOrder).Result;
+                if (res < 0) Console.WriteLine("Всё очень плохо...");
+            }
+            catch
+            {
+                Console.WriteLine("Неудачная попытка отправки Стоп-заявки");
+            }
+            return res;
+        }
+
     }
 }

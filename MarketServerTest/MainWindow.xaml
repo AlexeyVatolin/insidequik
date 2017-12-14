@@ -12,16 +12,19 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="443.549" Width="399.51">
+        Title="MainWindow" Height="485.549" Width="399.51">
     <Grid>
         <Button Name="Connect" Content="Подключиться" HorizontalAlignment="Left" Margin="124,29,0,0" VerticalAlignment="Top" Width="141" Click="Connect_Click"/>
         <Button Name ="GetOrdersBook" Content="Стакан заявок" HorizontalAlignment="Left" Margin="124,100,0,0" VerticalAlignment="Top" Width="141" Click="GetOrdersBook_OnClickr_Click"/>
         <Button Name="SetOrder" Content="Новая заявка" HorizontalAlignment="Left" Margin="124,143,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
         <Button Name="GetTrades" Content="Таблица сделок" HorizontalAlignment="Left" Margin="124,188,0,0" VerticalAlignment="Top" Width="141" Click="GetTrades_OnClick"/>
         <Button Name="ShowCurrentTrades" Content="Текущие торги" HorizontalAlignment="Left" Margin="124,322,0,0" VerticalAlignment="Top" Width="141" Click="ShowCurrentTrades_Click"/>
+        <Button Name="SetStopOrder" Content="Новая стоп-заявка" HorizontalAlignment="Left" Margin="115,367,0,0" VerticalAlignment="Top" Width="155" Click="Button_Click_3" RenderTransformOrigin="-3.22,1.625"/>
         <Button Name="GetOrders" Content="Таблица заявок" HorizontalAlignment="Left" Margin="124,231,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="124,72,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
         <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="104,276,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>
+        <Button Name="GetBalance" Content="Состояние счета" HorizontalAlignment="Left" Margin="124,412,0,0" VerticalAlignment="Top" Width="141" Click="GetBalance_OnClick"/>
+
         <materialDesign:DialogHost x:Name="IsConnected">
             <materialDesign:DialogHost.DialogContent >
                 <Grid Width="250" Background="{StaticResource MaterialDesignPaper}" TextElement.Foreground="White">
@@ -38,5 +41,6 @@
                 </Grid>
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
+       
     </Grid>
 </Window>

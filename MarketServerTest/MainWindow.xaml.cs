@@ -31,6 +31,11 @@ namespace MarketServerTest
             GetOrders.IsEnabled = false;
             GetStopOrders.IsEnabled = false;
             ShowCurrentTrades.IsEnabled = false;
+<<<<<<< HEAD
+            GetBalance.IsEnabled = false;
+=======
+            SetStopOrder.IsEnabled = false;
+>>>>>>> b3dea20ac9f625cd13a9778f54157956f581f9c9
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
@@ -49,13 +54,18 @@ namespace MarketServerTest
                 GetOrders.IsEnabled = true;
                 GetStopOrders.IsEnabled = true;
                 ShowCurrentTrades.IsEnabled = true;
+<<<<<<< HEAD
+                GetBalance.IsEnabled = true;
+=======
+                SetStopOrder.IsEnabled = true;
+>>>>>>> b3dea20ac9f625cd13a9778f54157956f581f9c9
             }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            SendBid sendbid = new SendBid();
-            sendbid.Show();
+           new SendBid().Show();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -83,6 +93,17 @@ namespace MarketServerTest
         private void GetTrades_OnClick(object sender, RoutedEventArgs e)
         {
             new Trades().Show();
+        }
+
+<<<<<<< HEAD
+        private void GetBalance_OnClick(object sender, RoutedEventArgs e)
+        {
+            new Balance().Show();
+=======
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            new StopOrderBid().Show();
+>>>>>>> b3dea20ac9f625cd13a9778f54157956f581f9c9
         }
     }
 }

@@ -17,7 +17,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
-                        <Border BorderThickness="0,0,2,0" BorderBrush="White">
+                        <Border BorderThickness="0,0,1,0" BorderBrush="#00ffffff">
                             <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Margin="8"
                                        Width="{TemplateBinding Width}" TextAlignment="Center" Foreground="#BCFFFFFF" />
                         </Border>
@@ -29,7 +29,7 @@
     <Grid>
         <ListView x:Name="SecuritiesListView">
             <ListView.View>
-                <GridView> <!--ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">-->
+                <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
                     <GridViewColumn Header="Инструмент" DisplayMemberBinding="{Binding Name}"/>
                 </GridView>
             </ListView.View>

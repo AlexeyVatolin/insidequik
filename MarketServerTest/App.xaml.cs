@@ -17,8 +17,7 @@ namespace MarketServerTest
     public partial class App : Application
     {
         private App()
-        {   //hockeayapp logs
-            HockeyClient.Current.Configure("ec1a26cdd29c48ada16e2ae641920989");
+        {   
         }
        protected override async void OnStartup(StartupEventArgs e)
         {

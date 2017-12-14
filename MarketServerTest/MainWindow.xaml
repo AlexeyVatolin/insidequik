@@ -22,6 +22,7 @@
         <Button Name="GetOrders" Content="Таблица заявок" HorizontalAlignment="Left" Margin="124,231,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="124,72,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
         <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="104,276,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>
+        <Button Name="GetBalance" Content="Состояние счета" HorizontalAlignment="Left" Margin="124,367,0,0" VerticalAlignment="Top" Width="141" Click="GetBalance_OnClick"/>
         <materialDesign:DialogHost x:Name="IsConnected">
             <materialDesign:DialogHost.DialogContent >
                 <Grid Width="250" Background="{StaticResource MaterialDesignPaper}" TextElement.Foreground="White">
@@ -38,5 +39,6 @@
                 </Grid>
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
+       
     </Grid>
 </Window>

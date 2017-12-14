@@ -55,7 +55,7 @@ namespace MarketServerTest
             if (isUserInteraction)
             {
                 isUserInteraction = false;
-                CheckBox checkBox = (CheckBox) sender;
+                CheckBox checkBox = (CheckBox)sender;
                 string checkboxContent = checkBox.Content as string;
                 ClassesAndSecuritiesNode currentNode = сlassesAndSecuritites
                     .SingleOrDefault(item => item.ClassInfo.Name == checkboxContent);
@@ -87,7 +87,7 @@ namespace MarketServerTest
             if (isUserInteraction)
             {
                 isUserInteraction = false;
-                CheckBox checkBox = (CheckBox) sender;
+                CheckBox checkBox = (CheckBox)sender;
                 string checkboxContent = checkBox.Content as string;
 
                 SecurityInfoRow currentNode = сlassesAndSecuritites.SelectMany(item => item.SecurityInfos)

@@ -44,12 +44,12 @@ namespace MarketServerTest
             foreach (var item in moneyLimit)
             {
                 if (item != null && item.LimitKind == 2)
-                    BalanceTable.Items.Add(new ColumnsForBalance(item));
+                    BalanceTableMoney.Items.Add(new ColumnsForBalance(item));
             }
             foreach (var item in list)
             {
                 if (item != null && item.LimitKindInt == 2) //Заполняем только по T2
-                    BalanceTable.Items.Add(new ColumnsForBalance(item));
+                    BalanceTableSecurities.Items.Add(new ColumnsForBalance(item));
             }
            
         }

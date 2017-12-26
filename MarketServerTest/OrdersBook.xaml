@@ -42,7 +42,7 @@
                         <GridViewColumn Header="Цена">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding price}" Foreground="Red" Width="50" TextAlignment="Center"/>
+                                    <TextBlock x:Name="Txt" Text="{Binding price}" Foreground="Red" Width="auto" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

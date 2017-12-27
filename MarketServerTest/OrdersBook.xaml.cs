@@ -35,26 +35,31 @@ namespace MarketServerTest
             {
                 //на сервере нужно придумать способ распихивать стаканы только
                 //тем, кому они реально нужны
-                OrderBooksBidListView.Dispatcher.Invoke(() =>
+                OrderBookListView.Dispatcher.Invoke(() =>
                 {
-                    if (quote.bid.Length == OrderBooksBidListView.Items.Count)
+                    if (quote.bid.Length == OrderBookListView.Items.Count)
                     {
                         for (int i = 0; i < quote.bid.Length; i++)
                         {
-                            OrderBooksBidListView.Items[i] = quote.bid[i];
+                            OrderBookListView.Items[i] = quote.bid[i];
                         }
                     }
                     else
                     {
-                        OrderBooksBidListView.Items.Clear();
+                        OrderBookListView.Items.Clear();
                         foreach (var quoteBid in quote.bid)
                         {
-                            OrderBooksBidListView.Items.Add(quoteBid);
+                            var t = new ListViewItem
+                            {
+                                Foreground = new SolidColorBrush(Color.FromRgb(123, 123, 231)),
+                                DataContext = quoteBid
+                            };
+                            OrderBookListView.Items.Add(t);
                         }
                     }
                 });
 
-                OrderBookOfferListView.Dispatcher.Invoke(() =>
+                /*OrderBookOfferListView.Dispatcher.Invoke(() =>
                 {
                     if (quote.bid.Length == OrderBookOfferListView.Items.Count)
                     {
@@ -71,7 +76,7 @@ namespace MarketServerTest
                             OrderBookOfferListView.Items.Add(quoteBid);
                         }
                     }
-                });
+                });*/
             }
         }
 

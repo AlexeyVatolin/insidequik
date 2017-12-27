@@ -31,17 +31,13 @@ namespace MarketServerTest
             GetOrders.IsEnabled = false;
             GetStopOrders.IsEnabled = false;
             ShowCurrentTrades.IsEnabled = false;
-
             GetBalance.IsEnabled = false;
-
             SetStopOrder.IsEnabled = false;
-
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
         {
             QuikConnector.Connect();
-            //MessageBox.Show(QuikConnector.isConnected ? "Connected to QUIK" : "Some error while connectiong to QUIK");
             Message.Text = QuikConnector.isConnected ? "Connected to QUIK" : "Some error while connecting to QUIK";
             IsConnected.IsOpen = true;
             if (QuikConnector.isConnected)
@@ -54,11 +50,8 @@ namespace MarketServerTest
                 GetOrders.IsEnabled = true;
                 GetStopOrders.IsEnabled = true;
                 ShowCurrentTrades.IsEnabled = true;
-
                 GetBalance.IsEnabled = true;
-
                 SetStopOrder.IsEnabled = true;
-
             }
         }
 

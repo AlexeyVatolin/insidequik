@@ -25,6 +25,7 @@ namespace MarketServerTest
         {
             InitializeComponent();
             this.ticker = ticker;
+            Title = ticker.ToUpper();
             QuikConnector.SubscribeToOrderBook(ticker, OnQuoteDo);
         }
 

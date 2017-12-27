@@ -30,6 +30,11 @@ namespace MarketServerTest
             return false;
         }
 
+        public static void Disconnect()
+        {
+            Quik.StopService();
+        }
+
         public static List<DepoLimitEx> GetDepoLimits()
         {
             return Quik.Trading.GetDepoLimits().Result;

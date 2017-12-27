@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,6 +97,12 @@ namespace MarketServerTest
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             new StopOrderBid().Show();
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            QuikConnector.Disconnect();
+            Environment.Exit(0);
         }
     }
 }

@@ -17,14 +17,10 @@
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding ElementName=OrderBooksBidListView, Path=Height}"></RowDefinition>
-                <RowDefinition Height="{Binding ElementName=OrderBookOfferListView, Path=Height}"></RowDefinition>
-            </Grid.RowDefinitions>
-            <ListView Grid.Row="1" Name="OrderBookListView" IsEnabled="False">
+            <ListView Name="OrderBookListView" IsEnabled="False">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="Height" Value="20" />
+                        <Setter Property="Height" Value="20"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
@@ -34,33 +30,6 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <!--<ListView Grid.Row="0" Name="OrderBooksBidListView" IsEnabled="False">
-                <ItemsControl></ItemsControl>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Height" Value="20" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Цена">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding price}" Foreground="Green" Width="auto" TextAlignment="Center"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Количество">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding quantity}" Foreground="Green" Width="90" TextAlignment="Center"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>-->
-
         </Grid>
     </ScrollViewer>
 </Window>

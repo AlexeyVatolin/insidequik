@@ -37,24 +37,47 @@ namespace MarketServerTest
                 //тем, кому они реально нужны
                 OrderBookListView.Dispatcher.Invoke(() =>
                 {
-                    if (quote.bid.Length == OrderBookListView.Items.Count)
+                    if (quote.bid.Length + quote.offer.Length == OrderBookListView.Items.Count)
                     {
+                        for (int i = 0; i < quote.offer.Length; i++)
+                        {
+                            var item = new ListViewItem
+                            {
+                                Foreground = Brushes.Red,
+                                Content = quote.offer[i]
+                            };
+                            OrderBookListView.Items[quote.offer.Length - 1 - i] = item;
+                        }
                         for (int i = 0; i < quote.bid.Length; i++)
                         {
-                            OrderBookListView.Items[i] = quote.bid[i];
+                            var item = new ListViewItem
+                            {
+                                Foreground = Brushes.Green,
+                                Content = quote.bid[i]
+                            };
+                            OrderBookListView.Items[quote.offer.Length + quote.bid.Length - 1 - i] = item;
                         }
                     }
                     else
                     {
                         OrderBookListView.Items.Clear();
-                        foreach (var quoteBid in quote.bid)
+                        foreach (var quoteOffer in quote.offer.Reverse())
                         {
-                            var t = new ListViewItem
+                            var item = new ListViewItem
                             {
-                                Foreground = new SolidColorBrush(Color.FromRgb(123, 123, 231)),
-                                DataContext = quoteBid
+                                Foreground = Brushes.Red,
+                                Content = quoteOffer
                             };
-                            OrderBookListView.Items.Add(t);
+                            OrderBookListView.Items.Add(item);
+                        }
+                        foreach (var quoteBid in quote.bid.Reverse())
+                        {
+                            var item = new ListViewItem
+                            {
+                                Foreground = Brushes.Green,
+                                Content = quoteBid
+                            };
+                            OrderBookListView.Items.Add(item);
                         }
                     }
                 });

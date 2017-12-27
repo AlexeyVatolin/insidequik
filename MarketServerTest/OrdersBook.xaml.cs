@@ -35,6 +35,10 @@ namespace MarketServerTest
             {
                 //на сервере нужно придумать способ распихивать стаканы только
                 //тем, кому они реально нужны
+                if (quote.bid == null || quote.offer == null)
+                {
+                    return;
+                }
                 OrderBookListView.Dispatcher.Invoke(() =>
                 {
                     if (quote.bid.Length + quote.offer.Length == OrderBookListView.Items.Count)

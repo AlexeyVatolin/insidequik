@@ -37,26 +37,32 @@ namespace MarketServerTest
 
 
         public ColumnsForBalance(DepoLimitEx depoLimitEx)
+
         {
-            
+            secCode = depoLimitEx.SecCode;
+
+            var currBalance = depoLimitEx.CurrentBalance;
+            var price = QuikConnector.LastPrice(secCode);
+            var bePrice = QuikConnector.BestPrice(secCode);
+            var balPrice = depoLimitEx.AweragePositionPrice;
+
             balancePrice = depoLimitEx.AweragePositionPrice.ToString();
-            currentBalance = depoLimitEx.CurrentBalance.ToString();
+            currentBalance = currBalance.ToString();
             limitKind = depoLimitEx.LimitKind.ToString();
             lockedBuy = depoLimitEx.LockedBuy.ToString();
             lockedSell = depoLimitEx.LockedSell.ToString();
             lockedBuyValue = depoLimitEx.LockedBuyValue.ToString();
             lockedSellValue = depoLimitEx.LockedSellValue.ToString();
-            secCode = depoLimitEx.SecCode;
-
+            
             ClassCode = QuikConnector.GetSecurityClass(secCode);
-            Price = QuikConnector.LastPrice(secCode).ToString();
+            Price = price.ToString();
             //SecurityInfo item = QuikConnector.GetSecurityInfo(secCode);
-            Cost = (depoLimitEx.CurrentBalance * QuikConnector.LastPrice(secCode)).ToString();
-            bestPrice= QuikConnector.BestPrice(secCode).ToString();
-            bestCost= (depoLimitEx.CurrentBalance * QuikConnector.BestPrice(secCode)).ToString();
+            Cost = (currBalance * price).ToString();
+            bestPrice= bePrice.ToString();
+            bestCost= (currBalance * bePrice).ToString();
 
-            nPL = ((double)(depoLimitEx.CurrentBalance * QuikConnector.BestPrice(secCode))-
-                depoLimitEx.AweragePositionPrice * depoLimitEx.CurrentBalance ).ToString();//nPL=Стоимость-Позиция*бал.цена
+            nPL = ((double)(currBalance * bePrice) -
+                balPrice * currBalance).ToString();//nPL=Стоимость-Позиция*бал.цена
 
             stopOrdersQty = QuikConnector.GetStopOrdersQty(secCode).ToString();
         }
@@ -65,11 +71,12 @@ namespace MarketServerTest
         {
             
             secCode = moneyLimitEx.CurrCode.ToString();
+            var currBalance = moneyLimitEx.CurrentBal;
             currentBalance = moneyLimitEx.CurrentBal.ToString();
             limitKind = moneyLimitEx.LimitKind.ToString();
             lockedBuy = moneyLimitEx.Locked.ToString();
             Price = QuikConnector.GetCrossRate(secCode).ToString();
-            Cost = (moneyLimitEx.CurrentBal * (double)QuikConnector.GetCrossRate(secCode)).ToString(); //касты?
+            Cost = (currBalance * (double)QuikConnector.GetCrossRate(secCode)).ToString(); //касты?
             bestCost = Cost;
             //SecurityInfo item = QuikConnector.GetSecurityInfo(secCode);
         }

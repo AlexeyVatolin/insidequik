@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace MarketServerTest
 {
@@ -23,35 +24,53 @@ namespace MarketServerTest
     {
         private List<DepoLimitEx> list = new List<DepoLimitEx>();
         private List<MoneyLimitEx> moneyLimit = new List<MoneyLimitEx>();
+        private static Timer timer;
+
+
 
         public Balance()
         {
             InitializeComponent();
+
             InitializeOrdersTable();
+            timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             //QuikConnector.CancelOrder(list[OrdersTable.SelectedIndex]);
         }
 
-
+        private void Callback(Object state)
+        {
+            // Long running operation
+            InitializeOrdersTable();
+            timer.Change(1000 * 3, Timeout.Infinite);
+        }
         public void InitializeOrdersTable()
         {
-           
 
             list = QuikConnector.GetDepoLimits();
             moneyLimit = QuikConnector.GetMoneyLimit();
-            foreach (var item in moneyLimit)
+            BalanceTableMoney.Dispatcher.Invoke(() =>
             {
-                if (item != null && item.LimitKind == 2)
-                    BalanceTableMoney.Items.Add(new ColumnsForBalance(item));
-            }
-            foreach (var item in list)
+                BalanceTableMoney.Items.Clear();
+                foreach (var item in moneyLimit)
+                {
+                    if (item != null && item.LimitKind == 2)
+                        BalanceTableMoney.Items.Add(new ColumnsForBalance(item));
+                }
+            });
+
+            BalanceTableSecurities.Dispatcher.Invoke(() =>
             {
-                if (item != null && item.LimitKindInt == 2) //Заполняем только по T2
-                    BalanceTableSecurities.Items.Add(new ColumnsForBalance(item));
-            }
-           
+                BalanceTableSecurities.Items.Clear();
+                foreach (var item in list)
+                {
+                    if (item != null && item.LimitKindInt == 2) //Заполняем только по T2
+                        BalanceTableSecurities.Items.Add(new ColumnsForBalance(item));
+                }
+            });
         }
+
     }
 }

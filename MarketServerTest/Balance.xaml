@@ -14,15 +14,16 @@
         mc:Ignorable="d"
         Title="Состояние счета" Height="350.866" Width="1021.483">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        
-            
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="{Binding ElementName=BalanceTableMoney, Path=Height}"></RowDefinition>
-                    <RowDefinition Height="{Binding ElementName=BalanceTableSecurities, Path=Height}"></RowDefinition>
-                </Grid.RowDefinitions>
-                
-                <!--<Grid.ColumnDefinitions>
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding ElementName=BalanceTableMoney, Path=Height}"></RowDefinition>
+                <RowDefinition Height="{Binding ElementName=BalanceTableSecurities, Path=Height}"></RowDefinition>
+                <RowDefinition Height="{Binding ElementName=dProfit, Path=Height}"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
                 </Grid.ColumnDefinitions>-->
             <ListView Grid.Row="0" Name="BalanceTableMoney" >
@@ -127,96 +128,96 @@
                 </ListView.View>
             </ListView>
             <ListView Grid.Row="1" Name="BalanceTableSecurities" >
-                    <ListView.View>
+                <ListView.View>
                     <GridView>
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="GridViewColumnHeader">
-                                    <Setter Property="FrameworkElement.Visibility" Value="hidden"/>
-                                    <Setter Property="FontSize" Value="14"/>
-                            
-                                    <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
-                                    <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                                <Setter Property="FrameworkElement.Visibility" Value="hidden"/>
+                                <Setter Property="FontSize" Value="14"/>
+
+                                <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
                                 <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignPaper}"/>
                             </Style>
-                            
-                            </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Header="Бумага">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding secCode}" Width="60" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Вид">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding ClassCode}" Width="50" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Позиция">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding currentBalance}" Width="80" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Баланс.цена">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding balancePrice}" Width="50" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Цена">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding Price}" Width="50" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Ликв.цена">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding bestPrice}" Width="90" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Стоимость">
+
+                        </GridView.ColumnHeaderContainerStyle>
+                        <GridViewColumn Header="Бумага">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding secCode}" Width="60" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Вид">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding ClassCode}" Width="50" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Позиция">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding currentBalance}" Width="80" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Баланс.цена">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding balancePrice}" Width="50" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Цена">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding Price}" Width="50" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Ликв.цена">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding bestPrice}" Width="90" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Стоимость">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock x:Name="Txt" Text="{Binding Cost}" Width="55" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                            <GridViewColumn Header="Ликв.стоимость">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding bestCost}" Width="70" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Нереал. PL">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding nPL}" Width="70" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="В покупке">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding lockedBuy}" Width="70" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="В продаже">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock x:Name="Txt" Text="{Binding lockedSell}" Width="70" TextAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                        <GridViewColumn Header="Ликв.стоимость">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding bestCost}" Width="70" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Нереал. PL">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding nPL}" Width="70" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="В покупке">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding lockedBuy}" Width="70" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="В продаже">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding lockedSell}" Width="70" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="Стоп-заявки">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -225,10 +226,12 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
-        
+                </ListView.View>
+            </ListView>
+            <Label  FontSize="14" Content="0.00" Name="dProfit" HorizontalAlignment="Left" Margin="116,30.667,0,-35.667" Grid.Row="2" Height="29" VerticalAlignment="Top" RenderTransformOrigin="0.978,-3.172" Width="82"/>
+            <Label FontSize="14" Content="Прибыль дня" HorizontalAlignment="Left" Height="29" Margin="10,30.667,0,-35.667" Grid.Row="2" VerticalAlignment="Top" Width="101"/>
+        </Grid>
+
     </ScrollViewer>
 </Window>
 

@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using QuikSharp;
 using QuikSharp.DataStructures;
-using System.Windows;
 using QuikSharp.DataStructures.Transaction;
 
 namespace MarketServerTest
@@ -16,7 +11,7 @@ namespace MarketServerTest
     static class QuikConnector
     {
         private static Quik Quik;
-
+        public static UserAccount userAccount;
         public static bool isConnected { get; private set; }
 
         public delegate void OnQuoteDoDelegate(OrderBook quote);
@@ -31,6 +26,7 @@ namespace MarketServerTest
                 if (await Task.WhenAny(connectionCheckTask, Task.Delay(timeout)) == connectionCheckTask)
                 {
                     isConnected = true;
+                    userAccount = new UserAccount();
                     return true;
                 }
                 try
@@ -74,14 +70,23 @@ namespace MarketServerTest
             return list;
 
         }
-        public static string[] GetClasses()
+        public static string GetClasses()
         {
-            return Quik.Class.GetClassesList().Result;
+            string classesList = "";
+
+            for (int i=0;i< Quik.Class.GetClassesList().Result.Length;i++)
+            {
+                if (i!= Quik.Class.GetClassesList().Result.Length-1)
+                    classesList += Quik.Class.GetClassesList().Result.GetValue(i)+",";
+                else classesList += Quik.Class.GetClassesList().Result.GetValue(i);
+            }
+            return classesList;
         }
 
         public static string GetSecurityClass(string secCode)
         {
-            return Quik.Class.GetSecurityClass("SPBFUT,EQBR,TQBR,TQBS,TQNL,TQLV,TQNE,TQOB,CROSSRATE,SPBOPT,CETS", secCode).Result;//сделать получение классов с сервера!
+            string classesList = GetClasses();
+            return Quik.Class.GetSecurityClass(classesList, secCode).Result;
         }
         public static SecurityInfo GetSecurityInfo(string secCode)
         {
@@ -165,10 +170,7 @@ namespace MarketServerTest
             }
             catch { }
         }
-        public static void SubscribeToDepoLimit(QuoteHandler depoLimitRefresh)
-        {
-            Quik.Events.OnQuote += depoLimitRefresh;
-        }
+
         public static void SubscribeToOrdersRefresh(OrderHandler ordersRefresh)
         {
             Quik.Events.OnOrder += ordersRefresh;
@@ -186,7 +188,8 @@ namespace MarketServerTest
             string classCode = "";
             try
             {
-                classCode = Quik.Class.GetSecurityClass("SPBFUT,TQBR,TQBS,TQNL,TQLV,TQNE,TQOB", ticker).Result;
+
+                classCode = GetSecurityClass(ticker);
             }
             catch
             {

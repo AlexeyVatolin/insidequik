@@ -22,11 +22,9 @@ namespace MarketServerTest
     /// </summary>
     public partial class Balance : Window
     {
-        private List<DepoLimitEx> list = new List<DepoLimitEx>();
-        private List<MoneyLimitEx> moneyLimit = new List<MoneyLimitEx>();
+        private List<DepoLimitEx> depoLimit = new List<DepoLimitEx>();
+        private List<MoneyLimitEx> moneyLimit = new List<MoneyLimitEx>();  
         private static Timer timer;
-
-
 
         public Balance()
         {
@@ -49,26 +47,32 @@ namespace MarketServerTest
         public void InitializeOrdersTable()
         {
 
-            list = QuikConnector.GetDepoLimits();
-            moneyLimit = QuikConnector.GetMoneyLimit();
+            depoLimit = BalanceWorker.GetDepoLimit();
+            moneyLimit = BalanceWorker.GetMoneyLimit();
+
             BalanceTableMoney.Dispatcher.Invoke(() =>
             {
                 BalanceTableMoney.Items.Clear();
                 foreach (var item in moneyLimit)
                 {
                     if (item != null && item.LimitKind == 2)
-                        BalanceTableMoney.Items.Add(new ColumnsForBalance(item));
+                    {
+                        BalanceTableMoney.Items.Add(new MoneyLimit(item));
+                    }
                 }
             });
 
             BalanceTableSecurities.Dispatcher.Invoke(() =>
             {
                 BalanceTableSecurities.Items.Clear();
-                foreach (var item in list)
+                foreach (var item in depoLimit)
                 {
                     if (item != null && item.LimitKindInt == 2) //Заполняем только по T2
-                        BalanceTableSecurities.Items.Add(new ColumnsForBalance(item));
+                    {
+                        BalanceTableSecurities.Items.Add(new DepoLimit(item));
+                    }
                 }
+                dProfit.Content = BalanceWorker.GetDayProfit().ToString(); //Label dProfit
             });
         }
 

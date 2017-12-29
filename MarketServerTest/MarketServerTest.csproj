@@ -81,13 +81,15 @@
     <Compile Include="Balance.xaml.cs">
       <DependentUpon>Balance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BalanceWorker.cs" />
     <Compile Include="ClassesAndSecuritiesNode.cs" />
-    <Compile Include="ColumnsForBalance.cs" />
     <Compile Include="ColumnsForStopOrders.cs" />
     <Compile Include="ColumnsForTrades.cs" />
     <Compile Include="CreateNewSecurititesWindow.xaml.cs">
       <DependentUpon>CreateNewSecurititesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DepoLimit.cs" />
+    <Compile Include="MoneyLimit.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
@@ -110,6 +112,7 @@
     </Compile>
     <Compile Include="QuikConnector.cs" />
     <Compile Include="Tool.cs" />
+    <Compile Include="UserAccount.cs" />
     <Page Include="Balance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

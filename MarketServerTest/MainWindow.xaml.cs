@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuikSharp.DataStructures;
+using System.Threading;
+using Timer = System.Threading.Timer;
 
 namespace MarketServerTest
 {
@@ -23,6 +25,10 @@ namespace MarketServerTest
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Trades trades;
+        private Orders orders;
+        private StopOrders stopOrders;
+        private Timer timer;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +41,19 @@ namespace MarketServerTest
             ShowCurrentTrades.IsEnabled = false;
             GetBalance.IsEnabled = false;
             SetStopOrder.IsEnabled = false;
+        }
+        private void Callback(Object state)
+        {
+            // Long running operation
+            if (BalanceWorker.GetDayProfit() <= QuikConnector.userAccount.userLimit)
+            {
+                QuikConnector.userAccount.limitLock = true;//блокировка пользователя
+                MessageBox.Show("LIMIT LOCK! Превышен лимит суточных потерь. Аккаунт заблокирован");//переделать
+                //Здесь должна быть логика, которая отменит все активные заявки, продаст активы и отключит возможность совершать операции
+                timer.Change(Timeout.Infinite, Timeout.Infinite);
+                return;
+            }
+            timer.Change(1000 * 3, Timeout.Infinite);
         }
 
         private async void Connect_Click(object sender, RoutedEventArgs e)
@@ -56,6 +75,8 @@ namespace MarketServerTest
                 ShowCurrentTrades.IsEnabled = true;
                 GetBalance.IsEnabled = true;
                 SetStopOrder.IsEnabled = true;
+
+                timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
             }
         }
 
@@ -67,7 +88,15 @@ namespace MarketServerTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Orders().Show();
+            if (orders == null || orders.IsLoaded == false)
+            {
+                orders = new Orders();
+                orders.Show();
+            }
+            else
+            {
+                orders.Activate();
+            }
         }
 
         private void ShowCurrentTrades_Click(object sender, RoutedEventArgs e)
@@ -84,12 +113,28 @@ namespace MarketServerTest
 
         private void GetStopOrders_Click(object sender, RoutedEventArgs e)
         {
-            new StopOrders().Show();
+            if (stopOrders == null || stopOrders.IsLoaded == false)
+            {
+                stopOrders = new StopOrders();
+                stopOrders.Show();
+            }
+            else
+            {
+                stopOrders.Activate();
+            }
         }
 
         private void GetTrades_OnClick(object sender, RoutedEventArgs e)
         {
-            new Trades().Show();
+            if (trades == null || trades.IsLoaded == false)
+            {
+                trades = new Trades();
+                trades.Show();
+            }
+            else
+            {
+                trades.Activate();
+            }
         }
 
         private void GetBalance_OnClick(object sender, RoutedEventArgs e)

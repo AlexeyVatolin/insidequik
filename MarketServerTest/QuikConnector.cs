@@ -14,6 +14,7 @@ namespace MarketServerTest
     static class QuikConnector
     {
         private static Quik Quik;
+        public static UserAccount userAccount;
         public static bool isConnected { get; private set; }
         private static List<Order> list = new List<Order>();
         public delegate void OnQuoteDoDelegate(OrderBook quote);
@@ -24,6 +25,8 @@ namespace MarketServerTest
             if (Quik != null && Quik.Service.IsConnected().Result)
             {
                 isConnected = true;
+                userAccount = new UserAccount();
+                
                 return true;
             }
             isConnected = false;

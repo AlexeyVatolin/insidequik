@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuikSharp.DataStructures;
+using System.Threading;
 
 namespace MarketServerTest
 {
@@ -22,6 +23,7 @@ namespace MarketServerTest
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Timer timer;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +36,19 @@ namespace MarketServerTest
             ShowCurrentTrades.IsEnabled = false;
             GetBalance.IsEnabled = false;
             SetStopOrder.IsEnabled = false;
+        }
+        private void Callback(Object state)
+        {
+            // Long running operation
+            if (BalanceWorker.GetDayProfit() <= QuikConnector.userAccount.userLimit)
+            {
+                QuikConnector.userAccount.limitLock = true;//блокировка пользователя
+                MessageBox.Show("LIMIT LOCK! Превышен лимит суточных потерь. Аккаунт заблокирован");//переделать
+                //Здесь должна быть логика, которая отменит все активные заявки, продаст активы и отключит возможность совершать операции
+                timer.Change(Timeout.Infinite, Timeout.Infinite);
+                return;
+            }
+            timer.Change(1000 * 3, Timeout.Infinite);
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
@@ -53,13 +68,15 @@ namespace MarketServerTest
                 ShowCurrentTrades.IsEnabled = true;
                 GetBalance.IsEnabled = true;
                 SetStopOrder.IsEnabled = true;
+
+                timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
             }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           new SendBid().Show();
-            
+            new SendBid().Show();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

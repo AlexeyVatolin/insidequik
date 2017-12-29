@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -36,12 +37,14 @@ namespace MarketServerTest
             SetStopOrder.IsEnabled = false;
         }
 
-        private void Connect_Click(object sender, RoutedEventArgs e)
+        private async void Connect_Click(object sender, RoutedEventArgs e)
         {
-            QuikConnector.Connect();
-            Message.Text = QuikConnector.isConnected ? "Connected to QUIK" : "Some error while connecting to QUIK";
+            Loading.IsOpen = true;
+            var isConnected = await Task.Run(QuikConnector.Connect);
+            Loading.IsOpen = false;
+            Message.Text = isConnected ? "Connected to QUIK" : "Some error while connecting to QUIK";
             IsConnected.IsOpen = true;
-            if (QuikConnector.isConnected)
+            if (isConnected)
             {
                 Connect.IsEnabled = false;
                 GetOrdersBook.IsEnabled = true;
@@ -58,8 +61,8 @@ namespace MarketServerTest
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           new SendBid().Show();
-            
+            new SendBid().Show();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -89,7 +92,6 @@ namespace MarketServerTest
             new Trades().Show();
         }
 
-
         private void GetBalance_OnClick(object sender, RoutedEventArgs e)
         {
             new Balance().Show();
@@ -101,7 +103,12 @@ namespace MarketServerTest
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            QuikConnector.Disconnect();
+            if (QuikConnector.isConnected)
+            {
+                QuikConnector.Disconnect();
+            }
+            Hide();
+            //TODO: посмотреть возможности закрывать программу быстрее
             Environment.Exit(0);
         }
     }

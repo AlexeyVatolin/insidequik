@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using QuikSharp;
 using QuikSharp.DataStructures;
 using System.Windows;
@@ -14,19 +16,35 @@ namespace MarketServerTest
     static class QuikConnector
     {
         private static Quik Quik;
+
         public static bool isConnected { get; private set; }
-        private static List<Order> list = new List<Order>();
+
         public delegate void OnQuoteDoDelegate(OrderBook quote);
 
-        public static bool Connect()
+        public static async Task<bool> Connect()
         {
             Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
-            if (Quik != null && Quik.Service.IsConnected().Result)
+            var connectionCheckTask = Quik.Service.IsConnected();
+            int timeout = 200; //5 раз проверяем подключение и ждем ответа 200 мс. Если не подключилось, от возвращаем false
+            for (int i = 0; i < 5; i++)
             {
-                isConnected = true;
-                return true;
+                if (await Task.WhenAny(connectionCheckTask, Task.Delay(timeout)) == connectionCheckTask)
+                {
+                    isConnected = true;
+                    return true;
+                }
+                try
+                {
+                    Quik.StopService();
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+                Quik = null;
+                Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
             }
-            isConnected = false;
+            
             return false;
         }
 

@@ -23,6 +23,9 @@ namespace MarketServerTest
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Trades trades;
+        private Orders orders;
+        private StopOrders stopOrders;
         private Timer timer;
         public MainWindow()
         {
@@ -81,7 +84,15 @@ namespace MarketServerTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Orders().Show();
+            if (orders == null || orders.IsLoaded == false)
+            {
+                orders = new Orders();
+                orders.Show();
+            }
+            else
+            {
+                orders.Activate();
+            }
         }
 
         private void ShowCurrentTrades_Click(object sender, RoutedEventArgs e)
@@ -98,12 +109,28 @@ namespace MarketServerTest
 
         private void GetStopOrders_Click(object sender, RoutedEventArgs e)
         {
-            new StopOrders().Show();
+            if (stopOrders == null || stopOrders.IsLoaded == false)
+            {
+                stopOrders = new StopOrders();
+                stopOrders.Show();
+            }
+            else
+            {
+                stopOrders.Activate();
+            }
         }
 
         private void GetTrades_OnClick(object sender, RoutedEventArgs e)
         {
-            new Trades().Show();
+            if (trades == null || trades.IsLoaded == false)
+            {
+                trades = new Trades();
+                trades.Show();
+            }
+            else
+            {
+                trades.Activate();
+            }
         }
 
 

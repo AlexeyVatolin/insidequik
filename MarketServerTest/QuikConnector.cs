@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using MarketServerTest.DataRows;
 using QuikSharp;
 using QuikSharp.DataStructures;
 using QuikSharp.DataStructures.Transaction;
@@ -315,6 +316,17 @@ namespace MarketServerTest
                 Console.WriteLine("Неудачная попытка отправки Стоп-заявки");
             }
             return res;
+        }
+
+        public static async void UpdateSecurityInfo(SecuritiesRow row)
+        {
+            var lastTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "LAST");
+            var changePercentTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "PCHANGE");
+            var flowTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "VALTODAY");
+            var results = await Task.WhenAll(lastTask, changePercentTask, flowTask);
+            row.LastPrice = double.Parse(results[0].ParamValue);
+            row.ChangePercent = double.Parse(results[1].ParamValue);
+            row.Flow = double.Parse(results[2].ParamValue);
         }
 
     }

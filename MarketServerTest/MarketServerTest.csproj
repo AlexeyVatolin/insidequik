@@ -83,17 +83,18 @@
     </Compile>
     <Compile Include="BalanceWorker.cs" />
     <Compile Include="ClassesAndSecuritiesNode.cs" />
-    <Compile Include="ColumnsForStopOrders.cs" />
-    <Compile Include="ColumnsForTrades.cs" />
+    <Compile Include="DataRows\ColumnsForStopOrders.cs" />
+    <Compile Include="DataRows\ColumnsForTrades.cs" />
     <Compile Include="CreateNewSecurititesWindow.xaml.cs">
       <DependentUpon>CreateNewSecurititesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataRows\SecuritiesRow.cs" />
     <Compile Include="DepoLimit.cs" />
     <Compile Include="MoneyLimit.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ColumnsForOrders.cs" />
+    <Compile Include="DataRows\ColumnsForOrders.cs" />
     <Compile Include="OrdersBook.xaml.cs">
       <DependentUpon>OrdersBook.xaml</DependentUpon>
     </Compile>

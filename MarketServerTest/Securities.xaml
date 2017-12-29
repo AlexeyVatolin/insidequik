@@ -27,10 +27,13 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <ListView x:Name="SecuritiesListView">
+        <ListView x:Name="SecuritiesListView" ItemsSource="{Binding SecurityInfos}">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
                     <GridViewColumn Header="Инструмент" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Цена последней сделки" DisplayMemberBinding="{Binding LastPrice}"/>
+                    <GridViewColumn Header="% изменения" DisplayMemberBinding="{Binding ChangePercent}"/>
+                    <GridViewColumn Header="Оборот" DisplayMemberBinding="{Binding Flow}"/>
                 </GridView>
             </ListView.View>
         </ListView>

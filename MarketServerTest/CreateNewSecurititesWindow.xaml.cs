@@ -113,9 +113,10 @@ namespace MarketServerTest
         {
             List<SecurityInfo> securities = сlassesAndSecuritites.SelectMany(item => item.SecurityInfos)
                 .Where(i => i.IsChecked).Select(info => info.SecurityInfo).ToList();
-            var securitiesWindow = new Securities(securities);
+            var securitiesWindow = new Securities();
             Close();
             securitiesWindow.ShowDialog();
+            securitiesWindow.Initialize(securities);
         }
     }
 }

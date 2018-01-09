@@ -26,7 +26,31 @@ namespace MarketServerTest
             InitializeComponent();
             this.ticker = ticker;
             Title = ticker.ToUpper();
-            QuikConnector.SubscribeToOrderBook(ticker, OnQuoteDo);
+            OrderBookListView.Items.Add(new ListViewItem
+            {
+                Foreground = Brushes.Red,
+                Content = new OrderBook.PriceQuantity() { price = 10.1, quantity = 1 }
+            });
+            OrderBookListView.Items.Add(new ListViewItem
+            {
+                Foreground = Brushes.Red,
+                Content = new OrderBook.PriceQuantity() { price = 11.1, quantity = 2 }
+            });
+            OrderBookListView.Items.Add(new ListViewItem
+            {
+                Foreground = Brushes.Red,
+                Content = new OrderBook.PriceQuantity() { price = 12.1, quantity = 3 }
+            });
+            OrderBookListView.Items.Add(new ListViewItem
+            {
+                Foreground = Brushes.Green,
+                Content = new OrderBook.PriceQuantity() { price = 13.1, quantity = 4 }
+            }); OrderBookListView.Items.Add(new ListViewItem
+            {
+                Foreground = Brushes.Green,
+                Content = new OrderBook.PriceQuantity() { price = 14.1, quantity = 5 }
+            });
+            //QuikConnector.SubscribeToOrderBook(ticker, OnQuoteDo);
         }
 
         public void OnQuoteDo(OrderBook quote)
@@ -85,31 +109,19 @@ namespace MarketServerTest
                         }
                     }
                 });
-
-                /*OrderBookOfferListView.Dispatcher.Invoke(() =>
-                {
-                    if (quote.bid.Length == OrderBookOfferListView.Items.Count)
-                    {
-                        for (int i = 0; i < quote.offer.Length; i++)
-                        {
-                            OrderBookOfferListView.Items[i] = quote.offer[i];
-                        }
-                    }
-                    else
-                    {
-                        OrderBookOfferListView.Items.Clear();
-                        foreach (var quoteBid in quote.offer)
-                        {
-                            OrderBookOfferListView.Items.Add(quoteBid);
-                        }
-                    }
-                });*/
             }
         }
 
         private void OrdersBook_OnClosed(object sender, EventArgs e)
         {
             QuikConnector.UnsubsckibeFromOrderBook(ticker);
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            OrderBook.PriceQuantity selectedOrderBook = (OrderBook.PriceQuantity) OrderBookListView.SelectedItem;
+            SendBid sendBid = new SendBid(ticker, selectedOrderBook.price);
+            sendBid.Show();
         }
     }
 }

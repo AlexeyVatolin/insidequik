@@ -25,10 +25,26 @@ namespace MarketServerTest
     {
         public ObservableCollection<SecuritiesRow> SecurityInfos { get; set; }
         private Timer timer;
-        public Securities()
+        public Securities(List<SecurityInfo> securityInfos)
         {
             InitializeComponent();
-            
+            SecurityInfos = new ObservableCollection<SecuritiesRow>();
+            SecuritiesListView.ItemsSource = SecurityInfos;
+            foreach (var securityInfo in securityInfos)
+            {
+                SecurityInfos.Add(new SecuritiesRow
+                {
+                    ClassCode = securityInfo.ClassCode,
+                    SecCode = securityInfo.SecCode,
+                    Name = securityInfo.Name
+                });
+            }
+            timer = new Timer
+            {
+                Enabled = true,
+                Interval = 1000
+            };
+            timer.Elapsed += UpdateTable;
         }
 
         public void Initialize(List<SecurityInfo> securityInfos)

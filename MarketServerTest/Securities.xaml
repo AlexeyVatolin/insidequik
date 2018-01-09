@@ -11,7 +11,7 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Securities" Height="300" Width="300">
+        Title="Securities" Height="300" Width="504">
     <Window.Resources>
         <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Template">
@@ -27,13 +27,14 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <ListView x:Name="SecuritiesListView" ItemsSource="{Binding SecurityInfos}">
+        <ListView x:Name="SecuritiesListView" ItemsSource="{Binding Path=SecurityInfos}" 
+                  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
                     <GridViewColumn Header="Инструмент" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Цена последней сделки" DisplayMemberBinding="{Binding LastPrice}"/>
                     <GridViewColumn Header="% изменения" DisplayMemberBinding="{Binding ChangePercent}"/>
-                    <GridViewColumn Header="Оборот" DisplayMemberBinding="{Binding Flow}"/>
+                    <GridViewColumn Header="Оборот" Width="100" DisplayMemberBinding="{Binding Flow}"/>
                 </GridView>
             </ListView.View>
         </ListView>

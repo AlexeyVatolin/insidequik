@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -54,7 +55,7 @@ namespace MarketServerTest
                 List<Order> orders = QuikConnector.GetOrders();
                 List<StopOrder> stopOrders = QuikConnector.GetStopOrders();
                 List<DepoLimitEx> depoLimit = QuikConnector.GetDepoLimits();
-                // List<
+
                 foreach (var order in orders)
                 {
                     if (order.State.ToString() == "Active")
@@ -88,7 +89,7 @@ namespace MarketServerTest
         private async void Connect_Click(object sender, RoutedEventArgs e)
         {
             Loading.IsOpen = true;
-            var isConnected = await Task.Run(QuikConnector.Connect);
+            bool isConnected = await Task.Run(QuikConnector.Connect);
             Loading.IsOpen = false;
             Message.Text = isConnected ? "Connected to QUIK" : "Some error while connecting to QUIK";
             IsConnected.IsOpen = true;
@@ -112,7 +113,6 @@ namespace MarketServerTest
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             new SendBid().Show();
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

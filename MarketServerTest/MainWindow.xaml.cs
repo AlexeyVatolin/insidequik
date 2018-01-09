@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using QuikSharp.DataStructures;
 using System.Threading;
 using Timer = System.Threading.Timer;
+using QuikSharp.DataStructures.Transaction;
 
 namespace MarketServerTest
 {
@@ -50,6 +51,34 @@ namespace MarketServerTest
                 QuikConnector.userAccount.limitLock = true;//блокировка пользователя
                 MessageBox.Show("LIMIT LOCK! Превышен лимит суточных потерь. Аккаунт заблокирован");//переделать
                 //Здесь должна быть логика, которая отменит все активные заявки, продаст активы и отключит возможность совершать операции
+                List<Order> orders = QuikConnector.GetOrders();
+                List<StopOrder> stopOrders = QuikConnector.GetStopOrders();
+                List<DepoLimitEx> depoLimit = QuikConnector.GetDepoLimits();
+                // List<
+                foreach (var order in orders)
+                {
+                    if (order.State.ToString() == "Active")
+                    {
+                        QuikConnector.CancelOrder(order);
+                    }
+                }
+                foreach (var stopOrder in stopOrders)
+                {
+                    if (stopOrder.State.ToString() == "Active")
+                    {
+                        QuikConnector.CancelStopOrder(stopOrder);
+                    }
+                }
+                MessageBox.Show("Все заявки и стоп-заявки отменены");
+                foreach (var lim in depoLimit)
+                {
+                    if (lim.LimitKindInt == 2)
+                    {
+                        int qty = QuikConnector.GetLots(lim.SecCode, QuikConnector.GetSecurityClass(lim.SecCode));
+                        QuikConnector.SendBid(lim.SecCode, 0, (int)lim.CurrentBalance/qty, Operation.Sell, true);
+                    }
+                }
+                MessageBox.Show("Все активы выставлены на продажу");
                 timer.Change(Timeout.Infinite, Timeout.Infinite);
                 return;
             }

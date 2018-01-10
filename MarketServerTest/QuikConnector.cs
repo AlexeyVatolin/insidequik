@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using MarketServerTest.DataRows;
 using QuikSharp;
@@ -309,6 +311,9 @@ namespace MarketServerTest
                     SecurityInfo securityInfo = await Quik.Class.GetSecurityInfo(@class, classSecurity);
                     currentItem.SecurityInfos.Add(new SecurityInfoRow { Parent = currentItem, SecurityInfo = securityInfo });
                 }
+                currentItem.SecurityInfos =
+                    new ObservableCollection<SecurityInfoRow>(
+                        currentItem.SecurityInfos.OrderBy(item => item.SecurityInfo.Name));
 
             }
             return classesAndSecuritiesList;
@@ -351,12 +356,13 @@ namespace MarketServerTest
         public static async void UpdateSecurityInfo(SecuritiesRow row)
         {
             var lastTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "LAST");
-            var changePercentTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "PCHANGE");
+            var changePercentTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "LASTCHANGE");
             var flowTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "VALTODAY");
             var results = await Task.WhenAll(lastTask, changePercentTask, flowTask);
-            row.LastPrice = double.Parse(results[0].ParamValue);
-            row.ChangePercent = double.Parse(results[1].ParamValue);
-            row.Flow = double.Parse(results[2].ParamValue);
+            row.LastPrice = double.Parse(results[0].ParamValue, CultureInfo.InvariantCulture);
+            row.ChangePercent = double.Parse(results[1].ParamValue, CultureInfo.InvariantCulture);
+            //ToString("N") приводит число к виду 123 456 789
+            row.Flow = double.Parse(results[2].ParamValue, CultureInfo.InvariantCulture).ToString("N0");
         }
 
     }

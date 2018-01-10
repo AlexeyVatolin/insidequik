@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,19 +24,28 @@ namespace MarketServerTest
         {
             InitializeComponent();
         }
-
+        public SendBid(string ticker, double price)
+        {
+            InitializeComponent();
+            TickerBox.Text = ticker;
+            PriceBox.Text = price.ToString(CultureInfo.InvariantCulture);
+        }
         private void Send_Click(object sender, RoutedEventArgs e)
         {
             if (Buy.IsChecked == true)
-                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy, MarketPrice.IsChecked.Value);
+                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                    Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy, 
+                    MarketPrice.IsChecked.Value);
             if (Sell.IsChecked == true)
-                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell, MarketPrice.IsChecked.Value);
+                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                    Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell, 
+                    MarketPrice.IsChecked.Value);
         }
 
 
         private void PriceBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if ((!Char.IsDigit(e.Text, 0)) && (e.Text != ",") && (e.Text != "."))
+            if (!Char.IsDigit(e.Text, 0) && e.Text != "," && e.Text != ".")
             {
                 e.Handled = true;
             }

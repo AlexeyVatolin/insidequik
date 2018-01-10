@@ -85,31 +85,19 @@ namespace MarketServerTest
                         }
                     }
                 });
-
-                /*OrderBookOfferListView.Dispatcher.Invoke(() =>
-                {
-                    if (quote.bid.Length == OrderBookOfferListView.Items.Count)
-                    {
-                        for (int i = 0; i < quote.offer.Length; i++)
-                        {
-                            OrderBookOfferListView.Items[i] = quote.offer[i];
-                        }
-                    }
-                    else
-                    {
-                        OrderBookOfferListView.Items.Clear();
-                        foreach (var quoteBid in quote.offer)
-                        {
-                            OrderBookOfferListView.Items.Add(quoteBid);
-                        }
-                    }
-                });*/
             }
         }
 
         private void OrdersBook_OnClosed(object sender, EventArgs e)
         {
             QuikConnector.UnsubsckibeFromOrderBook(ticker);
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            OrderBook.PriceQuantity selectedOrderBook = (OrderBook.PriceQuantity) OrderBookListView.SelectedItems[0];
+            SendBid sendBid = new SendBid(ticker, selectedOrderBook.price);
+            sendBid.Show();
         }
     }
 }

@@ -17,10 +17,22 @@
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
-            <ListView Name="OrderBookListView" IsEnabled="False">
+            <ListView Name="OrderBookListView">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Новая заявка" Click="MenuItem_OnClick"/>
+                        <!--Command="{Binding RemoveItem}"
+                                  CommandParameter="{Binding ElementName=itemsListView, Path=SelectedItem}"-->
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="20"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="true" >
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>

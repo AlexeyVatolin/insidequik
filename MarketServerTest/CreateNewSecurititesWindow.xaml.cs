@@ -84,17 +84,21 @@ namespace MarketServerTest
 
         private void ChildCheckbox_CheckedChanged(object sender, bool value)
         {
-            if (isUserInteraction)
+            try
             {
-                isUserInteraction = false;
-                CheckBox checkBox = (CheckBox)sender;
-                string checkboxContent = checkBox.Content as string;
+                if (isUserInteraction)
+                {
+                    isUserInteraction = false;
+                    CheckBox checkBox = (CheckBox)sender;
+                    string checkboxContent = checkBox.Content as string;
 
-                SecurityInfoRow currentNode = сlassesAndSecuritites.SelectMany(item => item.SecurityInfos)
-                    .SingleOrDefault(i => i.SecurityInfo.Name == checkboxContent);
-                //currentNode.IsChecked = value;
-                currentNode?.ChangeParentIsChecked(value);
+                    SecurityInfoRow currentNode = сlassesAndSecuritites.SelectMany(item => item.SecurityInfos)
+                        .SingleOrDefault(i => i.SecurityInfo.Name == checkboxContent);
+                    //currentNode.IsChecked = value;
+                    currentNode?.ChangeParentIsChecked(value);
+                }
             }
+            catch { }
         }
 
         /*Функция нужна чтобы реагировать только на пользовательские нажатия. По дефолту OnChecked/OnUnchecked 

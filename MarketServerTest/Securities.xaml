@@ -11,7 +11,8 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Securities" Height="300" Width="300">
+        Title="Securities" Height="300" Width="300"
+        >
     <Window.Resources>
         <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Template">

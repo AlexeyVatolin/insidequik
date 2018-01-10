@@ -12,7 +12,8 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Состояние счета" Height="350.866" Width="1021.483">
+        Title="Состояние счета" Height="350.866" Width="1021.483"
+        Closing="Balance_OnClosing">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
 

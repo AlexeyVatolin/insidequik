@@ -35,12 +35,12 @@ namespace MarketServerTest
         {
             foreach (var securityInfo in securityInfos)
             {
-                SecurityInfos.Add(new SecuritiesRow
-                {
-                    ClassCode = securityInfo.ClassCode,
-                    SecCode = securityInfo.SecCode,
-                    Name = securityInfo.Name
-                });
+                    SecurityInfos.Add(new SecuritiesRow
+                    {
+                        ClassCode = securityInfo.ClassCode,
+                        SecCode = securityInfo.SecCode,
+                        Name = securityInfo.Name
+                    });
             }
             timer = new Timer
             {
@@ -56,6 +56,6 @@ namespace MarketServerTest
             {
                 QuikConnector.UpdateSecurityInfo(securityInfo);
             }
-        }
+        }   
     }
 }

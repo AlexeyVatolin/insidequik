@@ -71,6 +71,12 @@ namespace MarketServerTest
             return list;
 
         }
+
+        public static int GetLots(string securityCode, string classCode)
+        {
+            Tool tool = new Tool(Quik, securityCode, classCode);
+            return tool.Lot;
+        }
         public static string GetClasses()
         {
             string classesList = "";

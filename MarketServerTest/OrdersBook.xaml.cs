@@ -26,31 +26,7 @@ namespace MarketServerTest
             InitializeComponent();
             this.ticker = ticker;
             Title = ticker.ToUpper();
-            OrderBookListView.Items.Add(new ListViewItem
-            {
-                Foreground = Brushes.Red,
-                Content = new OrderBook.PriceQuantity() { price = 10.1, quantity = 1 }
-            });
-            OrderBookListView.Items.Add(new ListViewItem
-            {
-                Foreground = Brushes.Red,
-                Content = new OrderBook.PriceQuantity() { price = 11.1, quantity = 2 }
-            });
-            OrderBookListView.Items.Add(new ListViewItem
-            {
-                Foreground = Brushes.Red,
-                Content = new OrderBook.PriceQuantity() { price = 12.1, quantity = 3 }
-            });
-            OrderBookListView.Items.Add(new ListViewItem
-            {
-                Foreground = Brushes.Green,
-                Content = new OrderBook.PriceQuantity() { price = 13.1, quantity = 4 }
-            }); OrderBookListView.Items.Add(new ListViewItem
-            {
-                Foreground = Brushes.Green,
-                Content = new OrderBook.PriceQuantity() { price = 14.1, quantity = 5 }
-            });
-            //QuikConnector.SubscribeToOrderBook(ticker, OnQuoteDo);
+            QuikConnector.SubscribeToOrderBook(ticker, OnQuoteDo);
         }
 
         public void OnQuoteDo(OrderBook quote)
@@ -119,7 +95,7 @@ namespace MarketServerTest
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            OrderBook.PriceQuantity selectedOrderBook = (OrderBook.PriceQuantity) OrderBookListView.SelectedItem;
+            OrderBook.PriceQuantity selectedOrderBook = (OrderBook.PriceQuantity) OrderBookListView.SelectedItems[0];
             SendBid sendBid = new SendBid(ticker, selectedOrderBook.price);
             sendBid.Show();
         }

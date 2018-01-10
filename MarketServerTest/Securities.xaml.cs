@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +73,17 @@ namespace MarketServerTest
             {
                 QuikConnector.UpdateSecurityInfo(securityInfo);
             }
+        }
+
+        private void Securities_OnClosing(object sender, CancelEventArgs e)
+        {
+            //Необходимо так как таймер не завершается после закрытия окна
+            timer.Enabled = false;
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

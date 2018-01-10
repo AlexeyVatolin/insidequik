@@ -11,28 +11,25 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Новая заявка" Height="300" Width="300" MaxWidth="300" MaxHeight="300">
-    <Grid Margin="0,0,-0.4,18.4">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="13*"/>
-            <ColumnDefinition Width="29*"/>
-        </Grid.ColumnDefinitions>
-        <Button Content="Выставить заявку" HorizontalAlignment="Left" Margin="69,204,0,0" VerticalAlignment="Top" Width="157" Click="Button_Click" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="23" Margin="59.174,97,0,0" TextWrapping="Wrap" Text="230,05" VerticalAlignment="Top" Width="120" FontSize="14" Grid.Column="1"
+        Title="Новая стоп заявка" Height="300" Width="250" MaxWidth="300" MaxHeight="300">
+    <Grid >
+
+        <Button Content="Выставить стоп заявку" HorizontalAlignment="Left" Margin="21,209,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click"/>
+        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="27" Margin="138,93,0,0" TextWrapping="Wrap" Text="230,05" VerticalAlignment="Top" Width="73" FontSize="14"
                  PreviewTextInput="PriceBox_PreviewTextInput" PreviewKeyDown="QuantityBoxAndPriceBox_PreviewKeyDown"/>
-        <TextBox x:Name="Price2Box" HorizontalAlignment="Left" Height="23" Margin="59.174,124,0,0" TextWrapping="Wrap" Text="230" VerticalAlignment="Top" Width="120" FontSize="14" Grid.Column="1"
+        <TextBox x:Name="Price2Box" HorizontalAlignment="Left" Height="27" Margin="138,122,0,0" TextWrapping="Wrap" Text="230" VerticalAlignment="Top" Width="73" FontSize="14"
                  PreviewTextInput="PriceBox_PreviewTextInput" PreviewKeyDown="QuantityBoxAndPriceBox_PreviewKeyDown"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,128,0,0" TextWrapping="Wrap" Text="Лимит" VerticalAlignment="Top" FontSize="14" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="23" Margin="59.174,20,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="120" FontSize="14" RenderTransformOrigin="0.505,-0.861" Grid.Column="1"/>
+        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="26" Margin="138,18,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="73" FontSize="14" RenderTransformOrigin="0.505,-0.861" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,101,0,0" TextWrapping="Wrap" Text="Цена активации" VerticalAlignment="Top" FontSize="14" Grid.ColumnSpan="2" Width="124"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,24,0,0" TextWrapping="Wrap" Text="Бумага" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,63,0,0" TextWrapping="Wrap" Text="Операция" VerticalAlignment="Top" FontSize="14"/>
-        <StackPanel HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="120" Margin="59.174,53,0,0" Grid.Column="1">
+        <StackPanel HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="73" Margin="138,53,0,0" Grid.Column="1">
             <RadioButton Name="Buy" Content="Покупка" IsChecked="True"/>
             <RadioButton Name="Sell" Content="Продажа"/>
         </StackPanel>
-        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="23" Margin="59.174,151,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120" FontSize="14" Grid.Column="1"
+        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="27" Margin="138,149,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="73" FontSize="14"
                  PreviewTextInput="QuantityBox_PreviewTextInput" PreviewKeyDown="QuantityBoxAndPriceBox_PreviewKeyDown"/>
-        <TextBlock HorizontalAlignment="Left" Margin="21,155,0,0" TextWrapping="Wrap" Text="Количество" VerticalAlignment="Top" FontSize="14" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,155,0,0" TextWrapping="Wrap" Text="Количество" VerticalAlignment="Top" FontSize="14"/>
     </Grid>
 </Window>

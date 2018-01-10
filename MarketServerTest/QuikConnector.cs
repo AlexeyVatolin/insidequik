@@ -43,7 +43,7 @@ namespace MarketServerTest
                 Quik = null;
                 Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
             }
-            
+
             return false;
         }
 
@@ -83,10 +83,10 @@ namespace MarketServerTest
         {
             string classesList = "";
 
-            for (int i=0;i< Quik.Class.GetClassesList().Result.Length;i++)
+            for (int i = 0; i < Quik.Class.GetClassesList().Result.Length; i++)
             {
-                if (i!= Quik.Class.GetClassesList().Result.Length-1)
-                    classesList += Quik.Class.GetClassesList().Result.GetValue(i)+",";
+                if (i != Quik.Class.GetClassesList().Result.Length - 1)
+                    classesList += Quik.Class.GetClassesList().Result.GetValue(i) + ",";
                 else classesList += Quik.Class.GetClassesList().Result.GetValue(i);
             }
             return classesList;
@@ -126,6 +126,19 @@ namespace MarketServerTest
             if (bestPrice.Equals(0))
                 bestPrice = Convert.ToDecimal(Quik.Trading.GetParamEx(classCode, secCode, "LAST").Result.ParamValue.Replace('.', separator));
             return bestPrice;
+        }
+        /// <summary>
+        /// Функция предназначена для получения лучшей цены предложения 
+        /// </summary>
+        /// <param name="secCode"></param>
+        /// <returns></returns>
+        public static decimal BestOffer(string secCode)
+        {
+            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            string classCode = GetSecurityClass(secCode);
+            decimal bestOffer = Convert.ToDecimal(Quik.Trading.GetParamEx(classCode, secCode, "OFFER").Result.ParamValue.Replace('.', separator));
+            return bestOffer;
+
         }
         public static FuturesClientHolding GetFuturesClientHolding(string firmid, string accid, string seccode)
         {
@@ -173,7 +186,18 @@ namespace MarketServerTest
                 Tool tool = CreateTool(ticker);
                 if (marketPrice)
                 {
-                    price = Math.Round(tool.LastPrice + tool.Step * 5, tool.PriceAccuracy);
+                    switch (operationType)
+                    {
+                        case Operation.Buy:
+                            var bestOffer = BestOffer(ticker);
+                            price = Math.Round(bestOffer, tool.PriceAccuracy);
+                            break;
+                        case Operation.Sell:
+                            var bestPrice = BestPrice(ticker); //Должно сработать
+                            price = Math.Round(bestPrice, tool.PriceAccuracy);
+                            break;
+                    }
+
                 }
                 long transactionID = NewOrder(Quik, tool, operationType, price, qty);
             }

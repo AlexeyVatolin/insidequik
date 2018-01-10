@@ -24,25 +24,24 @@ namespace MarketServerTest
         {
             InitializeComponent();
         }
-
         public SendBid(string ticker, double price)
         {
             InitializeComponent();
             TickerBox.Text = ticker;
             PriceBox.Text = price.ToString(CultureInfo.InvariantCulture);
         }
-
-        private void Buy_Click(object sender, RoutedEventArgs e)
+        private void Send_Click(object sender, RoutedEventArgs e)
         {
-            QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), Int32.Parse(QuantityBox.Text),
-                QuikSharp.DataStructures.Operation.Buy, MarketPrice.IsChecked.Value);
+            if (Buy.IsChecked == true)
+                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                    Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy, 
+                    MarketPrice.IsChecked.Value);
+            if (Sell.IsChecked == true)
+                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                    Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell, 
+                    MarketPrice.IsChecked.Value);
         }
 
-        private void Sell_Click(object sender, RoutedEventArgs e)
-        {
-            QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), Int32.Parse(QuantityBox.Text),
-                QuikSharp.DataStructures.Operation.Sell, MarketPrice.IsChecked.Value);
-        }
 
         private void PriceBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

@@ -11,7 +11,8 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Securities" Height="300" Width="504">
+        Title="Securities" Height="300" Width="504"
+        Closing="Securities_OnClosing">
     <Window.Resources>
         <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Template">
@@ -28,13 +29,21 @@
     </Window.Resources>
     <Grid>
         <ListView x:Name="SecuritiesListView" ItemsSource="{Binding Path=SecurityInfos}" 
-                  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
+        VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <!-- Строка выше повышает перформанс списка в 100500 раз -->
+            <ListView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Новая заявка" Click="MenuItem_OnClick"/>
+                <!--Command="{Binding RemoveItem}"
+                                  CommandParameter="{Binding ElementName=itemsListView, Path=SelectedItem}"-->
+            </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
                     <GridViewColumn Header="Инструмент" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Цена последней сделки" DisplayMemberBinding="{Binding LastPrice}"/>
                     <GridViewColumn Header="% изменения" DisplayMemberBinding="{Binding ChangePercent}"/>
-                    <GridViewColumn Header="Оборот" Width="100" DisplayMemberBinding="{Binding Flow}"/>
+                    <GridViewColumn Header="Оборот" Width="120" DisplayMemberBinding="{Binding Flow}"/>
                 </GridView>
             </ListView.View>
         </ListView>

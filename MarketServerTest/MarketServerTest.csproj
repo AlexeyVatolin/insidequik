@@ -88,6 +88,7 @@
     <Compile Include="CreateNewSecurititesWindow.xaml.cs">
       <DependentUpon>CreateNewSecurititesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\OrderBookRow.cs" />
     <Compile Include="Data\SecuritiesRow.cs" />
     <Compile Include="Data\DepoLimit.cs" />
     <Compile Include="MoneyLimit.cs" />

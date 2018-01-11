@@ -26,12 +26,20 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                         <Setter Property="Height" Value="30"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Type}" Value="offer">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="bid">
+                                <Setter Property="Foreground" Value="Green" />
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding price}"/>
-                        <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding quantity}"/>
+                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
+                        <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding Quantity}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

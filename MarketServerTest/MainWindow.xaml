@@ -25,7 +25,6 @@
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="124,72,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
         <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="104,276,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>
         <Button Name="GetBalance" Content="Состояние счета" HorizontalAlignment="Left" Margin="124,412,0,0" VerticalAlignment="Top" Width="141" Click="GetBalance_OnClick"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="168,455,0,0" VerticalAlignment="Top" Width="75" Click="ButtonBase_OnClick"/>
 
         <materialDesign:DialogHost x:Name="IsConnected">
             <materialDesign:DialogHost.DialogContent >

@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MarketServerTest.Data;
 using QuikSharp.DataStructures;
 
 namespace MarketServerTest
@@ -21,12 +13,15 @@ namespace MarketServerTest
     public partial class OrdersBook : Window
     {
         private string ticker;
+        private ObservableCollection<OrderBookRow> OrderBookRows { get; set; }
         public OrdersBook(string ticker)
         {
             InitializeComponent();
             this.ticker = ticker;
             Title = ticker.ToUpper();
             QuikConnector.SubscribeToOrderBook(ticker, OnQuoteDo);
+            OrderBookRows = new ObservableCollection<OrderBookRow>();
+            OrderBookListView.ItemsSource = OrderBookRows;
         }
 
         public void OnQuoteDo(OrderBook quote)
@@ -35,53 +30,51 @@ namespace MarketServerTest
             {
                 //на сервере нужно придумать способ распихивать стаканы только
                 //тем, кому они реально нужны
+
+                //в конце торгов приходит null
                 if (quote.bid == null || quote.offer == null)
                 {
                     return;
                 }
                 OrderBookListView.Dispatcher.Invoke(() =>
                 {
-                    if (quote.bid.Length + quote.offer.Length == OrderBookListView.Items.Count)
+                    //Сохраняем индекс выделенной строки
+                    int selectedItemIndex = -1;
+                    if (OrderBookListView.SelectedItem != null)
                     {
+                        selectedItemIndex = OrderBookRows.IndexOf((OrderBookRow)OrderBookListView.SelectedItem);
+                    }
+                    if (quote.bid.Length + quote.offer.Length == OrderBookRows.Count)
+                    {
+                        var reversedOffer = quote.offer.Reverse().ToList();
                         for (int i = 0; i < quote.offer.Length; i++)
                         {
-                            var item = new ListViewItem
-                            {
-                                Foreground = Brushes.Red,
-                                Content = quote.offer[i]
-                            };
-                            OrderBookListView.Items[quote.offer.Length - 1 - i] = item;
+                            OrderBookRows[i] = new OrderBookRow(reversedOffer[i], "offer");
                         }
+
+                        var reversedBid = quote.bid.Reverse().ToList();
                         for (int i = 0; i < quote.bid.Length; i++)
                         {
-                            var item = new ListViewItem
-                            {
-                                Foreground = Brushes.Green,
-                                Content = quote.bid[i]
-                            };
-                            OrderBookListView.Items[quote.offer.Length + quote.bid.Length - 1 - i] = item;
+                            OrderBookRows[quote.offer.Length + i] = new OrderBookRow(reversedBid[i], "bid");
+                        }
+
+                        //Восстанавливаем выделенную строку. 
+                        //По дефолту после обновления данных выделение строки спадает
+                        if (selectedItemIndex != -1)
+                        {
+                            OrderBookListView.SelectedItem = OrderBookRows[selectedItemIndex];
                         }
                     }
                     else
                     {
-                        OrderBookListView.Items.Clear();
+                        OrderBookRows.Clear();
                         foreach (var quoteOffer in quote.offer.Reverse())
                         {
-                            var item = new ListViewItem
-                            {
-                                Foreground = Brushes.Red,
-                                Content = quoteOffer
-                            };
-                            OrderBookListView.Items.Add(item);
+                            OrderBookRows.Add(new OrderBookRow(quoteOffer, "offer"));
                         }
                         foreach (var quoteBid in quote.bid.Reverse())
                         {
-                            var item = new ListViewItem
-                            {
-                                Foreground = Brushes.Green,
-                                Content = quoteBid
-                            };
-                            OrderBookListView.Items.Add(item);
+                            OrderBookRows.Add(new OrderBookRow(quoteBid, "bid"));
                         }
                     }
                 });
@@ -95,9 +88,12 @@ namespace MarketServerTest
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            OrderBook.PriceQuantity selectedOrderBook = (OrderBook.PriceQuantity) OrderBookListView.SelectedItems[0];
-            SendBid sendBid = new SendBid(ticker, selectedOrderBook.price);
-            sendBid.Show();
+            if (OrderBookListView.SelectedItems.Count > 0)
+            {
+                OrderBookRow selectedOrderBook = (OrderBookRow) OrderBookListView.SelectedItems[0];
+                SendBid sendBid = new SendBid(ticker, selectedOrderBook.Price);
+                sendBid.Show();
+            }
         }
     }
 }

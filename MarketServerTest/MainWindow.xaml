@@ -12,7 +12,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="485.549" Width="399.51"
+        Title="MainWindow" Height="556.549" Width="399.51"
         Closing="MainWindow_OnClosing">
     <Grid>
         <Button Name="Connect" Content="Подключиться" HorizontalAlignment="Left" Margin="124,29,0,0" VerticalAlignment="Top" Width="141" Click="Connect_Click"/>

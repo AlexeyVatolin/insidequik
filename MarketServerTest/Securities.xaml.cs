@@ -75,9 +75,7 @@ namespace MarketServerTest
             }
 
         }   
-
         
-
         private void Securities_OnClosing(object sender, CancelEventArgs e)
         {
             //Необходимо так как таймер не завершается после закрытия окна
@@ -86,7 +84,9 @@ namespace MarketServerTest
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            SecuritiesRow selectedSecurity = (SecuritiesRow)SecuritiesListView.SelectedItems[0];
+            SendBid sendBid = new SendBid(selectedSecurity.SecCode);
+            sendBid.Show();
         }
 
     }

@@ -24,6 +24,13 @@ namespace MarketServerTest
         {
             InitializeComponent();
         }
+
+        public SendBid(string ticker)
+        {
+            InitializeComponent();
+            TickerBox.Text = ticker;
+        }
+
         public SendBid(string ticker, double price)
         {
             InitializeComponent();

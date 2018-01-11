@@ -23,8 +23,5 @@ namespace MarketServerTest
         {
             this.dayBalance = dayBalance;
         }
-
-        
-
     }
 }

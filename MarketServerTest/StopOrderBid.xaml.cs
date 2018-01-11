@@ -14,12 +14,22 @@ namespace MarketServerTest
             InitializeComponent();
         }
 
+        public StopOrderBid(string ticker)
+        {
+            InitializeComponent();
+            TickerBox.Text = ticker;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (Sell.IsChecked == true)
-                QuikConnector.SendStopOrderBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), Decimal.Parse(Price2Box.Text), Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell);
+                QuikConnector.SendStopOrderBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                    Decimal.Parse(Price2Box.Text), Int32.Parse(QuantityBox.Text), 
+                    QuikSharp.DataStructures.Operation.Sell);
             if (Buy.IsChecked == true)
-                QuikConnector.SendStopOrderBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), Decimal.Parse(Price2Box.Text), Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy);
+                QuikConnector.SendStopOrderBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                    Decimal.Parse(Price2Box.Text), Int32.Parse(QuantityBox.Text), 
+                    QuikSharp.DataStructures.Operation.Buy);
         }
         private void PriceBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

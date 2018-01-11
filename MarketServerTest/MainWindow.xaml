@@ -12,51 +12,17 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="497.549" Width="399.51"
+        Title="MainWindow" Height="471.549" Width="399.51"
         Closing="MainWindow_OnClosing">
     <Grid>
-        <Button Name ="GetOrdersBook" Content="Стакан заявок" HorizontalAlignment="Left" Margin="124,100,0,0" VerticalAlignment="Top" Width="141" Click="GetOrdersBook_OnClickr_Click"/>
-        <Button Name="SetOrder" Content="Новая заявка" HorizontalAlignment="Left" Margin="124,143,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
-        <Button Name="GetTrades" Content="Таблица сделок" HorizontalAlignment="Left" Margin="124,188,0,0" VerticalAlignment="Top" Width="141" Click="GetTrades_OnClick"/>
-        <Button Name="ShowCurrentTrades" Content="Текущие торги" HorizontalAlignment="Left" Margin="124,322,0,0" VerticalAlignment="Top" Width="141" Click="ShowCurrentTrades_Click"/>
-        <Button Name="SetStopOrder" Content="Новая стоп-заявка" HorizontalAlignment="Left" Margin="115,367,0,0" VerticalAlignment="Top" Width="155" Click="Button_Click_3" RenderTransformOrigin="-3.22,1.625"/>
-        <Button Name="GetOrders" Content="Таблица заявок" HorizontalAlignment="Left" Margin="124,231,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
-        <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="124,72,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
-        <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="104,276,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>
-        <Button Name="GetBalance" Content="Состояние счета" HorizontalAlignment="Left" Margin="124,412,0,0" VerticalAlignment="Top" Width="141" Click="GetBalance_OnClick"/>
-
-        <materialDesign:DialogHost x:Name="IsConnected">
-            <materialDesign:DialogHost.DialogContent >
-                <Grid Width="250" Background="{StaticResource MaterialDesignPaper}" TextElement.Foreground="White">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Name="Message" TextWrapping="Wrap" Grid.Row="0" FontSize="16" Text="" VerticalAlignment="Center" Margin="5,15" TextAlignment="Center"
-                 HorizontalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                    <Button Grid.Row="1" Width="50" Name="OK" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Content="ОК" HorizontalAlignment="Center"/>
-                </Grid>
-            </materialDesign:DialogHost.DialogContent>
-        </materialDesign:DialogHost>
-        <Grid>
-            <materialDesign:DialogHost x:Name="Loading">
-                <materialDesign:DialogHost.DialogContent >
-                    <Grid Background="{StaticResource MaterialDesignPaper}">
-                        <StackPanel Orientation="Horizontal"  Margin="15 0 15 0">
-                            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="36" Height="36"
-                                         IsIndeterminate="True"
-                                         x:Name="IndeterminateToDeterminateCircularProgress"
-                                         VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" />
-                            <TextBlock Name="ErrorMessage" TextWrapping="Wrap" FontSize="16" Text="Загрузка.." VerticalAlignment="Center" TextAlignment="Center"
-                                       HorizontalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="White"
-                                       Margin="15 0 10 0"/>
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:DialogHost.DialogContent>
-            </materialDesign:DialogHost>
-        </Grid>
+        <Button Name ="GetOrdersBook" Content="Стакан заявок" HorizontalAlignment="Left" Margin="123,65,0,0" VerticalAlignment="Top" Width="141" Click="GetOrdersBook_OnClickr_Click"/>
+        <Button Name="SetOrder" Content="Новая заявка" HorizontalAlignment="Left" Margin="123,108,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click_1" RenderTransformOrigin="-3.22,1.625"/>
+        <Button Name="GetTrades" Content="Таблица сделок" HorizontalAlignment="Left" Margin="123,153,0,0" VerticalAlignment="Top" Width="141" Click="GetTrades_OnClick"/>
+        <Button Name="ShowCurrentTrades" Content="Текущие торги" HorizontalAlignment="Left" Margin="123,287,0,0" VerticalAlignment="Top" Width="141" Click="ShowCurrentTrades_Click"/>
+        <Button Name="SetStopOrder" Content="Новая стоп-заявка" HorizontalAlignment="Left" Margin="114,332,0,0" VerticalAlignment="Top" Width="155" Click="Button_Click_3" RenderTransformOrigin="-3.22,1.625"/>
+        <Button Name="GetOrders" Content="Таблица заявок" HorizontalAlignment="Left" Margin="123,196,0,0" VerticalAlignment="Top" Width="141" Click="Button_Click" RenderTransformOrigin="0.06,0.534"/>
+        <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="123,37,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
+        <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="103,241,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>
+        <Button Name="GetBalance" Content="Состояние счета" HorizontalAlignment="Left" Margin="123,377,0,0" VerticalAlignment="Top" Width="141" Click="GetBalance_OnClick"/>
     </Grid>
 </Window>

@@ -34,7 +34,8 @@
             <!-- Строка выше повышает перформанс списка в 100500 раз -->
             <ListView.ContextMenu>
             <ContextMenu>
-                    <MenuItem Header="Новая заявка" Click="MenuItem_OnClick"/>
+                    <MenuItem Header="Новая заявка" Click="NewBid_OnClick"/>
+                    <MenuItem Header="Новая СТОП заявка" Click="NewStopOrder_OnClick"/>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>

@@ -82,12 +82,24 @@ namespace MarketServerTest
             timer.Dispose();
         }
 
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        private void NewBid_OnClick(object sender, RoutedEventArgs e)
         {
-            SecuritiesRow selectedSecurity = (SecuritiesRow)SecuritiesListView.SelectedItems[0];
-            SendBid sendBid = new SendBid(selectedSecurity.SecCode);
-            sendBid.Show();
+            if (SecuritiesListView.SelectedItem != null)
+            {
+                SecuritiesRow selectedSecurity = (SecuritiesRow) SecuritiesListView.SelectedItem;
+                SendBid sendBid = new SendBid(selectedSecurity.SecCode);
+                sendBid.Show();
+            }
         }
 
+        private void NewStopOrder_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (SecuritiesListView.SelectedItem != null)
+            {
+                SecuritiesRow selectedSecurity = (SecuritiesRow) SecuritiesListView.SelectedItems[0];
+                StopOrderBid stopOrderBid = new StopOrderBid(selectedSecurity.SecCode);
+                stopOrderBid.Show();
+            }
+        }
     }
 }

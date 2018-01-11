@@ -185,5 +185,10 @@ namespace MarketServerTest
             //TODO: посмотреть возможности закрывать программу быстрее
             Environment.Exit(0);
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            new Window1().Show();
+        }
     }
 }

@@ -14,25 +14,18 @@
         mc:Ignorable="d"
         Height="556.132" Width="241.482"
         Closed="OrdersBook_OnClosed">
-
+    
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <ListView Name="OrderBookListView">
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Новая заявка" Click="MenuItem_OnClick"/>
-                        <!--Command="{Binding RemoveItem}"
-                                  CommandParameter="{Binding ElementName=itemsListView, Path=SelectedItem}"-->
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Height" Value="20"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="true" >
-                                <Setter Property="Background" Value="White" />
-                            </Trigger>
-                        </Style.Triggers>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                        <Setter Property="Height" Value="30"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>

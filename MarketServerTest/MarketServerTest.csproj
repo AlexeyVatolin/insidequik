@@ -83,18 +83,18 @@
     </Compile>
     <Compile Include="BalanceWorker.cs" />
     <Compile Include="ClassesAndSecuritiesNode.cs" />
-    <Compile Include="DataRows\ColumnsForStopOrders.cs" />
-    <Compile Include="DataRows\ColumnsForTrades.cs" />
+    <Compile Include="Data\ColumnsForStopOrders.cs" />
+    <Compile Include="Data\ColumnsForTrades.cs" />
     <Compile Include="CreateNewSecurititesWindow.xaml.cs">
       <DependentUpon>CreateNewSecurititesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataRows\SecuritiesRow.cs" />
-    <Compile Include="DepoLimit.cs" />
+    <Compile Include="Data\SecuritiesRow.cs" />
+    <Compile Include="Data\DepoLimit.cs" />
     <Compile Include="MoneyLimit.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataRows\ColumnsForOrders.cs" />
+    <Compile Include="Data\ColumnsForOrders.cs" />
     <Compile Include="OrdersBook.xaml.cs">
       <DependentUpon>OrdersBook.xaml</DependentUpon>
     </Compile>
@@ -113,7 +113,10 @@
     </Compile>
     <Compile Include="QuikConnector.cs" />
     <Compile Include="Tool.cs" />
-    <Compile Include="UserAccount.cs" />
+    <Compile Include="Data\UserAccount.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="Balance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,6 +165,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SendBid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

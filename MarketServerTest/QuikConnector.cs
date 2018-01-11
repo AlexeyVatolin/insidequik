@@ -23,8 +23,8 @@ namespace MarketServerTest
         {
             Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
             var connectionCheckTask = Quik.Service.IsConnected();
-            int timeout = 200; //5 раз проверяем подключение и ждем ответа 200 мс. Если не подключилось, от возвращаем false
-            for (int i = 0; i < 5; i++)
+            int timeout = 2000; //5 раз проверяем подключение и ждем ответа 200 мс. Если не подключилось, от возвращаем false
+            for (int i = 0; i < 2; i++)
             {
                 if (await Task.WhenAny(connectionCheckTask, Task.Delay(timeout)) == connectionCheckTask)
                 {
@@ -234,13 +234,15 @@ namespace MarketServerTest
         static long NewOrder(Quik _quik, Tool _tool, Operation operation, decimal price, int qty)
         {
             long res = 0;
-            Order newOrder = new Order();
-            newOrder.ClassCode = _tool.ClassCode;
-            newOrder.SecCode = _tool.SecurityCode;
-            newOrder.Operation = operation;
-            newOrder.Price = price;
-            newOrder.Quantity = qty;
-            newOrder.Account = _tool.AccountID;
+            Order newOrder = new Order
+            {
+                ClassCode = _tool.ClassCode,
+                SecCode = _tool.SecurityCode,
+                Operation = operation,
+                Price = price,
+                Quantity = qty,
+                Account = _tool.AccountID
+            };
 
             try
             {

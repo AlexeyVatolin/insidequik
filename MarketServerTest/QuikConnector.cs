@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using MarketServerTest.DataRows;
 using QuikSharp;
 using QuikSharp.DataStructures;
@@ -21,15 +22,18 @@ namespace MarketServerTest
 
         public static async Task<bool> Connect()
         {
+            
             Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
             var connectionCheckTask = Quik.Service.IsConnected();
             int timeout = 2000; //5 раз проверяем подключение и ждем ответа 200 мс. Если не подключилось, от возвращаем false
+
             for (int i = 0; i < 2; i++)
             {
                 if (await Task.WhenAny(connectionCheckTask, Task.Delay(timeout)) == connectionCheckTask)
                 {
                     isConnected = true;
                     userAccount = new UserAccount();
+                    userAccount.currentBalance = BalanceWorker.GetCurrentBalance();
                     return true;
                 }
                 try
@@ -199,7 +203,18 @@ namespace MarketServerTest
                     }
 
                 }
-                long transactionID = NewOrder(Quik, tool, operationType, price, qty);
+                if (operationType == Operation.Buy)
+                {
+                    if (price * qty < userAccount.currentBalance)
+                    {
+                        long transactionID = NewOrder(Quik, tool, operationType, price, qty);
+                    }
+                    else MessageBox.Show("Недостаточно средств для соверешения сделки: " + (price * qty - userAccount.currentBalance).ToString(), "Недостаточно средств!");
+                }
+                else if (operationType == Operation.Sell)
+                {
+                    long transactionID = NewOrder(Quik, tool, operationType, price, qty);
+                }
             }
             catch { }
         }
@@ -234,6 +249,7 @@ namespace MarketServerTest
         static long NewOrder(Quik _quik, Tool _tool, Operation operation, decimal price, int qty)
         {
             long res = 0;
+
             Order newOrder = new Order
             {
                 ClassCode = _tool.ClassCode,
@@ -243,6 +259,7 @@ namespace MarketServerTest
                 Quantity = qty,
                 Account = _tool.AccountID
             };
+
 
             try
             {

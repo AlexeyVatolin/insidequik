@@ -22,15 +22,7 @@ namespace MarketServerTest
         public MainWindow()
         {
             InitializeComponent();
-            GetOrdersBook.IsEnabled = false;
-            Ticker.IsEnabled = false;
-            SetOrder.IsEnabled = false;
-            GetTrades.IsEnabled = false;
-            GetOrders.IsEnabled = false;
-            GetStopOrders.IsEnabled = false;
-            ShowCurrentTrades.IsEnabled = false;
-            GetBalance.IsEnabled = false;
-            SetStopOrder.IsEnabled = false;
+            timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
         }
         private void Callback(Object state)
         {
@@ -72,30 +64,6 @@ namespace MarketServerTest
                 return;
             }
             timer.Change(1000 * 3, Timeout.Infinite);
-        }
-
-        private async void Connect_Click(object sender, RoutedEventArgs e)
-        {
-            Loading.IsOpen = true;
-            bool isConnected = await Task.Run(QuikConnector.Connect);
-            Loading.IsOpen = false;
-            Message.Text = isConnected ? "Connected to QUIK" : "Some error while connecting to QUIK";
-            IsConnected.IsOpen = true;
-            if (isConnected)
-            {
-                Connect.IsEnabled = false;
-                GetOrdersBook.IsEnabled = true;
-                Ticker.IsEnabled = true;
-                SetOrder.IsEnabled = true;
-                GetTrades.IsEnabled = true;
-                GetOrders.IsEnabled = true;
-                GetStopOrders.IsEnabled = true;
-                ShowCurrentTrades.IsEnabled = true;
-                GetBalance.IsEnabled = true;
-                SetStopOrder.IsEnabled = true;
-
-                timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
-            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

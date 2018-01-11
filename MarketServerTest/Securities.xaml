@@ -13,6 +13,7 @@
         mc:Ignorable="d"
         Title="Securities" Height="354" Width="713"
         Closing="Securities_OnClosing">
+
     <Window.Resources>
         <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Template">

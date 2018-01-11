@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using System.ComponentModel;
 
 namespace MarketServerTest
 {
@@ -32,6 +33,10 @@ namespace MarketServerTest
 
             InitializeOrdersTable();
             timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
+        }
+        private void Balance_OnClosing(object sender, CancelEventArgs e)
+        {
+            timer.Dispose();
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {

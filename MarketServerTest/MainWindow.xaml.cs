@@ -7,6 +7,7 @@ using QuikSharp.DataStructures;
 using System.Threading;
 using Timer = System.Threading.Timer;
 using QuikSharp.DataStructures.Transaction;
+using Microsoft.ApplicationInsights;
 
 namespace MarketServerTest
 {
@@ -19,6 +20,9 @@ namespace MarketServerTest
         private Orders orders;
         private StopOrders stopOrders;
         private Timer timer;
+
+        private TelemetryClient telemetryClient = new TelemetryClient();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -56,7 +60,7 @@ namespace MarketServerTest
                     if (lim.LimitKindInt == 2)
                     {
                         int qty = QuikConnector.GetLots(lim.SecCode, QuikConnector.GetSecurityClass(lim.SecCode));
-                        QuikConnector.SendBid(lim.SecCode, 0, (int)lim.CurrentBalance/qty, Operation.Sell, true);
+                        QuikConnector.SendBid(lim.SecCode, 0, (int)lim.CurrentBalance / qty, Operation.Sell, true);
                     }
                 }
                 MessageBox.Show("Все активы выставлены на продажу");
@@ -66,13 +70,16 @@ namespace MarketServerTest
             timer.Change(1000 * 3, Timeout.Infinite);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void SetNewOrder_OnClick(object sender, RoutedEventArgs e)
         {
+
+            telemetryClient.TrackPageView("Новая заявка");
             new SendBid().Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Orders_OnClick(object sender, RoutedEventArgs e)
         {
+            telemetryClient.TrackPageView("Таблица сделок");
             if (orders == null || orders.IsLoaded == false)
             {
                 orders = new Orders();
@@ -84,24 +91,27 @@ namespace MarketServerTest
             }
         }
 
-        private void ShowCurrentTrades_Click(object sender, RoutedEventArgs e)
+        private void ShowCurrentTrades_OnClick(object sender, RoutedEventArgs e)
         {
+            telemetryClient.TrackPageView("Текущие торги");
             var createNewSecurititesWindow = new CreateNewSecurititesWindow();
             createNewSecurititesWindow.Show();
             createNewSecurititesWindow.Initialize();
         }
 
-        private void GetOrdersBook_OnClickr_Click(object sender, RoutedEventArgs e)
+        private void GetOrdersBook_OnClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 new OrdersBook(Ticker.Text).Show();
+                telemetryClient.TrackPageView("Стакан заявок");
             }
             catch (Exception) { }
         }
 
-        private void GetStopOrders_Click(object sender, RoutedEventArgs e)
+        private void GetStopOrders_OnClick(object sender, RoutedEventArgs e)
         {
+            telemetryClient.TrackPageView("Таблица СТОП-заявок");
             if (stopOrders == null || stopOrders.IsLoaded == false)
             {
                 stopOrders = new StopOrders();
@@ -124,15 +134,18 @@ namespace MarketServerTest
             {
                 trades.Activate();
             }
+            telemetryClient.TrackPageView("Таблица сделок");
         }
 
         private void GetBalance_OnClick(object sender, RoutedEventArgs e)
         {
             new Balance().Show();
+            telemetryClient.TrackPageView("Состояние счета");
         }
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void SetNewStopOrder_OnClick(object sender, RoutedEventArgs e)
         {
             new StopOrderBid().Show();
+            telemetryClient.TrackPageView("Новая стоп-заявка");
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)

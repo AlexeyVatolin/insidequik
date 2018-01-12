@@ -25,14 +25,38 @@
                     <Setter Property="Height" Value="20" />
                     <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding State}" Value="Active">
-                            <Setter Property="Background" Value="Green"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding State}" Value="Completed">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Completed"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Sell"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Foreground" Value="Red"/>
+                            <Setter Property="Background" Value="#FF303030"/>
+                            <Setter Property="ContextMenu" Value="{x:Null}"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Completed"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Buy"/>
+                            </MultiDataTrigger.Conditions>
                             <Setter Property="Foreground" Value="LightGreen"/>
                             <Setter Property="Background" Value="#FF303030"/>
                             <Setter Property="ContextMenu" Value="{x:Null}"/>
-                        </DataTrigger>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Active"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Buy"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="Green"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Active"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Sell"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="Red"/>
+                        </MultiDataTrigger>
                         <DataTrigger Binding="{Binding State}" Value="Canceled">
                             <Setter Property="Foreground" Value="Gray"/>
                             <Setter Property="Background" Value="#FF303030"/>
@@ -40,7 +64,6 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-                
                 </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
@@ -53,93 +76,93 @@
                             <Setter Property="Height" Value="20"/>
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn>
+                    <GridViewColumn Width="60">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Company" Click="ColumnHeader_Click">Бумага</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Company}" Width="60" TextAlignment="Center" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="Txt" Text="{Binding Company}" Width="60" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn Width="95">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="ClassCode" Click="ColumnHeader_Click">Режим торгов</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding ClassCode}" Width="95" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding ClassCode}" Width="95" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn Width="80">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Operation" Click="ColumnHeader_Click">Операция</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Operation}" Width="80" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding Operation}" Width="80" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn Width="50">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Quantity" Click="ColumnHeader_Click">Кол-во</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Quantity}" Width="50" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding Quantity}" Width="50" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn Width="70">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Price" Click="ColumnHeader_Click">Цена</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Price}" Width="50" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding Price}" Width="50" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn Width="95">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Time" Click="ColumnHeader_Click">Время</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Time}" Width="90" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding Time}" Width="90" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn  Width="56">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Balance" Click="ColumnHeader_Click">Остаток</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Balance}" Width="55" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding Balance}" Width="55" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn Width="60">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Value" Click="ColumnHeader_Click">Объём</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Value}" Width="60" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding Value}" Width="60" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn>
+                    <GridViewColumn Width="78">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="State" Click="ColumnHeader_Click">Состояние</GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding State}" Width="70" TextAlignment="Center"/>
+                                <TextBlock x:Name="Txt" Text="{Binding State}" Width="70" HorizontalAlignment="Center" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

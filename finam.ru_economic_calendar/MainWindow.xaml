@@ -1,0 +1,98 @@
+﻿<Controls:MetroWindow x:Class="finam.ru_economic_calendar.MainWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:finam.ru_economic_calendar"
+        mc:Ignorable="d"
+        ShowIconOnTitleBar="True"  
+        ShowMaxRestoreButton="False"
+        ShowTitleBar="True"
+        Title="Calendar" Height="700" Width="575" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" 
+                      ResizeMode="NoResize">
+    <!--Loaded="Window_Loaded"-->
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <!--<Button Content="settings" />-->
+            <Button Click="Button_Click">
+            <StackPanel Orientation="Horizontal">
+                    <Label Name="lb_Telegram"></Label>
+                <Rectangle Width="30"
+                   Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_email_minimal}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Timer</Label>
+                    <Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_clock}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <ComboBox Name="cb_Timer" Margin="4 0 0 0" VerticalAlignment="Center" SelectedIndex="4" SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem Tag="1">1 минута</ComboBoxItem>
+                        <ComboBoxItem Tag="3">3 минуты</ComboBoxItem>
+                        <ComboBoxItem Tag="5">5 минут</ComboBoxItem>
+                        <ComboBoxItem Tag="10">10 минут</ComboBoxItem>
+                        <ComboBoxItem Tag="15">15 минут</ComboBoxItem>
+                        <ComboBoxItem Tag="30">30 минут</ComboBoxItem>
+                        <ComboBoxItem Tag="60">1 час</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
+        <DataGrid x:Name="postsGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" ItemsSource="{Binding Posts}">
+            <DataGrid.Columns>
+                <!--<DataGridCheckBoxColumn  Width="40">-->
+                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}" Width="40"
+                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}">
+                        <DataGridCheckBoxColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                            <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+                            <EventSetter Event="CheckBox.Unchecked" Handler="Unchecked"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Binding="{Binding Path=Country}" Width="25" IsReadOnly="True">
+                    <!--<DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>-->
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="DATE" Binding="{Binding Path=Date}" Width="60" IsReadOnly="True">
+                    <!--<DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>-->
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="TIME" Binding="{Binding Path=Time}" Width="50" IsReadOnly="True">
+                    <!--<DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>-->
+                </DataGridTextColumn>
+               
+                <DataGridTextColumn Header="NAME" Binding="{Binding Path=Name}" Width="350" IsReadOnly="True"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Статистика" Click="ContextMenuItem_Click"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</Controls:MetroWindow>

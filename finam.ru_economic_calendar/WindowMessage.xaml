@@ -1,0 +1,21 @@
+﻿<Controls:MetroWindow x:Class="finam.ru_economic_calendar.WindowMessage"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:finam.ru_economic_calendar"
+        mc:Ignorable="d"
+        Height="100" Width="300" ResizeMode="NoResize" Title="Finam.ru" ShowTitleBar="False" GlowBrush="{DynamicResource AccentColorBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image Source="C:\Users\Максим\documents\visual studio 2015\Projects\finam.ru_economic_calendar\finam.ru_economic_calendar\warning.png" Margin="10"></Image>
+        <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="170" Margin="10,10,15,5">
+            <TextBlock FontWeight="Bold" Name="tb_text" TextWrapping="Wrap" >Название новости</TextBlock>
+            <Label Name="lb_text"></Label>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

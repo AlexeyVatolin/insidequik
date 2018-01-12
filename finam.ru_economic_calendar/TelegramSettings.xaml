@@ -1,0 +1,32 @@
+﻿<Controls:MetroWindow x:Class="finam.ru_economic_calendar.TelegramSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:finam.ru_economic_calendar"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="TelegramSettings" Height="300" Width="400" WindowStartupLocation="CenterScreen" 
+        GlowBrush="{DynamicResource AccentColorBrush}" 
+        ResizeMode="CanMinimize">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Margin="10">
+                <Label FontSize="16" FontWeight="Bold">Telegram InsideStatisticsBot</Label>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label FontSize="14">Пошаговая инструкция как подлючить бота: </Label>
+                <Label Margin="30,0,0,0">1.) Написать боту "userinfobot" и нажмите старт</Label>
+                <Label Margin="30,0,0,0">2.) Скопируйте Id и вставьте в поле idUser ниже</Label>
+                <Label Margin="30,0,0,0">3.) Написать боту "InsideStatisticsBot_Maksim"</Label>
+                <Label Margin="30,0,0,0">4.) Напишите боту /help и ознакомтесь с его командами</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" >
+                <Label>Введите idUser</Label>
+                <TextBox Margin="15,0,0,0" Controls:TextBoxHelper.ClearTextButton="True" Width="200" Name="tb_idTelegram" Text="348021716"/>
+            </StackPanel>
+            <Button Width="100" Click="AddIdClick">добавить</Button>
+        </StackPanel>
+        
+    </Grid>
+</Controls:MetroWindow>

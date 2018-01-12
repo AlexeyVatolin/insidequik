@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Windows;
 using QuikSharp.DataStructures.Transaction;
+using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace MarketServerTest
 {
     /// <summary>
-    /// Логика взаимодействия для Deals.xaml
+    /// Логика взаимодействия для Trades.xaml
     /// </summary>
     public partial class Trades : Window
     {
-        private object locker = new object();
+        ListSortDirection direction;
         private List<Trade> listTrades = new List<Trade>();
         int count = 0;
         public Trades()
@@ -29,6 +30,8 @@ namespace MarketServerTest
                 var listOrderItem = listOrders.Find(i => i.OrderNum == item.OrderNum);
                 TradesTable.Items.Add(new ColumnsForTrades(item, listOrderItem));
             }
+            direction = ListSortDirection.Descending;
+            TradesTable.Items.SortDescriptions.Add(new SortDescription("Date", direction));
         }
 
         public void TradesRefresh(Trade trade)
@@ -44,6 +47,23 @@ namespace MarketServerTest
                     TradesTable.Items.Add(new ColumnsForTrades(trade, listOrderItem));
                 });
             }
+        }
+        private void ColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            ListSortDirection newDir = ListSortDirection.Ascending;
+            TradesTable.Items.SortDescriptions.Clear();
+            if (direction == ListSortDirection.Ascending)
+            {
+                newDir = ListSortDirection.Descending;
+            }
+            else if (direction == ListSortDirection.Descending)
+            {
+                newDir = ListSortDirection.Ascending;
+            }
+            GridViewColumnHeader column = (sender as GridViewColumnHeader);
+            string sortBy = column.Tag.ToString();
+            TradesTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+            direction = newDir;
         }
     }
 }

@@ -52,56 +52,80 @@
                             <Setter Property="Height" Value="20"/>
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn Header="Бумага">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Company" Click="ColumnHeader_Click">Бумага</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding Company}" Width="60" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Операция">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Operation" Click="ColumnHeader_Click">Операция</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding Operation}" Width="80" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Стоп-цена">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="StopPrice" Click="ColumnHeader_Click">Стоп-цена</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding StopPrice}" Width="75" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Стоп-лимит цена">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="StopPrice" Click="ColumnHeader_Click">Стоп-лимит цена</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding StopLimPrice}" Width="115" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Кол-во">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Quantity" Click="ColumnHeader_Click">Кол-во</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding Quantity}" Width="50" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Акт.кол-во">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="ActQuantity" Click="ColumnHeader_Click">Акт.кол-во</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding ActQuantity}" Width="80" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Исп.кол-во">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="ExecQuantity" Click="ColumnHeader_Click">Исп.кол-во</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding ExecQuantity}" Width="55" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Состояние">
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="State" Click="ColumnHeader_Click">Состояние</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding State}" Width="70" TextAlignment="Center"/>
@@ -113,4 +137,3 @@
         </ListView>
     </Grid>
 </Window>
-

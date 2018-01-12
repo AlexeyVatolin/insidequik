@@ -97,7 +97,7 @@ namespace MarketServerTest
             if (SecuritiesListView.SelectedItem != null)
             {
                 SecuritiesRow selectedSecurity = (SecuritiesRow) SecuritiesListView.SelectedItems[0];
-                StopOrderBid stopOrderBid = new StopOrderBid(selectedSecurity.SecCode);
+                SendStopOrder stopOrderBid = new SendStopOrder(selectedSecurity.SecCode);
                 stopOrderBid.Show();
             }
         }

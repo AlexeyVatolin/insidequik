@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -148,8 +148,8 @@
     <Compile Include="Securities.xaml.cs">
       <DependentUpon>Securities.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StopOrderBid.xaml.cs">
-      <DependentUpon>StopOrderBid.xaml</DependentUpon>
+    <Compile Include="SendStopOrder.xaml.cs">
+      <DependentUpon>SendStopOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="StopOrders.xaml.cs">
       <DependentUpon>StopOrders.xaml</DependentUpon>
@@ -184,7 +184,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StopOrderBid.xaml">
+    <Page Include="SendStopOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,7 +257,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-<BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
       <Install>true</Install>

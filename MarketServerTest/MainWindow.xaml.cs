@@ -147,7 +147,7 @@ namespace MarketServerTest
         }
         private void SetNewStopOrder_OnClick(object sender, RoutedEventArgs e)
         {
-            new StopOrderBid().Show();
+            new SendStopOrder().Show();
             telemetryClient.TrackPageView("Новая стоп-заявка");
         }
 

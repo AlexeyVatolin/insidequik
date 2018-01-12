@@ -5,16 +5,16 @@ using System.Windows.Input;
 namespace MarketServerTest
 {
     /// <summary>
-    /// Логика взаимодействия для StopOrderBid.xaml
+    /// Логика взаимодействия для SendStopOrder.xaml
     /// </summary>
-    public partial class StopOrderBid : Window
+    public partial class SendStopOrder : Window
     {
-        public StopOrderBid()
+        public SendStopOrder()
         {
             InitializeComponent();
         }
 
-        public StopOrderBid(string ticker)
+        public SendStopOrder(string ticker)
         {
             InitializeComponent();
             TickerBox.Text = ticker;

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Windows;
 using QuikSharp.DataStructures.Transaction;
+using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace MarketServerTest
 {
@@ -10,7 +11,7 @@ namespace MarketServerTest
     /// </summary>
     public partial class Orders : Window
     {
-        private object locker = new object();
+        ListSortDirection direction;
         private List<Order> list = new List<Order>();
         public Orders()
         {
@@ -47,6 +48,23 @@ namespace MarketServerTest
         {
             QuikConnector.CancelOrder(list[OrdersTable.SelectedIndex]);
         }
+        private void ColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            ListSortDirection newDir = ListSortDirection.Ascending;
+            OrdersTable.Items.SortDescriptions.Clear();
+            if (direction == ListSortDirection.Ascending)
+            {
+                newDir = ListSortDirection.Descending;
+            }
+            else if (direction == ListSortDirection.Descending)
+            {
+                newDir = ListSortDirection.Ascending;
+            }
+            GridViewColumnHeader column = (sender as GridViewColumnHeader);
+            string sortBy = column.Tag.ToString();
+            OrdersTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+            direction = newDir;
+        }
 
         public void InitializeOrdersTable()
         {
@@ -55,6 +73,8 @@ namespace MarketServerTest
             {
                 OrdersTable.Items.Add(new ColumnsForOrders(item));
             }
+            direction = ListSortDirection.Descending;
+            OrdersTable.Items.SortDescriptions.Add(new SortDescription("Time", direction));
         }
     }
 }

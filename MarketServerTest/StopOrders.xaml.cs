@@ -1,17 +1,8 @@
 ﻿using QuikSharp.DataStructures;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MarketServerTest
 {
@@ -21,6 +12,7 @@ namespace MarketServerTest
     public partial class StopOrders : Window
     {
         private List<StopOrder> stopOrdersList = new List<StopOrder>();
+        ListSortDirection direction;
         public StopOrders()
         {
             InitializeComponent();
@@ -30,7 +22,7 @@ namespace MarketServerTest
         public void InitializeStopOrdersTable()
         {
             stopOrdersList = QuikConnector.GetStopOrders();
-            foreach(var item in stopOrdersList)
+            foreach (var item in stopOrdersList)
             {
                 StopOrdersTable.Items.Add(new ColumnsForStopOrders(item));
             }
@@ -61,6 +53,23 @@ namespace MarketServerTest
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             QuikConnector.CancelStopOrder(stopOrdersList[StopOrdersTable.SelectedIndex]);
+        }
+        private void ColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            ListSortDirection newDir = ListSortDirection.Ascending;
+            StopOrdersTable.Items.SortDescriptions.Clear();
+            if (direction == ListSortDirection.Ascending)
+            {
+                newDir = ListSortDirection.Descending;
+            }
+            else if (direction == ListSortDirection.Descending)
+            {
+                newDir = ListSortDirection.Ascending;
+            }
+            GridViewColumnHeader column = (sender as GridViewColumnHeader);
+            string sortBy = column.Tag.ToString();
+            StopOrdersTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+            direction = newDir;
         }
     }
 }

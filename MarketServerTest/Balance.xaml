@@ -229,8 +229,11 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Label  FontSize="14" Content="0.00" Name="dProfit" HorizontalAlignment="Left" Margin="116,30.667,0,-35.667" Grid.Row="2" Height="29" VerticalAlignment="Top" RenderTransformOrigin="0.978,-3.172" Width="82"/>
             <Label FontSize="14" Content="Прибыль дня" HorizontalAlignment="Left" Height="29" Margin="10,30.667,0,-35.667" Grid.Row="2" VerticalAlignment="Top" Width="101"/>
+            <Label  FontSize="14" Content="0.00" Name="dProfit" HorizontalAlignment="Left" Margin="116,30.667,0,-35.667" Grid.Row="2" Height="29" VerticalAlignment="Top" RenderTransformOrigin="0.978,-3.172" Width="82"/>
+
+            <Label FontSize="14" Content="Лимит потерь" HorizontalAlignment="Left" Height="29" Margin="10,60,0,-59" Grid.Row="2" VerticalAlignment="Top" Width="101"/>
+            <Label  FontSize="14" Content="0.00" x:Name="userLimit" HorizontalAlignment="Left" Margin="116,60,0,-59" Grid.Row="2" Height="29" VerticalAlignment="Top" RenderTransformOrigin="0.978,-3.172" Width="82"/>
         </Grid>
 
     </ScrollViewer>

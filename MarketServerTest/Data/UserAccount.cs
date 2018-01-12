@@ -11,7 +11,6 @@ namespace MarketServerTest
         public long dayBalance { get; set; }//баланс на день (начальный баланс)
         public long currentBalance { get; set; } //текущий баланс
         public long userLimit { get; set; } //Лимит денег, которые можно потерять
-
         public bool limitLock { get; set; } //true, если достигнут предел убытков 
 
         public UserAccount()

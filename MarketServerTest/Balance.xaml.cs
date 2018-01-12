@@ -78,6 +78,7 @@ namespace MarketServerTest
                     }
                 }
                 dProfit.Content = BalanceWorker.GetDayProfit().ToString(); //Label dProfit
+                userLimit.Content = QuikConnector.userAccount.userLimit;
             });
         }
 

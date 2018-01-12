@@ -22,7 +22,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="21,128,0,0" TextWrapping="Wrap" Text="Лимит" VerticalAlignment="Top" FontSize="14" Grid.ColumnSpan="2"/>
         <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="26" Margin="138,18,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="73" FontSize="14" RenderTransformOrigin="0.505,-0.861" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,101,0,0" TextWrapping="Wrap" Text="Цена активации" VerticalAlignment="Top" FontSize="14" Grid.ColumnSpan="2" Width="124"/>
-        <TextBlock HorizontalAlignment="Left" Margin="21,24,0,0" TextWrapping="Wrap" Text="Бумага" VerticalAlignment="Top" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,24,0,0" TextWrapping="Wrap" Text="Инструмент" VerticalAlignment="Top" FontSize="14" Width="86"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,63,0,0" TextWrapping="Wrap" Text="Операция" VerticalAlignment="Top" FontSize="14"/>
         <StackPanel HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="73" Margin="138,53,0,0" Grid.Column="1">
             <RadioButton Name="Buy" Content="Покупка" IsChecked="True"/>

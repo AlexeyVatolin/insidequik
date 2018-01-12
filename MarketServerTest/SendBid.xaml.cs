@@ -43,12 +43,11 @@ namespace MarketServerTest
             decimal price = Decimal.Parse(PriceBox.Text.Replace('.',separator));
 
             if (Buy.IsChecked == true)
-                QuikConnector.SendBid(TickerBox.Text, price, 
+                QuikConnector.SendBid(ClassCodeBox.Text,TickerBox.Text, price, 
                     Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy, 
                     MarketPrice.IsChecked.Value);
             if (Sell.IsChecked == true)
-                QuikConnector.SendBid(TickerBox.Text, price, 
-                    Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell, 
+                QuikConnector.SendBid(ClassCodeBox.Text,TickerBox.Text,price, Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy,
                     MarketPrice.IsChecked.Value);
 
             //MessageBox.Show(QuikConnector.PriceMin(TickerBox.Text).ToString());

@@ -11,24 +11,24 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Новая заявка" Height="300" Width="250" MaxWidth="300" MaxHeight="300">
+        Title="Новая заявка" Height="350" Width="250" MaxWidth="300" MaxHeight="350">
     <Grid>
-        <Button Content="Выставить заявку" HorizontalAlignment="Left" Margin="42,209,0,0" VerticalAlignment="Top" Width="155" Click="Send_Click"/>
-
-
-        <TextBlock HorizontalAlignment="Left" Margin="21,24,0,0" TextWrapping="Wrap" Text="Бумага" VerticalAlignment="Top" FontSize="14" Height="23" Width="48"/>
-        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="29" Margin="138,18,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="73" FontSize="14"/>
-        <TextBlock HorizontalAlignment="Left" Margin="21,63,0,0" TextWrapping="Wrap" Text="Операция" VerticalAlignment="Top" FontSize="14"/>
-        <StackPanel HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="120" Margin="138,53,0,0" Grid.Column="1">
+        <TextBlock HorizontalAlignment="Left" Margin="21,24,0,0" TextWrapping="Wrap" Text="Класс" VerticalAlignment="Top" FontSize="14" Height="23" Width="83"/>
+        <TextBox x:Name="ClassCodeBox" HorizontalAlignment="Left" Height="29" Margin="138,18,0,0" TextWrapping="Wrap" Text="TQBR" VerticalAlignment="Top" Width="73" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,58,0,0" TextWrapping="Wrap" Text="Инструмент" VerticalAlignment="Top" FontSize="14" Height="23" Width="83"/>
+        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="29" Margin="138,52,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="73" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,97,0,0" TextWrapping="Wrap" Text="Операция" VerticalAlignment="Top" FontSize="14"/>
+        <StackPanel HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="73" Margin="138,90,0,0">
             <RadioButton x:Name="Buy" Content="Покупка" IsChecked="True"/>
             <RadioButton x:Name="Sell" Content="Продажа"/>
         </StackPanel>
-        <TextBlock HorizontalAlignment="Left" Margin="21,101,0,0" TextWrapping="Wrap" Text="Цена" VerticalAlignment="Top" FontSize="14" Width="47"/>
-        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="31" Margin="138,93,0,0" TextWrapping="Wrap" Text="226,12" VerticalAlignment="Top" Width="73" FontSize="14" 
+        <TextBlock HorizontalAlignment="Left" Margin="21,137,0,0" TextWrapping="Wrap" Text="Цена" VerticalAlignment="Top" FontSize="14" Width="47"/>
+        <TextBox x:Name="PriceBox" HorizontalAlignment="Left" Height="31" Margin="138,130,0,0" TextWrapping="Wrap" Text="226,12" VerticalAlignment="Top" Width="73" FontSize="14" 
                  PreviewTextInput="PriceBox_PreviewTextInput" PreviewKeyDown="QuantityBoxAndPriceBox_PreviewKeyDown"/>
-        <TextBlock HorizontalAlignment="Left" Margin="21,130,0,0" TextWrapping="Wrap" Text="Количество" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.512,1.131"/>
-        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="29" Margin="138,122,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="73" FontSize="14" 
+        <TextBlock HorizontalAlignment="Left" Margin="21,167,0,0" TextWrapping="Wrap" Text="Количество" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.512,1.131"/>
+        <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="29" Margin="138,161,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="73" FontSize="14" 
                  PreviewTextInput="QuantityBox_PreviewTextInput" PreviewKeyDown="QuantityBoxAndPriceBox_PreviewKeyDown"/>
-        <CheckBox x:Name="MarketPrice" Content="Рыночная цена" HorizontalAlignment="Left" Margin="19,158,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <CheckBox x:Name="MarketPrice" Content="Рыночная цена" HorizontalAlignment="Left" Margin="19,200,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Button Content="Выставить заявку" HorizontalAlignment="Left" Margin="45,261,0,0" VerticalAlignment="Top" Width="155" Click="Send_Click"/>
     </Grid>
 </Window>

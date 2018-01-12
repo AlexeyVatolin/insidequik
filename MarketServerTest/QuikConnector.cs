@@ -230,6 +230,44 @@ namespace MarketServerTest
             }
             catch { }
         }
+        public static void SendBid(string classCode, string ticker, decimal price, int qty, Operation operationType, bool marketPrice)
+        {
+            try
+            {
+                Tool tool = CreateTool(ticker, classCode);
+
+                if (marketPrice)
+                {
+                    switch (operationType)
+                    {
+                        case Operation.Buy:
+                            var bestPrice = BestPrice(ticker);//
+                            price = Math.Round(bestPrice + (decimal)0.001 * bestPrice, tool.PriceAccuracy); //если 0.001 окажется маловато для моментальной сделки, можно изменить
+                            MessageBox.Show(price.ToString());
+                            break;
+                        case Operation.Sell:
+                            var bestOffer = BestOffer(ticker); //Должно сработать
+                            price = Math.Round(bestOffer - (decimal)0.001 * bestOffer, tool.PriceAccuracy);
+                            break;
+                    }
+
+                }
+
+                if (operationType == Operation.Buy)
+                {
+                    if (price * qty < userAccount.currentBalance)
+                    {
+                        long transactionID = NewOrder(Quik, tool, operationType, price, qty);
+                    }
+                    else MessageBox.Show("Недостаточно средств для соверешения сделки: " + (price * qty - userAccount.currentBalance).ToString(), "Недостаточно средств!");
+                }
+                else if (operationType == Operation.Sell)
+                {
+                    long transactionID = NewOrder(Quik, tool, operationType, price, qty);
+                }
+            }
+            catch { }
+        }
 
         public static void SubscribeToOrdersRefresh(OrderHandler ordersRefresh)
         {
@@ -257,10 +295,14 @@ namespace MarketServerTest
             return new Tool(Quik, ticker, classCode);
 
         }
+        static Tool CreateTool(string ticker,string classCode)
+        {
+            return new Tool(Quik, ticker, classCode);
+        }
         static long NewOrder(Quik _quik, Tool _tool, Operation operation, decimal price, int qty)
         {
             long res = 0;
-
+            
             Order newOrder = new Order
             {
                 ClassCode = _tool.ClassCode,

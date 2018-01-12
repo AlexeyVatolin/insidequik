@@ -22,7 +22,7 @@ namespace MarketServerTest
 
         public static async Task<bool> Connect()
         {
-            
+
             Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
             var connectionCheckTask = Quik.Service.IsConnected();
             int timeout = 2000; //5 раз проверяем подключение и ждем ответа 200 мс. Если не подключилось, от возвращаем false
@@ -144,6 +144,7 @@ namespace MarketServerTest
             return bestOffer;
 
         }
+      
         public static FuturesClientHolding GetFuturesClientHolding(string firmid, string accid, string seccode)
         {
             return Quik.Trading.GetFuturesHolding(firmid, accid, seccode, 1).Result;
@@ -183,26 +184,37 @@ namespace MarketServerTest
         {
             return Quik.StopOrders.GetStopOrders().Result;
         }
+        /// <summary>
+        /// Отправление заявки
+        /// </summary>
+        /// <param name="ticker"></param>
+        /// <param name="price"></param>
+        /// <param name="qty"></param>
+        /// <param name="operationType"></param>
+        /// <param name="marketPrice"></param>
         public static void SendBid(string ticker, decimal price, int qty, Operation operationType, bool marketPrice)
         {
             try
             {
                 Tool tool = CreateTool(ticker);
+
                 if (marketPrice)
                 {
                     switch (operationType)
                     {
                         case Operation.Buy:
-                            var bestOffer = BestOffer(ticker);
-                            price = Math.Round(bestOffer, tool.PriceAccuracy);
+                            var bestPrice = BestPrice(ticker);//
+                            price = Math.Round(bestPrice + (decimal)0.001 * bestPrice, tool.PriceAccuracy); //если 0.001 окажется маловато для моментальной сделки, можно изменить
+                            MessageBox.Show(price.ToString());
                             break;
                         case Operation.Sell:
-                            var bestPrice = BestPrice(ticker); //Должно сработать
-                            price = Math.Round(bestPrice, tool.PriceAccuracy);
+                            var bestOffer = BestOffer(ticker); //Должно сработать
+                            price = Math.Round(bestOffer - (decimal)0.001 * bestOffer, tool.PriceAccuracy);
                             break;
                     }
 
                 }
+
                 if (operationType == Operation.Buy)
                 {
                     if (price * qty < userAccount.currentBalance)
@@ -236,7 +248,6 @@ namespace MarketServerTest
             string classCode = "";
             try
             {
-
                 classCode = GetSecurityClass(ticker);
             }
             catch

@@ -39,14 +39,19 @@ namespace MarketServerTest
         }
         private void Send_Click(object sender, RoutedEventArgs e)
         {
+            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            decimal price = Decimal.Parse(PriceBox.Text.Replace('.',separator));
+
             if (Buy.IsChecked == true)
-                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                QuikConnector.SendBid(TickerBox.Text, price, 
                     Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy, 
                     MarketPrice.IsChecked.Value);
             if (Sell.IsChecked == true)
-                QuikConnector.SendBid(TickerBox.Text, Decimal.Parse(PriceBox.Text), 
+                QuikConnector.SendBid(TickerBox.Text, price, 
                     Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell, 
                     MarketPrice.IsChecked.Value);
+
+            //MessageBox.Show(QuikConnector.PriceMin(TickerBox.Text).ToString());
         }
 
 

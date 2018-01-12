@@ -93,7 +93,11 @@ namespace MarketServerTest
 
         private void GetOrdersBook_OnClickr_Click(object sender, RoutedEventArgs e)
         {
-            new OrdersBook(Ticker.Text).Show();
+            try
+            {
+                new OrdersBook(Ticker.Text).Show();
+            }
+            catch (Exception) { }
         }
 
         private void GetStopOrders_Click(object sender, RoutedEventArgs e)

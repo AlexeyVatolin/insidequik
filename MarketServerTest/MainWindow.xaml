@@ -12,7 +12,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="471.549" Width="399.51"
+        Title="MainWindow" Height="536.549" Width="399.51"
         Closing="MainWindow_OnClosing">
     <Grid>
         <Button Name ="GetOrdersBook" Content="Стакан заявок" HorizontalAlignment="Left" Margin="123,65,0,0" VerticalAlignment="Top" Width="141" Click="GetOrdersBook_OnClickr_Click"/>
@@ -24,5 +24,6 @@
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="123,37,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141"/>
         <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="103,241,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_Click"/>
         <Button Name="GetBalance" Content="Состояние счета" HorizontalAlignment="Left" Margin="123,377,0,0" VerticalAlignment="Top" Width="141" Click="GetBalance_OnClick"/>
+        <Button x:Name="Calendar" Content="Calendar" HorizontalAlignment="Left" Margin="123,423,0,0" VerticalAlignment="Top" Width="141" Click="Calendar_OnClick"/>
     </Grid>
 </Window>

@@ -1,0 +1,32 @@
+﻿<Controls:MetroWindow x:Class="finam.ru_economic_calendar.DownloadFileCotirovki"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                      
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:finam.ru_economic_calendar"
+        mc:Ignorable="d"
+        Title="DownloadFileCotirovki" Height="140" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label>Введите название котировки</Label>
+            <TextBox Name="tb_NameCotirovka" Margin="10,0,0,0" Width="100" Height="25"></TextBox>
+            <ComboBox Name="cb_Time" Width="80" SelectedItem="1">
+                <ComboBoxItem Tag="0,01667">1сек</ComboBoxItem>
+                <ComboBoxItem Tag="0,08333">5сек</ComboBoxItem>
+                <ComboBoxItem Tag="0,25">15сек</ComboBoxItem>
+                <ComboBoxItem Tag="0,5">30сек</ComboBoxItem>
+                <ComboBoxItem Tag="1">1мин</ComboBoxItem>
+                <ComboBoxItem Tag="3">3мин</ComboBoxItem>
+                <ComboBoxItem Tag="5">5мин</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+            <Button Name="btn_Donwload" Height="28" Width="100" Click="Donwload_Click">Загрузить</Button>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

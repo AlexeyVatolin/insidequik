@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using QuikSharp.DataStructures;
 using System.Threading;
 using Timer = System.Threading.Timer;
 using QuikSharp.DataStructures.Transaction;
+using finam.ru_economic_calendar;
 
 namespace MarketServerTest
 {
@@ -140,6 +141,11 @@ namespace MarketServerTest
             Hide();
             //TODO: посмотреть возможности закрывать программу быстрее
             Environment.Exit(0);
+        }
+
+        private void Calendar_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start("finam.ru_economic_calendar.exe");
         }
     }
 }

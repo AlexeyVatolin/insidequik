@@ -14,9 +14,9 @@
         Title="Новая заявка" Height="350" Width="250" MaxWidth="300" MaxHeight="350">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="21,24,0,0" TextWrapping="Wrap" Text="Класс" VerticalAlignment="Top" FontSize="14" Height="23" Width="83"/>
-        <TextBox x:Name="ClassCodeBox" HorizontalAlignment="Left" Height="29" Margin="138,18,0,0" TextWrapping="Wrap" Text="TQBR" VerticalAlignment="Top" Width="73" FontSize="14"/>
+        <TextBox x:Name="ClassCodeBox" HorizontalAlignment="Left" Height="29" Margin="138,18,0,0" TextWrapping="Wrap" Text="TQBR" VerticalAlignment="Top" Width="73" FontSize="14" CharacterCasing="Upper"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,58,0,0" TextWrapping="Wrap" Text="Инструмент" VerticalAlignment="Top" FontSize="14" Height="23" Width="83"/>
-        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="29" Margin="138,52,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="73" FontSize="14"/>
+        <TextBox x:Name="TickerBox" HorizontalAlignment="Left" Height="29" Margin="138,52,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="73" FontSize="14" CharacterCasing="Upper"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,97,0,0" TextWrapping="Wrap" Text="Операция" VerticalAlignment="Top" FontSize="14"/>
         <StackPanel HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="73" Margin="138,90,0,0">
             <RadioButton x:Name="Buy" Content="Покупка" IsChecked="True"/>

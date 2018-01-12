@@ -14,10 +14,10 @@
         mc:Ignorable="d"
         Height="556.132" Width="241.482"
         Closed="OrdersBook_OnClosed">
-    
+
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
-            <ListView Name="OrderBookListView">
+            <ListView Name="OrderBookListView" >
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Новая заявка" Click="MenuItem_OnClick"/>
@@ -25,7 +25,31 @@
                 </ListView.ContextMenu>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Name="Border" Margin="3,0,3,0"
+                                            SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
+                                        <GridViewRowPresenter VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <!--<Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border x:Name="brd" Background="{TemplateBinding Background}" 
+                                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+
+                                        <ContentPresenter VerticalAlignment="Center" 
+                                                          Content="{TemplateBinding ContentControl.Content}"
+                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>-->
+                        <Setter Property="Height" Value="20"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Type}" Value="offer">
                                 <Setter Property="Foreground" Value="Red" />
@@ -38,8 +62,8 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
-                        <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding Quantity}"/>
+                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}" CellTemplate="{Binding StronglyRecommended}"/>
+                        <GridViewColumn Header="Кол-во" DisplayMemberBinding="{Binding Quantity}" CellTemplate="{Binding StronglyRecommended}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

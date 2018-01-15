@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using MarketServerTest.DataRows;
@@ -25,8 +26,9 @@ namespace MarketServerTest
 
             Quik = new Quik(Quik.DefaultPort, new InMemoryStorage());
             var connectionCheckTask = Quik.Service.IsConnected();
-            int timeout = 2000; //5 раз проверяем подключение и ждем ответа 200 мс. Если не подключилось, от возвращаем false
+            int timeout = 2000; //2 раз проверяем подключение и ждем ответа 2 с. Если не подключилось, от возвращаем false
 
+            Thread.Sleep(100); //Ожидаем полной инициализации Quik.
             for (int i = 0; i < 2; i++)
             {
                 if (await Task.WhenAny(connectionCheckTask, Task.Delay(timeout)) == connectionCheckTask)

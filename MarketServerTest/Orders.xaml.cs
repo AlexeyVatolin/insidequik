@@ -31,25 +31,36 @@ namespace MarketServerTest
 
         public void OrdersRefresh(Order order)
         {
-            for (int i = 0; i < list.Count; i++)
+            if (list.Count != 0)
             {
-                if (list[i].OrderNum == order.OrderNum)
+                for (int i = 0; i < list.Count; i++)
                 {
-                    list[i] = order;
-                    OrdersTable.Dispatcher.Invoke(() =>
+                    if (list[i].OrderNum == order.OrderNum)
                     {
-                        OrdersTable.Items[i] = new ColumnsForOrders(order);
-                    });
-                    break;
+                        list[i] = order;
+                        OrdersTable.Dispatcher.Invoke(() =>
+                        {
+                            OrdersTable.Items[i] = new ColumnsForOrders(order);
+                        });
+                        break;
+                    }
+                    else if (i == list.Count - 1)
+                    {
+                        list.Add(order);
+                        OrdersTable.Dispatcher.Invoke(() =>
+                        {
+                            OrdersTable.Items.Add(new ColumnsForOrders(order));
+                        });
+                    }
                 }
-                else if (i == list.Count - 1)
+            }
+            else
+            {
+                list.Add(order);
+                OrdersTable.Dispatcher.Invoke(() =>
                 {
-                    list.Add(order);
-                    OrdersTable.Dispatcher.Invoke(() =>
-                    {
-                        OrdersTable.Items.Add(new ColumnsForOrders(order));
-                    });
-                }
+                    OrdersTable.Items.Add(new ColumnsForOrders(order));
+                });
             }
         }
 

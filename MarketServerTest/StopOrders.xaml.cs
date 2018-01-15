@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using MahApps.Metro.Controls;
 using System.Windows.Controls;
 
 namespace MarketServerTest
@@ -9,7 +10,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для StopOrders.xaml
     /// </summary>
-    public partial class StopOrders : Window
+    public partial class StopOrders : MetroWindow
     {
         private List<StopOrder> stopOrdersList = new List<StopOrder>();
         ListSortDirection direction;

@@ -32,5 +32,7 @@ namespace MarketServerTest
             Value = item.Value.ToString();
             State = item.State.ToString();
         }
+        public ColumnsForOrders()
+        { }
     }
 }

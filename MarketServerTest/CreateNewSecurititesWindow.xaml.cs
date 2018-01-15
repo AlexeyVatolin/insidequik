@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MahApps.Metro.Controls;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -20,7 +21,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для CreateNewSecurititesWindow.xaml
     /// </summary>
-    public partial class CreateNewSecurititesWindow : Window
+    public partial class CreateNewSecurititesWindow : MetroWindow
     {
         private ObservableCollection<ClassesAndSecuritiesNode> сlassesAndSecuritites { get; set; }
         bool isUserInteraction;

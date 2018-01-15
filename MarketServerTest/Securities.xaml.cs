@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using MahApps.Metro.Controls;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -22,7 +23,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для Securities.xaml
     /// </summary>
-    public partial class Securities : Window
+    public partial class Securities : MetroWindow
     {
         public ObservableCollection<SecuritiesRow> SecurityInfos { get; set; }
         private Timer timer;

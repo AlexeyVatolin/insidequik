@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,7 +18,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для Login.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Login : MetroWindow
     {
         public Login()
         {

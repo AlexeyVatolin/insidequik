@@ -2,6 +2,7 @@
 using QuikSharp.DataStructures;
 using System;
 using System.Collections.Generic;
+using MahApps.Metro.Controls;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для Balance.xaml
     /// </summary>
-    public partial class Balance : Window
+    public partial class Balance : MetroWindow
     {
         private List<DepoLimitEx> depoLimit = new List<DepoLimitEx>();
         private List<MoneyLimitEx> moneyLimit = new List<MoneyLimitEx>();  

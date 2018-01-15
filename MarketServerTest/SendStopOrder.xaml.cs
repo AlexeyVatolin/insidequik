@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using MahApps.Metro.Controls;
+
 
 namespace MarketServerTest
 {
     /// <summary>
     /// Логика взаимодействия для SendStopOrder.xaml
     /// </summary>
-    public partial class SendStopOrder : Window
+    public partial class SendStopOrder : MetroWindow
     {
         public SendStopOrder()
         {

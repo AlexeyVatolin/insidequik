@@ -2,6 +2,7 @@
 using System.Windows;
 using QuikSharp.DataStructures.Transaction;
 using System.ComponentModel;
+using MahApps.Metro.Controls;
 using System.Windows.Controls;
 
 namespace MarketServerTest
@@ -9,7 +10,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для Trades.xaml
     /// </summary>
-    public partial class Trades : Window
+    public partial class Trades : MetroWindow
     {
         ListSortDirection direction;
         private List<Trade> listTrades = new List<Trade>();

@@ -2,6 +2,7 @@
 using System.Windows;
 using QuikSharp.DataStructures.Transaction;
 using System.ComponentModel;
+using MahApps.Metro.Controls;
 using System.Windows.Controls;
 
 namespace MarketServerTest
@@ -9,13 +10,21 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для BidsAndDeals.xaml
     /// </summary>
-    public partial class Orders : Window
+    public partial class Orders : MetroWindow
     {
         ListSortDirection direction;
         private List<Order> list = new List<Order>();
         public Orders()
         {
             InitializeComponent();
+            //на будущее для отладки
+            /*OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Buy", Balance ="fjksbfshbd", State = "Canceled", ClassCode ="fdjsnfkjsnfjk", Company="fdjnsjkf", Price="fdsfjkndsjk", Quantity="fsfdsfs", Time="fbdshfbsd", Value="gnfkgjfdg" });
+            OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Buy", Balance ="fjksbfshbd", State = "Completed", ClassCode ="fdjsnfkjsnfjk", Company="fdjnsjkf", Price="fdsfjkndsjk", Quantity="fsfdsfs", Time="fbdshfbsd", Value="gnfkgjfdg" });
+            OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Buy", Balance = "fjksbfshbd", State = "Active", ClassCode = "fdjsnfkjsnfjk", Company = "fdjnsjkf", Price = "fdsfjkndsjk", Quantity = "fsfdsfs", Time = "fbdshfbsd", Value = "gnfkgjfdg" });
+            OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Sell", Balance = "fjksbfshbd", State = "Canceled", ClassCode = "fdjsnfkjsnfjk", Company = "fdjnsjkf", Price = "fdsfjkndsjk", Quantity = "fsfdsfs", Time = "fbdshfbsd", Value = "gnfkgjfdg" });
+            OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Sell", Balance = "fjksbfshbd", State = "Completed", ClassCode = "fdjsnfkjsnfjk", Company = "fdjnsjkf", Price = "fdsfjkndsjk", Quantity = "fsfdsfs", Time = "fbdshfbsd", Value = "gnfkgjfdg" });
+            OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Sell", Balance = "fjksbfshbd", State = "Active", ClassCode = "fdjsnfkjsnfjk", Company = "fdjnsjkf", Price = "fdsfjkndsjk", Quantity = "fsfdsfs", Time = "fbdshfbsd", Value = "gnfkgjfdg" });
+            */
             InitializeOrdersTable();
             QuikConnector.SubscribeToOrdersRefresh(OrdersRefresh);
         }

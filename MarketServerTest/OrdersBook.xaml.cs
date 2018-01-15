@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using MarketServerTest.Data;
+using MahApps.Metro.Controls;
 using QuikSharp.DataStructures;
 
 namespace MarketServerTest
@@ -10,7 +11,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для OrdersBook.xaml
     /// </summary>
-    public partial class OrdersBook : Window
+    public partial class OrdersBook : MetroWindow
     {
         private string ticker;
         private ObservableCollection<OrderBookRow> OrderBookRows { get; set; }

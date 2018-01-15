@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using MahApps.Metro.Controls;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +19,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для SendBid.xaml
     /// </summary>
-    public partial class SendBid : Window
+    public partial class SendBid : MetroWindow
     {
         public SendBid()
         {

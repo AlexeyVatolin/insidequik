@@ -7,7 +7,7 @@ using QuikSharp.DataStructures;
 using System.Threading;
 using Timer = System.Threading.Timer;
 using QuikSharp.DataStructures.Transaction;
-
+using MahApps.Metro.Controls;
 using Microsoft.ApplicationInsights;
 using finam.ru_economic_calendar;
 
@@ -17,7 +17,7 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private Trades trades;
         private Orders orders;

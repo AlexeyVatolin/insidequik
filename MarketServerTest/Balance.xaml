@@ -13,7 +13,7 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Состояние счета" Height="350.866" Width="1021.483"
+        Title="Состояние счета" Height="350.866" Width="1079.521"
         Closing="Balance_OnClosing">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
@@ -31,17 +31,6 @@
             <ListView Grid.Row="0" Name="BalanceTableMoney" >
                 <ListView.View>
                     <GridView>
-                        <GridView.ColumnHeaderContainerStyle>
-                            <Style TargetType="GridViewColumnHeader">
-                                <Setter Property="FrameworkElement.Visibility" Value="visible"/>
-                                <Setter Property="FontSize" Value="14"/>
-
-                                <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
-                                <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignPaper}"/>
-                            </Style>
-
-                        </GridView.ColumnHeaderContainerStyle>
                         <GridViewColumn Header="Бумага">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

@@ -13,7 +13,7 @@
         Background="{StaticResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Height="556.132" Width="241.482"
+        Height="556.132" Width="148.482"
         Closed="OrdersBook_OnClosed">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">

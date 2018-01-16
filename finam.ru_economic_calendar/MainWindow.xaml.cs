@@ -7,6 +7,8 @@ using System.Linq;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace finam.ru_economic_calendar
 {
@@ -192,6 +194,33 @@ namespace finam.ru_economic_calendar
                 myTel.userID = UserIdTelegram;
                 myTel.SendMessage("Вы успешно подписались на нашего бота!!!");
             }    
+        }
+
+        private void DataGridRowPreviewMouseDownHandler(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                var row = GetVisualParentByType((FrameworkElement)e.OriginalSource, typeof(DataGridRow)) as DataGridRow;
+                if (row != null)
+                {
+                    row.IsSelected = !row.IsSelected;
+                    e.Handled = true;
+                }
+            }
+        }
+
+        public static DependencyObject GetVisualParentByType(DependencyObject startObject, Type type)
+        {
+            DependencyObject parent = startObject;
+            while (parent != null)
+            {
+                if (type.IsInstanceOfType(parent))
+                    break;
+                else
+                    parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return parent;
         }
     }
     

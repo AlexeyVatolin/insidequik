@@ -16,16 +16,16 @@
         <Controls:WindowCommands>
             <!--<Button Content="settings" />-->
             <Button Click="Button_Click">
-            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <Label Name="lb_Telegram"></Label>
-                <Rectangle Width="30"
+                    <Rectangle Width="30"
                    Height="20"
                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_email_minimal}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </StackPanel>
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_email_minimal}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
             </Button>
             <Button>
                 <StackPanel Orientation="Horizontal">
@@ -52,11 +52,17 @@
     </Controls:MetroWindow.RightWindowCommands>
     <Grid>
         <DataGrid x:Name="postsGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" ItemsSource="{Binding Posts}">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <EventSetter Event="PreviewMouseDown" Handler="DataGridRowPreviewMouseDownHandler"></EventSetter>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <!--<DataGridCheckBoxColumn  Width="40">-->
-                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}" Width="40"
-                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}">
-                        <DataGridCheckBoxColumn.CellStyle>
+                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}" Width="40"
+                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"                  
+                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}">
+                    <DataGridCheckBoxColumn.CellStyle>
                         <Style>
                             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
                             <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
@@ -85,7 +91,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>-->
                 </DataGridTextColumn>
-               
+
                 <DataGridTextColumn Header="NAME" Binding="{Binding Path=Name}" Width="350" IsReadOnly="True"/>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>

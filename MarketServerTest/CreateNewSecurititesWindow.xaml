@@ -19,10 +19,12 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <TreeView x:Name="SecurititesTree" ItemsSource="{Binding}" Grid.Row="0" 
+            <TextBox x:Name="TableName" Text="Table1"></TextBox>
+            <TreeView x:Name="SecurititesTree" ItemsSource="{Binding}" Grid.Row="1" 
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling">
                 <TreeView.Resources>
@@ -39,7 +41,7 @@
                     </DataTemplate>
                 </TreeView.Resources>
             </TreeView>
-            <Button Name="Create" Content="Создать таблицу" VerticalAlignment="Bottom" Grid.Row="1"
+            <Button Name="Create" Content="Создать таблицу" VerticalAlignment="Bottom" Grid.Row="2"
                 HorizontalAlignment="Center" Width="156" Margin="20" Click="Create_OnClick"></Button>
         </Grid>
         <Grid>

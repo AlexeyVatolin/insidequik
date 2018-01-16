@@ -148,6 +148,8 @@
     <Compile Include="Securities.xaml.cs">
       <DependentUpon>Securities.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SecurityTables\SecuritiesTable.cs" />
+    <Compile Include="SecurityTables\SecurityTablesRepository.cs" />
     <Compile Include="SendStopOrder.xaml.cs">
       <DependentUpon>SendStopOrder.xaml</DependentUpon>
     </Compile>

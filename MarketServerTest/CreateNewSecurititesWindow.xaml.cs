@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MarketServerTest.SecurityTables;
 using MaterialDesignThemes.Wpf;
 using QuikSharp.DataStructures;
 
@@ -118,6 +119,7 @@ namespace MarketServerTest
         {
             List<SecurityInfo> securities = сlassesAndSecuritites.SelectMany(item => item.SecurityInfos)
                 .Where(i => i.IsChecked).Select(info => info.SecurityInfo).ToList();
+            SecurityTablesRepository.Add(new SecuritiesTable(TableName.Text, securities));
             var securitiesWindow = new Securities(securities);
             Hide();
             securitiesWindow.Show();

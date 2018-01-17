@@ -9,12 +9,9 @@
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:dataStructures="clr-namespace:QuikSharp.DataStructures;assembly=QUIKSharp"
         mc:Ignorable="d"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{StaticResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="CreateNewSecurititesWindow" Height="401.928" Width="357.831">
     <Grid>
         <Grid>

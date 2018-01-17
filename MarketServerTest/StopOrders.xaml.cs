@@ -30,25 +30,36 @@ namespace MarketServerTest
         }
         public void StopOrdersRefresh(StopOrder stopOrder)
         {
-            for (int i = 0; i < stopOrdersList.Count; i++)
+            if (stopOrdersList.Count != 0)
             {
-                if (stopOrdersList[i].OrderNum == stopOrder.OrderNum)
+                for (int i = 0; i < stopOrdersList.Count; i++)
                 {
-                    stopOrdersList[i] = stopOrder;
-                    StopOrdersTable.Dispatcher.Invoke(() =>
+                    if (stopOrdersList[i].OrderNum == stopOrder.OrderNum)
                     {
-                        StopOrdersTable.Items[i] = new ColumnsForStopOrders(stopOrder);
-                    });
-                    break;
+                        stopOrdersList[i] = stopOrder;
+                        StopOrdersTable.Dispatcher.Invoke(() =>
+                        {
+                            StopOrdersTable.Items[i] = new ColumnsForStopOrders(stopOrder);
+                        });
+                        break;
+                    }
+                    else if (i == stopOrdersList.Count - 1)
+                    {
+                        stopOrdersList.Add(stopOrder);
+                        StopOrdersTable.Dispatcher.Invoke(() =>
+                        {
+                            StopOrdersTable.Items.Add(new ColumnsForStopOrders(stopOrder));
+                        });
+                    }
                 }
-                else if (i == stopOrdersList.Count - 1)
+            }
+            else
+            {
+                stopOrdersList.Add(stopOrder);
+                StopOrdersTable.Dispatcher.Invoke(() =>
                 {
-                    stopOrdersList.Add(stopOrder);
-                    StopOrdersTable.Dispatcher.Invoke(() =>
-                    {
-                        StopOrdersTable.Items.Add(new ColumnsForStopOrders(stopOrder));
-                    });
-                }
+                    StopOrdersTable.Items.Add(new ColumnsForStopOrders(stopOrder));
+                });
             }
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)

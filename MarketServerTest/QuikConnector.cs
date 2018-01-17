@@ -55,6 +55,7 @@ namespace MarketServerTest
 
         public static void Disconnect()
         {
+            isConnected = false;
             Quik.StopService();
         }
 

@@ -10,7 +10,7 @@ using QuikSharp.DataStructures.Transaction;
 using MahApps.Metro.Controls;
 using Microsoft.ApplicationInsights;
 using finam.ru_economic_calendar;
-
+using System.Web.UI.WebControls;
 
 namespace MarketServerTest
 {
@@ -29,7 +29,7 @@ namespace MarketServerTest
         public MainWindow()
         {
             InitializeComponent();
-            timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
+            //timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
         }
         private void Callback(Object state)
         {
@@ -42,7 +42,6 @@ namespace MarketServerTest
                 List<Order> orders = QuikConnector.GetOrders();
                 List<StopOrder> stopOrders = QuikConnector.GetStopOrders();
                 List<DepoLimitEx> depoLimit = QuikConnector.GetDepoLimits();
-
                 foreach (var order in orders)
                 {
                     if (order.State.ToString() == "Active")
@@ -169,6 +168,13 @@ namespace MarketServerTest
         private void ConnectToServer_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+        private void Disconnect_Click(object sender, RoutedEventArgs e)
+        {
+            QuikConnector.Disconnect();
+            Hide();
+            new Login().ShowDialog();
+            Close();
         }
     }
 }

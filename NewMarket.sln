@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketServerTest", "MarketS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "finam.ru_economic_calendar", "finam.ru_economic_calendar\finam.ru_economic_calendar.csproj", "{95F5420F-DDCD-46F7-8AE5-D2EDF53C6EDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{7778D684-F01A-4668-AE25-3ABB200CE086}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{95F5420F-DDCD-46F7-8AE5-D2EDF53C6EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95F5420F-DDCD-46F7-8AE5-D2EDF53C6EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95F5420F-DDCD-46F7-8AE5-D2EDF53C6EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7778D684-F01A-4668-AE25-3ABB200CE086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7778D684-F01A-4668-AE25-3ABB200CE086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7778D684-F01A-4668-AE25-3ABB200CE086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7778D684-F01A-4668-AE25-3ABB200CE086}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

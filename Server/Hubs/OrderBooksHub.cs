@@ -4,27 +4,29 @@ using System.Linq;
 using Microsoft.AspNet.SignalR;
 using QuikSharp.DataStructures;
 using Server.Data;
+using Server.Quik;
 
 namespace Server.Hubs
 {
     class OrderBooksHub : Hub
     {
         //Потокобезопасный словарь
-        private ConcurrentDictionary<string, HashSet<string>> Dictionary =
+        private ConcurrentDictionary<string, HashSet<string>> usersAndTickers =
             new ConcurrentDictionary<string, HashSet<string>>();
 
         public void Subscride(string ticker)
         {
-            if (Dictionary.ContainsKey(ticker))
+            if (usersAndTickers.ContainsKey(ticker))
             {
-                if (!Dictionary[ticker].Contains(Context.ConnectionId))
+                if (!usersAndTickers[ticker].Contains(Context.ConnectionId))
                 {
-                    Dictionary[ticker].Add(Context.ConnectionId);
+                    usersAndTickers[ticker].Add(Context.ConnectionId);
                 }
             }
             else
             {
-                Dictionary.TryAdd(ticker, new HashSet<string>() {Context.ConnectionId});
+                usersAndTickers.TryAdd(ticker, new HashSet<string> {Context.ConnectionId});
+                QuikData.SubscribeToOrderBook(ticker, OnQuoteDo);
             }
         }
 
@@ -41,7 +43,7 @@ namespace Server.Hubs
                 orderBookList.Add(new OrderBookRow(bid, "bid"));
             }
 
-            foreach (var connectionId in Dictionary[quote.class_code])
+            foreach (var connectionId in usersAndTickers[quote.class_code])
             {
                 Clients.Client(connectionId).OnQuote(orderBookList);
             }
@@ -49,7 +51,13 @@ namespace Server.Hubs
 
         public void UnSubscride(string ticker)
         {
-            Dictionary[ticker].RemoveWhere(item => item == Context.ConnectionId);
+            usersAndTickers[ticker].RemoveWhere(item => item == Context.ConnectionId);
+            if (usersAndTickers[ticker].Count == 0)
+            {
+                QuikData.UnsubsckibeFromOrderBook(ticker);
+                var outHashSet = new HashSet<string>();
+                usersAndTickers.TryRemove(ticker, out outHashSet);
+            }
         }
     }
 }

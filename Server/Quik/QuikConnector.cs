@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using QuikSharp;
 
-namespace Server
+namespace Server.Quik
 {
     static class QuikConnector
     {

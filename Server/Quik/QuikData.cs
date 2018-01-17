@@ -26,7 +26,19 @@ namespace Server.Quik
             {
                 throw new Exception();
             }
+        }
 
+        public static void UnsubsckibeFromOrderBook(string ticker)
+        {
+            var tool = CreateTool(ticker);
+            if (!string.IsNullOrEmpty(tool.Name))
+            {
+                QuikConnector.Quik.OrderBook.Unsubscribe(tool.ClassCode, tool.SecurityCode).Wait();
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public static Tool CreateTool(string ticker, string classCode)

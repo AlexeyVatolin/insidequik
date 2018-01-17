@@ -165,5 +165,10 @@ namespace MarketServerTest
         {
             Process.Start("finam.ru_economic_calendar.exe");
         }
+
+        private void ConnectToServer_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

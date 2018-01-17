@@ -110,13 +110,13 @@ namespace MarketServerTest
         }
         public static decimal GetCrossRate(string secCode)
         {
-            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            Char separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
             string classCode = GetSecurityClass(secCode);
             return Convert.ToDecimal(Quik.Trading.GetParamEx(classCode, secCode, "CROSSRATE").Result.ParamValue.Replace('.', separator));
         }
         public static decimal LastPrice(string secCode)
         {
-            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            Char separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
             string classCode = GetSecurityClass(secCode);
             return Convert.ToDecimal(Quik.Trading.GetParamEx(classCode, secCode, "LAST").Result.ParamValue.Replace('.', separator));
         }
@@ -126,7 +126,7 @@ namespace MarketServerTest
         /// <returns></returns>
         public static decimal BestPrice(string secCode)
         {
-            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            Char separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
             string classCode = GetSecurityClass(secCode);
             decimal bestPrice = Convert.ToDecimal(Quik.Trading.GetParamEx(classCode, secCode, "BID").Result.ParamValue.Replace('.', separator));
             if (bestPrice.Equals(0))
@@ -140,7 +140,7 @@ namespace MarketServerTest
         /// <returns></returns>
         public static decimal BestOffer(string secCode)
         {
-            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            Char separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
             string classCode = GetSecurityClass(secCode);
             decimal bestOffer = Convert.ToDecimal(Quik.Trading.GetParamEx(classCode, secCode, "OFFER").Result.ParamValue.Replace('.', separator));
             return bestOffer;
@@ -297,7 +297,7 @@ namespace MarketServerTest
             return new Tool(Quik, ticker, classCode);
 
         }
-        static Tool CreateTool(string ticker,string classCode)
+        static Tool CreateTool(string ticker, string classCode)
         {
             return new Tool(Quik, ticker, classCode);
         }

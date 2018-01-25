@@ -12,7 +12,7 @@
         Title="INSIDE QUIK" Height="153.549" Width="500.51" MaxWidth="500.51" MaxHeight="153.549"
         Closing="MainWindow_OnClosing">
     <Grid RenderTransformOrigin="0.263,0.507">
-        <Menu Name="Menu" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="542" FontSize="12">
+        <Menu Name="Menu" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="493" FontSize="12">
             <MenuItem Header="Disconnect"  Click="Disconnect_Click"/>
             <MenuItem Header="Connect to server"  Click="ConnectToServer_OnClick"/>
             <MenuItem Header="Создать окно" VerticalAlignment="Center" Foreground="White">
@@ -22,7 +22,7 @@
                 <MenuItem Header="Стоп-заявки" Click="GetStopOrders_OnClick"/>
                 <MenuItem Header="Состояние счета" Click="GetBalance_OnClick"/>
             </MenuItem>
-            <MenuItem Header="Действие" VerticalAlignment="Center" Foreground="White">
+            <MenuItem Header="Торговля" VerticalAlignment="Center" Foreground="White">
                 <MenuItem Header="Новая заявка" Click="SetNewOrder_OnClick"/>
                 <MenuItem Header="Новая стоп-заявка" Click="SetNewStopOrder_OnClick"/>
             </MenuItem>

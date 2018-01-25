@@ -4,6 +4,8 @@ using QuikSharp.DataStructures.Transaction;
 using System.ComponentModel;
 using MahApps.Metro.Controls;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System;
 
 namespace MarketServerTest
 {
@@ -14,6 +16,9 @@ namespace MarketServerTest
     {
         ListSortDirection direction;
         private List<Order> list = new List<Order>();
+        int index;
+        int count = 0;
+        object locker = new object();
         public Orders()
         {
             InitializeComponent();
@@ -31,8 +36,9 @@ namespace MarketServerTest
 
         public void OrdersRefresh(Order order)
         {
-            if (list.Count != 0)
+            lock (locker)
             {
+                count++;
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (list[i].OrderNum == order.OrderNum)
@@ -40,33 +46,35 @@ namespace MarketServerTest
                         list[i] = order;
                         OrdersTable.Dispatcher.Invoke(() =>
                         {
-                            OrdersTable.Items[i] = new ColumnsForOrders(order);
+                            OrdersTable.Items[index] = new ColumnsForOrders(order);
                         });
                         break;
                     }
-                    else if (i == list.Count - 1)
-                    {
-                        list.Add(order);
-                        OrdersTable.Dispatcher.Invoke(() =>
-                        {
-                            OrdersTable.Items.Add(new ColumnsForOrders(order));
-                        });
-                    }
+
                 }
-            }
-            else
-            {
-                list.Add(order);
-                OrdersTable.Dispatcher.Invoke(() =>
+                if (count % 2 == 0)
                 {
-                    OrdersTable.Items.Add(new ColumnsForOrders(order));
-                });
+                    list.Add(order);
+                    OrdersTable.Dispatcher.Invoke(() =>
+                    {
+                        OrdersTable.Items.Add(new ColumnsForOrders(order));
+                    });
+                }
             }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            QuikConnector.CancelOrder(list[OrdersTable.SelectedIndex]);
+            var selectedItem = OrdersTable.SelectedItem as ColumnsForOrders;
+            foreach (var item in list)
+            {
+                if (selectedItem.OrderNum == item.OrderNum)
+                {
+                    index = OrdersTable.SelectedIndex;
+                    QuikConnector.CancelOrder(item);
+                    break;
+                }
+            }
         }
         private void ColumnHeader_Click(object sender, RoutedEventArgs e)
         {

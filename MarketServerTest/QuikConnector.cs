@@ -18,6 +18,7 @@ namespace MarketServerTest
         private static Quik Quik;
         public static UserAccount userAccount;
         public static bool isConnected { get; private set; }
+        public static bool isCanceled;
 
         public delegate void OnQuoteDoDelegate(OrderBook quote);
 
@@ -178,6 +179,7 @@ namespace MarketServerTest
         public static void CancelOrder(Order order)
         {
             Quik.Orders.KillOrder(order);
+            isCanceled = true;
         }
         public static void CancelStopOrder(StopOrder stopOrder)
         {

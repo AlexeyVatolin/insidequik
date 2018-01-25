@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="Таблица сделок" Height="341.967" Width="642.037">
     <Grid>
-        <ListView Name="TradesTable" FontSize="11">
+        <ListView Name="TradesTable">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Height" Value="20"/>

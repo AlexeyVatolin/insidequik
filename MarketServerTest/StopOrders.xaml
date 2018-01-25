@@ -11,10 +11,10 @@
         mc:Ignorable="d"
         Title="Таблица СТОП-заявок" Height="312.211" Width="720.818">
     <Grid>
-        <ListView Name="StopOrdersTable" FontSize="11">
+        <ListView Name="StopOrdersTable">
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu" Name="Menu">
-                    <MenuItem Header="Отменить заявку" Click="Cancel_Click" FontSize="11"/>
+                    <MenuItem Header="Отменить заявку" Click="Cancel_Click"/>
                 </ContextMenu>
             </ListView.Resources>
             <ListView.ItemContainerStyle>
@@ -22,14 +22,38 @@
                     <Setter Property="Height" Value="20"/>
                     <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding State}" Value="Active">
-                            <Setter Property="Background" Value="Green"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding State}" Value="Completed">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Completed"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Sell"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Foreground" Value="Red"/>
+                            <Setter Property="Background" Value="#FF303030"/>
+                            <Setter Property="ContextMenu" Value="{x:Null}"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Completed"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Buy"/>
+                            </MultiDataTrigger.Conditions>
                             <Setter Property="Foreground" Value="LightGreen"/>
                             <Setter Property="Background" Value="#FF303030"/>
                             <Setter Property="ContextMenu" Value="{x:Null}"/>
-                        </DataTrigger>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Active"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Buy"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="Green"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=State}" Value="Active"/>
+                                <Condition Binding="{Binding Path=Operation}" Value="Sell"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="Red"/>
+                        </MultiDataTrigger>
                         <DataTrigger Binding="{Binding State}" Value="Canceled">
                             <Setter Property="Foreground" Value="Gray"/>
                             <Setter Property="Background" Value="#FF303030"/>

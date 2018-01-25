@@ -18,6 +18,7 @@ namespace MarketServerTest
         public string Balance { get; set; }
         public string Value { get; set; }
         public string State { get; set; }
+        public long OrderNum { get; set; }
 
         public ColumnsForOrders(Order item)
         { 
@@ -31,6 +32,7 @@ namespace MarketServerTest
             Balance = item.Balance.ToString();
             Value = item.Value.ToString();
             State = item.State.ToString();
+            OrderNum = item.OrderNum;
         }
         public ColumnsForOrders()
         { }

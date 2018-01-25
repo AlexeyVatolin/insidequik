@@ -11,10 +11,10 @@
         mc:Ignorable="d"
         Title="Таблица заявок" Height="350.866" Width="754.15">
     <Grid>
-        <ListView Name="OrdersTable" FontSize="11">
+        <ListView Name="OrdersTable">
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu" Name="Menu">
-                    <MenuItem Header="Отменить заявку" Click="Cancel_Click" FontSize="11"/>
+                    <MenuItem Header="Отменить заявку" Click="Cancel_Click"/>
                 </ContextMenu>
             </ListView.Resources>
             <ListView.ItemContainerStyle>

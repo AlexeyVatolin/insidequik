@@ -15,8 +15,30 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="INSIDE QUIK" Height="590.549" Width="399.51"
         Closing="MainWindow_OnClosing">
-    
+
     <Grid>
+        <Grid>
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="Файл">
+                        <!--<MenuItem Header="_New" />
+                        <MenuItem Header="_Open" />
+                        <MenuItem Header="_Save" />
+                        <Separator />-->
+                        <MenuItem Header="_Exit" Click="Exit_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="Таблицы торгов" Name="TradesTable">
+                        <MenuItem.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="MenuItem.Header" Value="{Binding Name}"/>
+                                <Setter Property="MenuItem.Command" Value="{Binding Command}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                </Menu>
+                <TextBox AcceptsReturn="True" />
+            </DockPanel>
+        </Grid>
         <Button Name ="GetOrdersBook" Content="Стакан заявок" HorizontalAlignment="Left" Margin="123,65,0,0" VerticalAlignment="Top" Width="141" Click="GetOrdersBook_OnClick"/>
         <Button Name="SetOrder" Content="Новая заявка" HorizontalAlignment="Left" Margin="123,108,0,0" VerticalAlignment="Top" Width="141" Click="SetNewOrder_OnClick" RenderTransformOrigin="-3.22,1.625"/>
         <Button Name="GetTrades" Content="Таблица сделок" HorizontalAlignment="Left" Margin="123,153,0,0" VerticalAlignment="Top" Width="141" Click="GetTrades_OnClick"/>
@@ -27,6 +49,5 @@
         <Button Name="GetStopOrders" Content="Таблица СТОП-заявок" HorizontalAlignment="Left" Margin="103,241,0,0" VerticalAlignment="Top" Width="183" Click="GetStopOrders_OnClick"/>
         <Button Name="GetBalance" Content="Состояние счета" HorizontalAlignment="Left" Margin="123,377,0,0" VerticalAlignment="Top" Width="141" Click="GetBalance_OnClick"/>
         <Button x:Name="Calendar" Content="Calendar" HorizontalAlignment="Left" Margin="123,423,0,0" VerticalAlignment="Top" Width="141" Click="Calendar_OnClick"/>
-        <Button x:Name="ConnectToServer" Content="Connect to server" HorizontalAlignment="Left" Margin="123,473,0,0" VerticalAlignment="Top" Width="141" Click="ConnectToServer_OnClick"/>
     </Grid>
 </Controls:MetroWindow>

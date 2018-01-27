@@ -133,9 +133,12 @@
     <Compile Include="Data\OrderBookRow.cs" />
     <Compile Include="Data\SecuritiesRow.cs" />
     <Compile Include="Data\DepoLimit.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Notifier.cs" />
+    <Compile Include="Models\SecuritiesModel.cs" />
     <Compile Include="MoneyLimit.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
@@ -162,6 +165,8 @@
     <Compile Include="QuikConnector.cs" />
     <Compile Include="Tool.cs" />
     <Compile Include="Data\UserAccount.cs" />
+    <Compile Include="ViewModels\SecuritiesViewModel.cs" />
+    <Compile Include="ViewModels\TradesTableViewModel.cs" />
     <Page Include="Balance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

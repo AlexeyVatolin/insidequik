@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using MarketServerTest.DataRows;
+using MarketServerTest.Models;
 using QuikSharp;
 using QuikSharp.DataStructures;
 using QuikSharp.DataStructures.Transaction;
@@ -427,16 +428,16 @@ namespace MarketServerTest
             return res;
         }
 
-        public static async void UpdateSecurityInfo(SecuritiesRow row)
+        public static async void UpdateSecurityInfo(SecuritiesModel security)
         {
-            var lastTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "LAST");
-            var changePercentTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "LASTCHANGE");
-            var flowTask = Quik.Trading.GetParamEx(row.ClassCode, row.SecCode, "VALTODAY");
+            var lastTask = Quik.Trading.GetParamEx(security.ClassCode, security.SecCode, "LAST");
+            var changePercentTask = Quik.Trading.GetParamEx(security.ClassCode, security.SecCode, "LASTCHANGE");
+            var flowTask = Quik.Trading.GetParamEx(security.ClassCode, security.SecCode, "VALTODAY");
             var results = await Task.WhenAll(lastTask, changePercentTask, flowTask);
-            row.LastPrice = double.Parse(results[0].ParamValue, CultureInfo.InvariantCulture);
-            row.ChangePercent = double.Parse(results[1].ParamValue, CultureInfo.InvariantCulture);
+            security.LastPrice = double.Parse(results[0].ParamValue, CultureInfo.InvariantCulture);
+            security.ChangePercent = double.Parse(results[1].ParamValue, CultureInfo.InvariantCulture);
             //ToString("N") приводит число к виду 123 456 789
-            row.Flow = double.Parse(results[2].ParamValue, CultureInfo.InvariantCulture).ToString("N0");
+            security.Flow = double.Parse(results[2].ParamValue, CultureInfo.InvariantCulture).ToString("N0");
         }
 
     }

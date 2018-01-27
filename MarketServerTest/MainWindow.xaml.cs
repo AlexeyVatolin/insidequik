@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
@@ -10,6 +11,8 @@ using QuikSharp.DataStructures.Transaction;
 using MahApps.Metro.Controls;
 using Microsoft.ApplicationInsights;
 using finam.ru_economic_calendar;
+using MarketServerTest.SecurityTables;
+using MarketServerTest.ViewModels;
 
 
 namespace MarketServerTest
@@ -25,11 +28,20 @@ namespace MarketServerTest
         private Timer timer;
 
         private TelemetryClient telemetryClient = new TelemetryClient();
+        private ObservableCollection<TradesTableViewModel> tradeTables;
 
         public MainWindow()
         {
             InitializeComponent();
             timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
+            tradeTables = new ObservableCollection<TradesTableViewModel>();
+
+            foreach (var tableInfo in SecurityTablesRepository.GetSecuritiesTablesInfos())
+            {
+                tableInfo.Command = TradeTableClick;
+                tradeTables.Add(tableInfo);
+            }
+            TradesTable.ItemsSource = tradeTables;
         }
         private void Callback(Object state)
         {
@@ -166,9 +178,20 @@ namespace MarketServerTest
             Process.Start("finam.ru_economic_calendar.exe");
         }
 
-        private void ConnectToServer_OnClick(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (QuikConnector.isConnected)
+            {
+                QuikConnector.Disconnect();
+            }
+            Hide();
+            Environment.Exit(0);
         }
+
+        private void TradeTableClick(string id)
+        {
+            new Securities(SecurityTablesRepository.GetSecuritiesById(id)).Show();
+        }
+
     }
 }

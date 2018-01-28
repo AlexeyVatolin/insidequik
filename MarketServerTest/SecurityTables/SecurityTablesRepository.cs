@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using MarketServerTest.ViewModels;
+using MarketServerTest.Models;
 using QuikSharp.DataStructures;
 
 namespace MarketServerTest.SecurityTables
@@ -24,19 +23,34 @@ namespace MarketServerTest.SecurityTables
             Save();
         }
 
-        public static List<TradesTableViewModel> GetSecuritiesTablesInfos()
+        public static List<TradeTableModel> GetSecuritiesTablesInfos()
         {
-            var result = new List<TradesTableViewModel>();
+            var result = new List<TradeTableModel>();
             foreach (var table in securitiesTables)
             {
-                result.Add(new TradesTableViewModel(table.Id, table.Name));
+                result.Add(new TradeTableModel
+                {
+                    Id = table.Id,
+                    Name = table.Name
+                });
             }
             return result;
+        }
+
+        public static bool IsAllowedName(string name)
+        {
+            return !securitiesTables.Exists(item => item.Name == name);
         }
 
         public static List<SecurityInfo> GetSecuritiesById(string id)
         {
             return securitiesTables.FirstOrDefault(item => item.Id == id)?.Securities;
+        }
+
+        public static void DeleteById(string id)
+        {
+            securitiesTables.Remove(securitiesTables.First(item => item.Id == id));
+            Save();
         }
 
         private static void Save()

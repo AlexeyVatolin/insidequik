@@ -6,19 +6,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketServerTest"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{StaticResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Height="556.132" Width="148.482"
         Closed="OrdersBook_OnClosed">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
-            <ListView Name="OrderBookListView" >
+            <ListView Name="OrderBookListView" FontSize="11">
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Новая заявка" Click="MenuItem_OnClick"/>

@@ -10,7 +10,7 @@ namespace MarketServerTest.ViewModels
 {
     public class SecuritiesViewModel
     {
-        public ObservableCollection<SecuritiesModel> Securities { get; set; }
+        public ObservableCollection<SecuritiesModel> Securities { get; set; } = new ObservableCollection<SecuritiesModel>();
         public SecuritiesModel SelectedItem { get; set; }
 
         public ICommand DisposeOnClosingCommand
@@ -53,7 +53,6 @@ namespace MarketServerTest.ViewModels
 
         public SecuritiesViewModel(List<SecurityInfo> securityInfos)
         {
-            Securities = new ObservableCollection<SecuritiesModel>();
             foreach (var securityInfo in securityInfos)
             {
                 Securities.Add(new SecuritiesModel

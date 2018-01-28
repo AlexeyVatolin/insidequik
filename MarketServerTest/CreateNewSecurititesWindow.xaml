@@ -9,12 +9,9 @@
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:dataStructures="clr-namespace:QuikSharp.DataStructures;assembly=QUIKSharp"
         mc:Ignorable="d"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{StaticResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="CreateNewSecurititesWindow" Height="401.928" Width="357.831">
     <Grid>
         <Grid>
@@ -23,7 +20,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBox x:Name="TableName" Text="Table1"></TextBox>
+            <TextBox x:Name="TableName" Text="Table1" Controls:TextBoxHelper.Watermark="Название таблицы"></TextBox>
             <TreeView x:Name="SecurititesTree" ItemsSource="{Binding}" Grid.Row="1" 
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling">

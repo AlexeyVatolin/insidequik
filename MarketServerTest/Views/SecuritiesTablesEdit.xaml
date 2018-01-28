@@ -1,0 +1,32 @@
+﻿<controls:MetroWindow x:Class="MarketServerTest.Views.SecuritiesTablesEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MarketServerTest.Views"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:viewModels="clr-namespace:MarketServerTest.ViewModels"
+        mc:Ignorable="d"
+        Title="SecuritiesTablesEdit" Height="300" Width="300">
+    <Window.DataContext>
+        <viewModels:SecuritiesTablesEditViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <ListView ItemsSource="{Binding TradeTables}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название таблицы" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate><!--CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"-->
+                                <Button Content="Delete" Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.Delete}" 
+                                        CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"></Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</controls:MetroWindow>
+

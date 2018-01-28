@@ -5,20 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:MarketServerTest"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{StaticResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="Таблица заявок" Height="350.866" Width="754.15">
     <Grid>
         <ListView Name="OrdersTable">
             <ListView.Resources>
                 <ContextMenu x:Key="ItemContextMenu" Name="Menu">
-                    <MenuItem Header="Отменить заявку" Click="Cancel_Click" FontSize="14" Height="18"/>
+                    <MenuItem Header="Отменить заявку" Click="Cancel_Click"/>
                 </ContextMenu>
             </ListView.Resources>
             <ListView.ItemContainerStyle>

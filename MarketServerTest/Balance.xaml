@@ -5,13 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketServerTest"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{StaticResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="Состояние счета" Height="350.866" Width="1079.521"
         Closing="Balance_OnClosing">
@@ -28,7 +24,7 @@
             <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
                 </Grid.ColumnDefinitions>-->
-            <ListView Grid.Row="0" Name="BalanceTableMoney" >
+            <ListView Grid.Row="0" Name="BalanceTableMoney">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Бумага">
@@ -62,7 +58,7 @@
                         <GridViewColumn Header="Цена">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding Price}" Width="50" TextAlignment="Center"/>
+                                    <TextBlock x:Name="Txt" Text="{Binding Price}" Width="60" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -118,17 +114,13 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Row="1" Name="BalanceTableSecurities" >
+            <ListView Grid.Row="1" Name="BalanceTableSecurities">
                 <ListView.View>
                     <GridView>
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="GridViewColumnHeader">
                                 <Setter Property="FrameworkElement.Visibility" Value="hidden"/>
-                                <Setter Property="FontSize" Value="14"/>
-
-                                <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
-                                <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignPaper}"/>
+                                <Setter Property="FontSize" Value="12"/>
                             </Style>
 
                         </GridView.ColumnHeaderContainerStyle>
@@ -163,7 +155,7 @@
                         <GridViewColumn Header="Цена">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding Price}" Width="50" TextAlignment="Center"/>
+                                    <TextBlock x:Name="Txt" Text="{Binding Price}" Width="60" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -219,11 +211,11 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Label FontSize="14" Content="Прибыль дня" HorizontalAlignment="Left" Height="29" Margin="10,30.667,0,-35.667" Grid.Row="2" VerticalAlignment="Top" Width="101"/>
+            <Label FontSize="12" Content="Прибыль дня" HorizontalAlignment="Left" Height="29" Margin="10,30.667,0,-35.667" Grid.Row="2" VerticalAlignment="Top" Width="101"/>
             <Label  FontSize="14" Content="0.00" Name="dProfit" HorizontalAlignment="Left" Margin="116,30.667,0,-35.667" Grid.Row="2" Height="29" VerticalAlignment="Top" RenderTransformOrigin="0.978,-3.172" Width="82"/>
 
-            <Label FontSize="14" Content="Лимит потерь" HorizontalAlignment="Left" Height="29" Margin="10,60,0,-59" Grid.Row="2" VerticalAlignment="Top" Width="101"/>
-            <Label  FontSize="14" Content="0.00" x:Name="userLimit" HorizontalAlignment="Left" Margin="116,60,0,-59" Grid.Row="2" Height="29" VerticalAlignment="Top" RenderTransformOrigin="0.978,-3.172" Width="82"/>
+            <Label FontSize="12" Content="Лимит потерь" HorizontalAlignment="Left" Height="29" Margin="10,60,0,-59" Grid.Row="2" VerticalAlignment="Top" Width="101"/>
+            <Label  FontSize="12" Content="0.00" x:Name="userLimit" HorizontalAlignment="Left" Margin="116,60,0,-59" Grid.Row="2" Height="29" VerticalAlignment="Top" RenderTransformOrigin="0.978,-3.172" Width="82"/>
         </Grid>
 
     </ScrollViewer>

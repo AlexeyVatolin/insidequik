@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="Helpers\Notifier.cs" />
     <Compile Include="Models\SecuritiesModel.cs" />
+    <Compile Include="Models\TradeTableModel.cs" />
     <Compile Include="MoneyLimit.cs" />
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
@@ -148,7 +149,8 @@
       <DependentUpon>OrdersBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Securities.xaml.cs">
+    <Compile Include="ViewModels\SecuritiesTablesEditViewModel.cs" />
+    <Compile Include="Views\Securities.xaml.cs">
       <DependentUpon>Securities.xaml</DependentUpon>
     </Compile>
     <Compile Include="SecurityTables\SecuritiesTable.cs" />
@@ -166,7 +168,10 @@
     <Compile Include="Tool.cs" />
     <Compile Include="Data\UserAccount.cs" />
     <Compile Include="ViewModels\SecuritiesViewModel.cs" />
-    <Compile Include="ViewModels\TradesTableViewModel.cs" />
+    <Compile Include="ViewModels\TradeTableViewModel.cs" />
+    <Compile Include="Views\SecuritiesTablesEdit.xaml.cs">
+      <DependentUpon>SecuritiesTablesEdit.xaml</DependentUpon>
+    </Compile>
     <Page Include="Balance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,7 +200,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Securities.xaml">
+    <Page Include="Views\Securities.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -227,6 +232,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SendBid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SecuritiesTablesEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -30,7 +30,6 @@ namespace finam.ru_economic_calendar
         {
             InitializeComponent();
             DataContext = new ApplicationViewModel();
-            new Window1().Show();
         }
         //private void Window_Loaded(object sender, RoutedEventArgs e)
         //{

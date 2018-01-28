@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using MahApps.Metro.Controls;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
 using MarketServerTest.SecurityTables;
-using MaterialDesignThemes.Wpf;
 using QuikSharp.DataStructures;
 
 namespace MarketServerTest
@@ -115,8 +107,13 @@ namespace MarketServerTest
             isUserInteraction = true;
         }
 
-        private void Create_OnClick(object sender, RoutedEventArgs e)
+        private async void Create_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!SecurityTablesRepository.IsAllowedName(TableName.Text))
+            {
+                await this.ShowMessageAsync("Ошибка", "Таблица с таким названием уже существует");
+                return;
+            }
             List<SecurityInfo> securities = сlassesAndSecuritites.SelectMany(item => item.SecurityInfos)
                 .Where(i => i.IsChecked).Select(info => info.SecurityInfo).ToList();
             SecurityTablesRepository.Add(new SecuritiesTable(TableName.Text, securities));

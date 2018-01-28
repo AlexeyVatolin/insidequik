@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using MahApps.Metro.Controls;
-using System.Windows;
-using MarketServerTest.DataRows;
 using MarketServerTest.ViewModels;
 using QuikSharp.DataStructures;
 

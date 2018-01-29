@@ -28,7 +28,7 @@ namespace Server.Quik
             }
         }
 
-        public static void UnsubsckibeFromOrderBook(string ticker)
+        public static void UnsubscribeFromOrderBook(string ticker)
         {
             var tool = CreateTool(ticker);
             if (!string.IsNullOrEmpty(tool.Name))

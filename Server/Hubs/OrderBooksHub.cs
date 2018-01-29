@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.SignalR;
 using QuikSharp.DataStructures;
-using Server.Data;
 using Server.Quik;
 
 namespace Server.Hubs
@@ -11,53 +10,54 @@ namespace Server.Hubs
     class OrderBooksHub : Hub
     {
         //Потокобезопасный словарь
-        private ConcurrentDictionary<string, HashSet<string>> usersAndTickers =
-            new ConcurrentDictionary<string, HashSet<string>>();
+        private static ConcurrentDictionary<string, int> countOfTickersSubscribers =
+            new ConcurrentDictionary<string, int>();
 
         public void Subscride(string ticker)
         {
-            if (usersAndTickers.ContainsKey(ticker))
-            {
-                if (!usersAndTickers[ticker].Contains(Context.ConnectionId))
-                {
-                    usersAndTickers[ticker].Add(Context.ConnectionId);
-                }
-            }
-            else
-            {
-                usersAndTickers.TryAdd(ticker, new HashSet<string> {Context.ConnectionId});
-                QuikData.SubscribeToOrderBook(ticker, OnQuoteDo);
-            }
+            countOfTickersSubscribers.AddOrUpdate(ticker, 1, (key, oldValue) => ++oldValue);
+            Groups.Add(Context.ConnectionId, ticker);
         }
 
         public void OnQuoteDo(OrderBook quote)
         {
-            List<OrderBookRow> orderBookList = new List<OrderBookRow>();
+            List<Common.Models.OrderBook> orderBookList = new List<Common.Models.OrderBook>();
             foreach (OrderBook.PriceQuantity offer in quote.offer.Reverse())
             {
-                orderBookList.Add(new OrderBookRow(offer, "offer"));
+                orderBookList.Add(new Common.Models.OrderBook()
+                {
+                    Price = offer.price,
+                    Quantity = offer.quantity,
+                    Type = "offer"
+                });
             }
 
             foreach (var bid in quote.bid.Reverse())
             {
-                orderBookList.Add(new OrderBookRow(bid, "bid"));
+                orderBookList.Add(new Common.Models.OrderBook()
+                {
+                    Price = bid.price,
+                    Quantity = bid.quantity,
+                    Type = "bid"
+                });
             }
 
-            foreach (var connectionId in usersAndTickers[quote.class_code])
-            {
-                Clients.Client(connectionId).OnQuote(orderBookList);
-            }
+            //Отправляем данные всем, кто на них подписался (есть в группе с названием тикера)
+            Clients.Group(quote.sec_code).OnQuote(orderBookList);
         }
 
         public void UnSubscride(string ticker)
         {
-            usersAndTickers[ticker].RemoveWhere(item => item == Context.ConnectionId);
-            if (usersAndTickers[ticker].Count == 0)
+            int value;
+            countOfTickersSubscribers.TryGetValue(ticker, out value);
+            if (value == 1)
             {
-                QuikData.UnsubsckibeFromOrderBook(ticker);
-                var outHashSet = new HashSet<string>();
-                usersAndTickers.TryRemove(ticker, out outHashSet);
+                countOfTickersSubscribers.TryRemove(ticker, out value);
+                QuikData.UnsubscribeFromOrderBook(ticker);
             }
+
+            Groups.Remove(Context.ConnectionId, ticker);
+
         }
     }
 }

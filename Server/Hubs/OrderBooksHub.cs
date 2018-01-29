@@ -1,21 +1,22 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Interfaces;
 using Microsoft.AspNet.SignalR;
 using QuikSharp.DataStructures;
 using Server.Quik;
 
 namespace Server.Hubs
 {
-    class OrderBooksHub : Hub
+    class OrderBooksHub : Hub<IOrderBook>
     {
         //Потокобезопасный словарь
-        private static ConcurrentDictionary<string, int> countOfTickersSubscribers =
+        private static readonly ConcurrentDictionary<string, int> CountOfTickersSubscribers =
             new ConcurrentDictionary<string, int>();
 
         public void Subscride(string ticker)
         {
-            countOfTickersSubscribers.AddOrUpdate(ticker, 1, (key, oldValue) => ++oldValue);
+            CountOfTickersSubscribers.AddOrUpdate(ticker, 1, (key, oldValue) => ++oldValue);
             Groups.Add(Context.ConnectionId, ticker);
         }
 
@@ -49,10 +50,10 @@ namespace Server.Hubs
         public void UnSubscride(string ticker)
         {
             int value;
-            countOfTickersSubscribers.TryGetValue(ticker, out value);
+            CountOfTickersSubscribers.TryGetValue(ticker, out value);
             if (value == 1)
             {
-                countOfTickersSubscribers.TryRemove(ticker, out value);
+                CountOfTickersSubscribers.TryRemove(ticker, out value);
                 QuikData.UnsubscribeFromOrderBook(ticker);
             }
 

@@ -4,5 +4,6 @@ namespace ServerCore.Database.Entities
 {
     class User : IdentityUser
     {
+        
     }
 }

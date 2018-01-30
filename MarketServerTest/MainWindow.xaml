@@ -33,16 +33,7 @@
                     </ControlTemplate>
                 </MenuItem.Resources>
                 <MenuItem.ItemContainerStyle>
-                    <Style TargetType="MenuItem">
-                        <Setter Property="Header">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type MenuItem}">
-                                    <TextBlock Text="Header" VerticalAlignment="Stretch"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="FontSize" Value="12"/>
-                        <Setter Property="Height" Value="27"/>
+                    <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
                         <Setter Property="Header" Value="{Binding Name}"/>
                         <Setter Property="Command" Value="{Binding Command}"/>
                         <!--Код ниже необходим для добавление разделителя между элементами меню-->

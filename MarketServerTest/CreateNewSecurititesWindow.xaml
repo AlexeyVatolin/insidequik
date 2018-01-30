@@ -5,7 +5,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketServerTest"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:dataStructures="clr-namespace:QuikSharp.DataStructures;assembly=QUIKSharp"
         mc:Ignorable="d"
@@ -40,23 +39,7 @@
             </TreeView>
             <Button Name="Create" Content="Создать таблицу" VerticalAlignment="Bottom" Grid.Row="2"
                 HorizontalAlignment="Center" Width="156" Margin="20" Click="Create_OnClick"></Button>
-        </Grid>
-        <Grid>
-            <materialDesign:DialogHost x:Name="Loading">
-                <materialDesign:DialogHost.DialogContent >
-                    <Grid Background="{StaticResource MaterialDesignPaper}">
-                        <StackPanel Orientation="Horizontal"  Margin="15 0 15 0">
-                            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="36" Height="36"
-                                 IsIndeterminate="True"
-                                 x:Name="IndeterminateToDeterminateCircularProgress"
-                                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" />
-                            <TextBlock Name="Message" TextWrapping="Wrap" FontSize="16" Text="Загрузка.." VerticalAlignment="Center" TextAlignment="Center"
-                               HorizontalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="White"
-                                   Margin="15 0 10 0"/>
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:DialogHost.DialogContent>
-            </materialDesign:DialogHost>
+            <ProgressBar Name="Loading" HorizontalAlignment="Left" Margin="112,115,0,0" VerticalAlignment="Top" Width="125" IsIndeterminate="true" Height="29" Grid.Row="1" Visibility="Hidden"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

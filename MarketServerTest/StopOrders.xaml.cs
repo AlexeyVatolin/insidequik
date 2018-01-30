@@ -14,6 +14,8 @@ namespace MarketServerTest
     {
         private List<StopOrder> stopOrdersList = new List<StopOrder>();
         ListSortDirection direction;
+        int index;
+        object locker = new object();
         public StopOrders()
         {
             InitializeComponent();
@@ -30,41 +32,46 @@ namespace MarketServerTest
         }
         public void StopOrdersRefresh(StopOrder stopOrder)
         {
-            if (stopOrdersList.Count != 0)
+            lock (locker)
             {
-                for (int i = 0; i < stopOrdersList.Count; i++)
+                if (QuikConnector.isStopOrderCanceled)
                 {
-                    if (stopOrdersList[i].OrderNum == stopOrder.OrderNum)
+                    for (int i = 0; i < stopOrdersList.Count; i++)
                     {
-                        stopOrdersList[i] = stopOrder;
-                        StopOrdersTable.Dispatcher.Invoke(() =>
+                        if (stopOrdersList[i].OrderNum == stopOrder.OrderNum)
                         {
-                            StopOrdersTable.Items[i] = new ColumnsForStopOrders(stopOrder);
-                        });
-                        break;
-                    }
-                    else if (i == stopOrdersList.Count - 1)
-                    {
-                        stopOrdersList.Add(stopOrder);
-                        StopOrdersTable.Dispatcher.Invoke(() =>
-                        {
-                            StopOrdersTable.Items.Add(new ColumnsForStopOrders(stopOrder));
-                        });
+                            stopOrdersList[i] = stopOrder;
+                            StopOrdersTable.Dispatcher.Invoke(() =>
+                            {
+                                StopOrdersTable.Items[index] = new ColumnsForStopOrders(stopOrder);
+                            });
+                            QuikConnector.isStopOrderCanceled = false;
+                            break;
+                        }
                     }
                 }
-            }
-            else
-            {
-                stopOrdersList.Add(stopOrder);
-                StopOrdersTable.Dispatcher.Invoke(() =>
+                else
                 {
-                    StopOrdersTable.Items.Add(new ColumnsForStopOrders(stopOrder));
-                });
+                    stopOrdersList.Add(stopOrder);
+                    StopOrdersTable.Dispatcher.Invoke(() =>
+                    {
+                        StopOrdersTable.Items.Add(new ColumnsForStopOrders(stopOrder));
+                    });
+                }
             }
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            QuikConnector.CancelStopOrder(stopOrdersList[StopOrdersTable.SelectedIndex]);
+            var selectedItem = StopOrdersTable.SelectedItem as ColumnsForStopOrders;
+            foreach (var item in stopOrdersList)
+            {
+                if (selectedItem.OrderNum == item.OrderNum)
+                {
+                    index = StopOrdersTable.SelectedIndex;
+                    QuikConnector.CancelStopOrder(item);
+                    break;
+                }
+            }
         }
         private void ColumnHeader_Click(object sender, RoutedEventArgs e)
         {

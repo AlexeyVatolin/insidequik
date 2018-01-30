@@ -64,15 +64,6 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridView.ColumnHeaderContainerStyle>
-                        <Style TargetType="GridViewColumnHeader">
-                            <Setter Property="FontSize" Value="14"/>
-                            <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
-                            <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignPaper}"/>
-                            <Setter Property="Height" Value="20"/>
-                        </Style>
-                    </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn>
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Company" Click="ColumnHeader_Click">Бумага</GridViewColumnHeader>

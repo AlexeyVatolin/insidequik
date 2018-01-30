@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace MarketServerTest
 {
@@ -27,9 +28,10 @@ namespace MarketServerTest
 
         private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Loading.IsOpen = true;
+
+            Loading.Visibility = Visibility.Visible;
             bool isConnected = await Task.Run(QuikConnector.Connect);
-            Loading.IsOpen = false;
+            Loading.Visibility = Visibility.Hidden;
             if (isConnected)
             {
                 Hide();
@@ -38,8 +40,7 @@ namespace MarketServerTest
             }
             else
             {
-                Message.Text = "Some error while connecting to QUIK";
-                IsConnected.IsOpen = true;
+                await this.ShowMessageAsync("Error", "Some error while connecting to QUIK");
             }
         }
     }

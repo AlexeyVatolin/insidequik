@@ -28,10 +28,10 @@ namespace MarketServerTest
         /// </summary>
         public async void Initialize()
         {
-            Loading.IsOpen = true;
+            Loading.Visibility = Visibility.Visible;
             сlassesAndSecuritites = await QuikConnector.GetCurrentClassesAndSecuritites();
             SecurititesTree.ItemsSource = сlassesAndSecuritites;
-            Loading.IsOpen = false;
+            Loading.Visibility = Visibility.Hidden;
         }
 
         private void ParentCheckbox_OnChecked(object sender, RoutedEventArgs e)

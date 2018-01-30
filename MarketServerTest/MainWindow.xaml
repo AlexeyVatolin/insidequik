@@ -26,22 +26,32 @@
                 <MenuItem Header="Стоп-заявки" Click="GetStopOrders_OnClick"/>
                 <MenuItem Header="Состояние счета" Click="GetBalance_OnClick"/>
             </MenuItem>
-            <MenuItem Header="Таблицы торгов" Name="TradesTable" ItemsSource="{Binding Path=TradeTables}">
+            <MenuItem Header="Таблицы торгов" Name="TradesTable" ItemsSource="{Binding Path=TradeTables}" >
                 <MenuItem.Resources>
                     <ControlTemplate x:Key="MenuSeparatorTemplate">
                         <Separator />
                     </ControlTemplate>
                 </MenuItem.Resources>
                 <MenuItem.ItemContainerStyle>
-                    <Style TargetType="{x:Type MenuItem}">
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Header">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type MenuItem}">
+                                    <TextBlock Text="Header" VerticalAlignment="Stretch"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="Height" Value="27"/>
                         <Setter Property="Header" Value="{Binding Name}"/>
                         <Setter Property="Command" Value="{Binding Command}"/>
                         <!--Код ниже необходим для добавление разделителя между элементами меню-->
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding }" Value="{x:Null}">
                                 <Setter Property="Template" Value="{StaticResource MenuSeparatorTemplate}" />
+                                <Setter Property="Height" Value="8"/>
                             </DataTrigger>
-                        </Style.Triggers>
+                        </Style.Triggers> 
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
@@ -51,6 +61,7 @@
             </MenuItem>
             <MenuItem Header="Стакан заявок" Click="GetOrdersBook_OnClick"/>
             <MenuItem Header="Calendar" Click="Calendar_OnClick"/>
+            
         </Menu>
         <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,37,0,0" Width="56" FontSize="14"/>
         <TextBox Name="Ticker" HorizontalAlignment="Left" Height="23" Margin="10,71,0,0" TextWrapping="Wrap" Text="SBER" VerticalAlignment="Top" Width="141" CharacterCasing="Upper"/>

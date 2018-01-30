@@ -18,6 +18,7 @@ namespace MarketServerTest
         public string ActQuantity { get; set; }
         public string ExecQuantity { get; set; }
         public string State { get; set; }
+        public long OrderNum { get; set; }
         public ColumnsForStopOrders(StopOrder stopOrder)
         {
             Company = stopOrder.SecCode;
@@ -28,6 +29,7 @@ namespace MarketServerTest
             ActQuantity = (stopOrder.Quantity - stopOrder.FilledQuantity).ToString();
             ExecQuantity = stopOrder.FilledQuantity.ToString();
             State = stopOrder.State.ToString();
+            OrderNum = stopOrder.OrderNum;
         }
     }
 }

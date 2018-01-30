@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketServerTest"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
@@ -17,38 +16,6 @@
         <TextBlock TextWrapping="Wrap" Text="На время тестирования поля логин и пароль можно оставлять пустыми" HorizontalAlignment="Left" Margin="43,145,0,0" VerticalAlignment="Top" Height="55" Width="223">
         </TextBlock>
         <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Center" Margin="0, 210, 0, 0" VerticalAlignment="Top" Width="75" Click="LoginButton_OnClick"/>
-        <materialDesign:DialogHost x:Name="IsConnected">
-            <materialDesign:DialogHost.DialogContent >
-                <Grid Width="250" Background="{StaticResource MaterialDesignPaper}" TextElement.Foreground="White">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Name="Message" TextWrapping="Wrap" Grid.Row="0" FontSize="16" Text="" VerticalAlignment="Center" Margin="5,15" TextAlignment="Center"
-                 HorizontalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                    <Button Grid.Row="1" Width="50" Name="OK" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Content="ОК" HorizontalAlignment="Center"/>
-                </Grid>
-            </materialDesign:DialogHost.DialogContent>
-        </materialDesign:DialogHost>
-        <Grid>
-            <materialDesign:DialogHost x:Name="Loading">
-                <materialDesign:DialogHost.DialogContent >
-                    <Grid Background="{StaticResource MaterialDesignPaper}">
-                        <StackPanel Orientation="Horizontal"  Margin="15 0 15 0">
-                            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="36" Height="36"
-                                         IsIndeterminate="True"
-                                         x:Name="IndeterminateToDeterminateCircularProgress"
-                                         VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" />
-                            <TextBlock Name="ErrorMessage" TextWrapping="Wrap" FontSize="16" Text="Загрузка.." VerticalAlignment="Center" TextAlignment="Center"
-                                       HorizontalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="White"
-                                       Margin="15 0 10 0"/>
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:DialogHost.DialogContent>
-            </materialDesign:DialogHost>
-        </Grid>
+        <ProgressBar Name="Loading" HorizontalAlignment="Left" Margin="87,91,0,0" VerticalAlignment="Top" Width="125" IsIndeterminate="true" Height="29" Visibility="Hidden"/>
     </Grid>
 </Controls:MetroWindow>

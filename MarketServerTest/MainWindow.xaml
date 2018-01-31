@@ -40,7 +40,7 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding }" Value="{x:Null}">
                                 <Setter Property="Template" Value="{StaticResource MenuSeparatorTemplate}" />
-                                <Setter Property="Height" Value="8"/>
+                                <Setter Property="Height" Value="5"/>
                             </DataTrigger>
                         </Style.Triggers> 
                     </Style>

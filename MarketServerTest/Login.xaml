@@ -16,6 +16,6 @@
         <TextBlock TextWrapping="Wrap" Text="На время тестирования поля логин и пароль можно оставлять пустыми" HorizontalAlignment="Left" Margin="43,145,0,0" VerticalAlignment="Top" Height="55" Width="223">
         </TextBlock>
         <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Center" Margin="0, 210, 0, 0" VerticalAlignment="Top" Width="75" Click="LoginButton_OnClick"/>
-        <Controls:MetroProgressBar Name="Loading" HorizontalAlignment="Left" Margin="87,91,0,0" VerticalAlignment="Top" Width="125" IsIndeterminate="true" Height="29" Visibility="Hidden"/>
+
     </Grid>
 </Controls:MetroWindow>

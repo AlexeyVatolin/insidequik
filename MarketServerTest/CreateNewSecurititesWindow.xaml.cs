@@ -28,10 +28,11 @@ namespace MarketServerTest
         /// </summary>
         public async void Initialize()
         {
-            Loading.Visibility = Visibility.Visible;
+            var controller = await this.ShowProgressAsync("Loading...", "");
+            controller.SetIndeterminate();
             сlassesAndSecuritites = await QuikConnector.GetCurrentClassesAndSecuritites();
             SecurititesTree.ItemsSource = сlassesAndSecuritites;
-            Loading.Visibility = Visibility.Hidden;
+            await controller.CloseAsync();
         }
 
         private void ParentCheckbox_OnChecked(object sender, RoutedEventArgs e)

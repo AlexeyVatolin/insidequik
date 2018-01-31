@@ -21,6 +21,7 @@ namespace MarketServerTest
     /// </summary>
     public partial class Login : MetroWindow
     {
+        ProgressDialogController controller;
         public Login()
         {
             InitializeComponent();
@@ -28,20 +29,29 @@ namespace MarketServerTest
 
         private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
-
-            Loading.Visibility = Visibility.Visible;
+            controller = await this.ShowProgressAsync("Connecting...", "");
+            controller.SetIndeterminate();
             bool isConnected = await Task.Run(QuikConnector.Connect);
-            Loading.Visibility = Visibility.Hidden;
             if (isConnected)
             {
+                await controller.CloseAsync();
                 Hide();
                 new MainWindow().ShowDialog();
                 Close();
             }
             else
             {
-                await this.ShowMessageAsync("Error", "Some error while connecting to QUIK");
+                controller.Canceled += Controller_Canceled;
+                controller.SetCancelable(true);
+                controller.SetProgress(0);
+                controller.SetTitle("Error");
+                controller.SetMessage("Some error while connecting to QUIK");
             }
+        }
+
+        private async void Controller_Canceled(object sender, EventArgs e)
+        {
+            await controller.CloseAsync();
         }
     }
 }

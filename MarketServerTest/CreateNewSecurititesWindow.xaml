@@ -39,7 +39,6 @@
             </TreeView>
             <Button Name="Create" Content="Создать таблицу" VerticalAlignment="Bottom" Grid.Row="2"
                 HorizontalAlignment="Center" Width="156" Margin="20" Click="Create_OnClick"></Button>
-            <ProgressBar Name="Loading" HorizontalAlignment="Left" Margin="112,115,0,0" VerticalAlignment="Top" Width="125" IsIndeterminate="true" Height="29" Grid.Row="1" Visibility="Hidden"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

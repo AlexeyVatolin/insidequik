@@ -250,7 +250,7 @@ namespace MarketServerTest
                         case Operation.Buy:
                             var bestPrice = BestPrice(ticker);//
                             price = Math.Round(bestPrice + (decimal)0.001 * bestPrice, tool.PriceAccuracy); //если 0.001 окажется маловато для моментальной сделки, можно изменить
-                            MessageBox.Show(price.ToString());
+                            //MessageBox.Show(price.ToString());
                             break;
                         case Operation.Sell:
                             var bestOffer = BestOffer(ticker); //Должно сработать
@@ -265,6 +265,7 @@ namespace MarketServerTest
                     if (price * qty < userAccount.currentBalance)
                     {
                         long transactionID = NewOrder(Quik, tool, operationType, price, qty);
+                        //MessageBox.Show(transactionID.ToString());
                     }
                     else MessageBox.Show("Недостаточно средств для соверешения сделки: " + (price * qty - userAccount.currentBalance).ToString(), "Недостаточно средств!");
                 }

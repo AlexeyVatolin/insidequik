@@ -1,5 +1,7 @@
 ﻿using System;
 using QuikSharp;
+using QuikSharp.DataStructures;
+using QuikSharp.DataStructures.Transaction;
 
 namespace Server.Quik
 {
@@ -77,6 +79,87 @@ namespace Server.Quik
         {
             string classesList = GetClasses();
             return QuikConnector.Quik.Class.GetSecurityClass(classesList, secCode).Result;
+        }
+        public static decimal BestPrice(string secCode)
+        {
+            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            string classCode = GetSecurityClass(secCode);
+            decimal bestPrice = Convert.ToDecimal(QuikConnector.Quik.Trading.GetParamEx(classCode, secCode, "BID").Result.ParamValue.Replace('.', separator));
+            if (bestPrice.Equals(0))
+                bestPrice = Convert.ToDecimal(QuikConnector.Quik.Trading.GetParamEx(classCode, secCode, "LAST").Result.ParamValue.Replace('.', separator));
+            return bestPrice;
+        }
+        public static decimal BestOffer(string secCode)
+        {
+            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            string classCode = GetSecurityClass(secCode);
+            decimal bestOffer = Convert.ToDecimal(QuikConnector.Quik.Trading.GetParamEx(classCode, secCode, "OFFER").Result.ParamValue.Replace('.', separator));
+            return bestOffer;
+
+        }
+        public static long NewOrder(Common.Models.ClientOrder order)
+        {
+            long res = 0;
+            Tool tool = CreateTool(order.SecurityCode, order.ClassCode);
+            if (order.MarketPrice)
+            {
+                switch (order.Operation)
+                {
+                    case QuikSharp.DataStructures.Operation.Buy:
+                        var bestPrice = BestPrice(order.SecurityCode);//
+                        order.Price = Math.Round(bestPrice + (decimal)0.001 * bestPrice, tool.PriceAccuracy); //если 0.001 окажется маловато для моментальной сделки, можно изменить                                                                                  
+                        break;
+                    case QuikSharp.DataStructures.Operation.Sell:
+                        var bestOffer = BestOffer(order.SecurityCode); //Должно сработать
+                        order.Price = Math.Round(bestOffer - (decimal)0.001 * bestOffer, tool.PriceAccuracy);
+                        break;
+                }
+            }
+            Order newOrder = new Order
+            {
+                ClassCode = tool.ClassCode,
+                SecCode = tool.SecurityCode,
+                Operation = order.Operation,
+                Price = order.Price,
+                Quantity = order.Quantity,
+                Account = tool.AccountID
+            };
+
+            try
+            {
+                res = QuikConnector.Quik.Orders.CreateOrder(newOrder).Result;
+            }
+            catch
+            {
+                Console.WriteLine("Неудачная попытка отправки заявки");
+            }
+            return res;
+        }
+
+        public static long NewStopOrder(ClientStopOrder order)
+        {
+            long res = 0;
+            Tool tool = CreateTool(order.SecurityCode);
+            StopOrder stopOrder = new StopOrder
+            {
+                ClassCode = tool.ClassCode,
+                SecCode = tool.SecurityCode,
+                Operation = order.Operation,
+                Price = order.Price2,
+                ConditionPrice = order.Price,
+                Quantity = order.Quantity,
+                Account = tool.AccountID,
+                StopOrderType = StopOrderType.StopLimit
+            };
+            try
+            {
+                res = QuikConnector.Quik.StopOrders.CreateStopOrder(stopOrder).Result;
+            }
+            catch
+            {
+                Console.WriteLine("Неудачная попытка отправки Стоп-заявки");
+            }
+            return res;
         }
     }
 }

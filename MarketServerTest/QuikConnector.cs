@@ -318,7 +318,9 @@ namespace MarketServerTest
                 Operation = operation,
                 Price = price,
                 Quantity = qty,
-                Account = _tool.AccountID
+                Account = _tool.AccountID,
+                TransID = 1234               
+                //ClientCode=_tool.ClientCode+"//"+"info"
             };
 
 

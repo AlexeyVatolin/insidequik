@@ -47,7 +47,7 @@ namespace Server.Hubs
             Clients.Group(quote.sec_code).OnQuote(orderBookList);
         }
 
-        public void UnSubscride(string ticker)
+        public void UnSubscribe(string ticker)
         {
             int value;
             CountOfTickersSubscribers.TryGetValue(ticker, out value);

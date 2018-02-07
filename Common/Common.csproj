@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="QUIKSharp">
+      <HintPath>..\src\QuikSharp\QUIKSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IOrderBook.cs" />
+    <Compile Include="Interfaces\IOrders.cs" />
+    <Compile Include="Interfaces\ITrades.cs" />
+    <Compile Include="Models\ClientOrder.cs" />
+    <Compile Include="Models\ClientStopOrder.cs" />
     <Compile Include="Models\OrderBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

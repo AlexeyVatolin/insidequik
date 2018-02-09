@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Models;
 using QuikSharp;
 using QuikSharp.DataStructures;
 using QuikSharp.DataStructures.Transaction;

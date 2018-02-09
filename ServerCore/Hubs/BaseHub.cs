@@ -92,7 +92,10 @@ namespace ServerCore.Hubs
                 Clients.Add(client);
             }
             OnLogin?.Invoke();
-            return "sucsess";
+            return new LoginResponse
+            {
+                Balance = user.Balance
+            };
         }
 
         /// <summary>

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Common.Extensions
 {
@@ -11,6 +8,11 @@ namespace Common.Extensions
         public static bool EqualsIgnoreCase(this string self, string value)
         {
             return self.Equals(value, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static string GetConfigurationSetting(this string self)
+        {
+            return ConfigurationManager.AppSettings[self];
         }
 
     }

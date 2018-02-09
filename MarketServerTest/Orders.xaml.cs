@@ -36,73 +36,81 @@ namespace MarketServerTest
 
         public void OrdersRefresh(Order order)
         {
-            lock (locker)
+            for (int i = 0; i < list.Count; i++)
             {
-                count++;
-                for (int i = 0; i < list.Count; i++)
+                if (list[i].OrderNum == order.OrderNum)
                 {
-                    if (list[i].OrderNum == order.OrderNum)
+                    list[i] = order;
+                    OrdersTable.Dispatcher.Invoke(() =>
                     {
-                        list[i] = order;
-                        OrdersTable.Dispatcher.Invoke(() =>
-                        {
-                            OrdersTable.Items[index] = new ColumnsForOrders(order);
-                        });
-                        break;
-                    }
-
+                        OrdersTable.Items[index] = new ColumnsForOrders(order);
+                    });
+                    break;
                 }
-                if (count % 2 == 0)
+
+            }
+            if (count % 2 == 0)
+            {
+                list.Add(order);
+                OrdersTable.Dispatcher.Invoke(() =>
                 {
                     list.Add(order);
                     OrdersTable.Dispatcher.Invoke(() =>
                     {
                         OrdersTable.Items.Add(new ColumnsForOrders(order));
                     });
-                }
+                });
+            }
+            else
+            {
+                list.Add(order);
+                OrdersTable.Dispatcher.Invoke(() =>
+                {
+                    OrdersTable.Items.Add(new ColumnsForOrders(order));
+                });
             }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
+{
+    var selectedItem = OrdersTable.SelectedItem as ColumnsForOrders;
+    foreach (var item in list)
+    {
+        if (selectedItem.OrderNum == item.OrderNum)
         {
-            var selectedItem = OrdersTable.SelectedItem as ColumnsForOrders;
-            foreach (var item in list)
-            {
-                if (selectedItem.OrderNum == item.OrderNum)
-                {
-                    index = OrdersTable.SelectedIndex;
-                    QuikConnector.CancelOrder(item);
-                    break;
-                }
-            }
+            index = OrdersTable.SelectedIndex;
+            QuikConnector.CancelOrder(item);
+            break;
         }
-        private void ColumnHeader_Click(object sender, RoutedEventArgs e)
-        {
-            ListSortDirection newDir = ListSortDirection.Ascending;
-            OrdersTable.Items.SortDescriptions.Clear();
-            if (direction == ListSortDirection.Ascending)
-            {
-                newDir = ListSortDirection.Descending;
-            }
-            else if (direction == ListSortDirection.Descending)
-            {
-                newDir = ListSortDirection.Ascending;
-            }
-            GridViewColumnHeader column = (sender as GridViewColumnHeader);
-            string sortBy = column.Tag.ToString();
-            OrdersTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
-            direction = newDir;
-        }
+    }
+}
+private void ColumnHeader_Click(object sender, RoutedEventArgs e)
+{
+    ListSortDirection newDir = ListSortDirection.Ascending;
+    OrdersTable.Items.SortDescriptions.Clear();
+    if (direction == ListSortDirection.Ascending)
+    {
+        newDir = ListSortDirection.Descending;
+    }
+    else if (direction == ListSortDirection.Descending)
+    {
+        newDir = ListSortDirection.Ascending;
+    }
+    GridViewColumnHeader column = (sender as GridViewColumnHeader);
+    string sortBy = column.Tag.ToString();
+    OrdersTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+    direction = newDir;
+}
 
-        public void InitializeOrdersTable()
-        {
-            list = QuikConnector.GetOrders();
-            foreach (var item in list)
-            {
-                OrdersTable.Items.Add(new ColumnsForOrders(item));
-            }
-            direction = ListSortDirection.Descending;
-            OrdersTable.Items.SortDescriptions.Add(new SortDescription("Time", direction));
-        }
+public void InitializeOrdersTable()
+{
+    list = QuikConnector.GetOrders();
+    foreach (var item in list)
+    {
+        OrdersTable.Items.Add(new ColumnsForOrders(item));
+    }
+    direction = ListSortDirection.Descending;
+    OrdersTable.Items.SortDescriptions.Add(new SortDescription("Time", direction));
+}
     }
 }

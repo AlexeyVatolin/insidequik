@@ -29,7 +29,7 @@ namespace Server
             }
             catch (TargetInvocationException)
             {
-                Console.WriteLine("Error: Server already runned");
+                Console.WriteLine("Error: Server is already running");
             }
             
         }

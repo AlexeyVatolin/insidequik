@@ -71,6 +71,7 @@ public class Tool
             return lastPrice;
         }
     }
+    public string ClientCode { get { return clientCode; } }
     #endregion
 
     /// <summary>
@@ -97,6 +98,7 @@ public class Tool
                 {
                     try
                     {
+                        clientCode = _quik.Class.GetClientCode().Result;//
                         name = _quik.Class.GetSecurityInfo(classCode, securityCode).Result.ShortName;
                         accountID = _quik.Class.GetTradeAccount(classCode).Result;
                         firmID = _quik.Class.GetClassInfo(classCode).Result.FirmId;

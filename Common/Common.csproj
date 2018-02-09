@@ -40,6 +40,7 @@
       <HintPath>..\src\QuikSharp\QUIKSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,7 +52,9 @@
   <ItemGroup>
     <Compile Include="Extensions\EnumExtentions.cs" />
     <Compile Include="Extensions\StringHelpers.cs" />
+    <Compile Include="Helpers\ExceptionHelpers.cs" />
     <Compile Include="Helpers\HubHelpers.cs" />
+    <Compile Include="Helpers\ObjectHelper.cs" />
     <Compile Include="Helpers\TaskHelper.cs" />
     <Compile Include="Interfaces\IOrderBook.cs" />
     <Compile Include="Interfaces\IValidate.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="Models\ClientStopOrder.cs" />
     <Compile Include="Models\ErrorCodes.cs" />
     <Compile Include="Models\LoginOptionsRequest.cs" />
+    <Compile Include="Models\LoginResponse.cs" />
     <Compile Include="Models\OrderBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

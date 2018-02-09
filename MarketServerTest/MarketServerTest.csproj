@@ -278,6 +278,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{de9e6389-f482-41e1-b39b-185c4838ccbe}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\finam.ru_economic_calendar\finam.ru_economic_calendar.csproj">
       <Project>{95F5420F-DDCD-46F7-8AE5-D2EDF53C6EDA}</Project>
       <Name>finam.ru_economic_calendar</Name>

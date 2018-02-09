@@ -81,7 +81,7 @@ namespace Server.Quik
             string classesList = GetClasses();
             return QuikConnector.Quik.Class.GetSecurityClass(classesList, secCode).Result;
         }
-        public static decimal BestPrice(string secCode)
+        private static decimal BestPrice(string secCode)
         {
             Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
             string classCode = GetSecurityClass(secCode);
@@ -90,7 +90,7 @@ namespace Server.Quik
                 bestPrice = Convert.ToDecimal(QuikConnector.Quik.Trading.GetParamEx(classCode, secCode, "LAST").Result.ParamValue.Replace('.', separator));
             return bestPrice;
         }
-        public static decimal BestOffer(string secCode)
+        private static decimal BestOffer(string secCode)
         {
             Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
             string classCode = GetSecurityClass(secCode);
@@ -136,8 +136,7 @@ namespace Server.Quik
             }
             return res;
         }
-
-        public static long NewStopOrder(ClientStopOrder order)
+        public static long NewStopOrder(Common.Models.ClientStopOrder order)
         {
             long res = 0;
             Tool tool = CreateTool(order.SecurityCode);
@@ -161,6 +160,15 @@ namespace Server.Quik
                 Console.WriteLine("Неудачная попытка отправки Стоп-заявки");
             }
             return res;
+        }
+
+        public static void SubscribeToOrdersRefresh(OrderHandler onRefresh)
+        {
+            QuikConnector.Quik.Events.OnOrder += onRefresh;
+        }
+        public static void SubscribeToTradesRefresh(TradeHandler tradesRefresh)
+        {
+            QuikConnector.Quik.Events.OnTrade += tradesRefresh;
         }
     }
 }

@@ -30,10 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="QUIKSharp">
       <HintPath>..\src\QuikSharp\QUIKSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,14 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\EnumExtentions.cs" />
+    <Compile Include="Extensions\StringHelpers.cs" />
+    <Compile Include="Helpers\ExceptionHelpers.cs" />
+    <Compile Include="Helpers\HubHelpers.cs" />
+    <Compile Include="Helpers\ObjectHelper.cs" />
+    <Compile Include="Helpers\TaskHelper.cs" />
     <Compile Include="Interfaces\IOrderBook.cs" />
-    <Compile Include="Interfaces\IOrders.cs" />
-    <Compile Include="Interfaces\ITrades.cs" />
+    <Compile Include="Interfaces\IValidate.cs" />
     <Compile Include="Models\ClientOrder.cs" />
     <Compile Include="Models\ClientStopOrder.cs" />
+    <Compile Include="Models\ErrorCodes.cs" />
+    <Compile Include="Models\LoginOptionsRequest.cs" />
+    <Compile Include="Models\LoginResponse.cs" />
     <Compile Include="Models\OrderBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

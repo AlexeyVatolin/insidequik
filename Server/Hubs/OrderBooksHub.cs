@@ -8,7 +8,7 @@ using Server.Quik;
 
 namespace Server.Hubs
 {
-    class OrderBooksHub : Hub<IOrderBook>
+    public class OrderBooksHub : Hub<IOrderBook>
     {
         //Потокобезопасный словарь
         private static readonly ConcurrentDictionary<string, int> CountOfTickersSubscribers =
@@ -18,6 +18,7 @@ namespace Server.Hubs
         {
             CountOfTickersSubscribers.AddOrUpdate(ticker, 1, (key, oldValue) => ++oldValue);
             Groups.Add(Context.ConnectionId, ticker);
+            
         }
 
         public void OnQuoteDo(OrderBook quote)

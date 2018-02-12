@@ -32,12 +32,12 @@ namespace finam.ru_economic_calendar
             {
                 string temp = string.Format("через {0} минут", ts.TotalMinutes.ToString("F0"));
                 lb_text.Content = temp;
-                if(UserIdTelegram != string.Empty)
+                if (UserIdTelegram != string.Empty)
                 {
                     myTel.userID = UserIdTelegram;
                     myTel.SendMessage(post.Name + '\n' + temp);
                 }
-               
+
             }
             //var player = new MediaPlayer();
             //player.Open(new Uri("beep9.mp3", UriKind.RelativeOrAbsolute));

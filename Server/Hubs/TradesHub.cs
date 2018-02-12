@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Server.Quik;
 using QuikSharp.DataStructures.Transaction;
+using MarketServerTest;
 
 namespace Server.Hubs
 {

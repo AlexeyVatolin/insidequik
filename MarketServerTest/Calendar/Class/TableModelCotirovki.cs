@@ -116,7 +116,7 @@ namespace finam.ru_economic_calendar.Class
             //double min = Price;
             //double max = Price;
             IsUpdating = true;
-//            DateTime timeNew = Convert.ToDateTime(Info.TimeSearch).AddMinutes(0.01667);
+            //            DateTime timeNew = Convert.ToDateTime(Info.TimeSearch).AddMinutes(0.01667);
             for (var i = 0; i < _buffer.Count; ++i)
             {
                 if (Convert.ToDateTime(_buffer[i].Time) >= Convert.ToDateTime(Info.TimeSearch) && Convert.ToDateTime(_buffer[i].Time) <= time2)
@@ -131,7 +131,7 @@ namespace finam.ru_economic_calendar.Class
             {
                 min = Convert.ToDouble(PRICE.Replace(".", ","));
                 max = Convert.ToDouble(PRICE.Replace(".", ","));
-            }           
+            }
             for (var i = 0; i < _buffer.Count; ++i)
             {
                 if (DateTime.Parse(_buffer[i].Time) >= time1 && DateTime.Parse(_buffer[i].Time) <= time2)

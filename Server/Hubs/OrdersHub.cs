@@ -1,4 +1,5 @@
 ﻿using Common.Interfaces;
+using MarketServerTest;
 using Microsoft.AspNet.SignalR;
 using QuikSharp.DataStructures.Transaction;
 using Server.Quik;

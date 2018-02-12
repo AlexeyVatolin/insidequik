@@ -21,7 +21,7 @@ namespace Server
                 {
                     Console.WriteLine("Server running on {0}", url);
                     Console.WriteLine("Connecting to QUIK");
-                    //bool isConnected = Task.Run(QuikConnector.Connect).Result;
+                   // bool isConnected = Task.Run(QuikConnector.Connect).Result;
                     //Console.WriteLine(isConnected ? "Connected" : "Error while connection, check lua script");
                     Console.WriteLine("Press Ender to exit...");
                     Console.ReadLine();

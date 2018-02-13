@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Server.Hubs
 {
-    public class OrdersHub: Hub<IOrders>
+    public class OrdersHub: Hub//<IOrders>
     {
         public void SubscribeToOrdersRefresh()
         {

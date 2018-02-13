@@ -11,6 +11,7 @@ using Inside.Common.Helpers.Extensions;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR.Client;
 using QuikSharp;
 
@@ -29,11 +30,19 @@ namespace MarketServerTest.SignalR
                 return _domain;
             }
         }
+
+        private string _hubName;
+        private string _connectUrl = "http://localhost:8080/signalr";
+
+        protected void SetHubName(string name)
+        {
+            _hubName = name;
+        }
         public ClientBase()
         {
             ConfigureLogging();
 
-            //Domain.ProcessExit += (s, e) => Log.Info("ProcessExit");
+            Domain.ProcessExit += (s, e) => Log.Info("ProcessExit");
             Domain.UnhandledException += (s, e) => ShowError((Exception)e.ExceptionObject);
         }
 
@@ -48,7 +57,7 @@ namespace MarketServerTest.SignalR
         private IHubProxy GetHubProxy()
         {
             if (_hub != null) return _hub;
-            _hub = Connection.CreateHubProxy("TickHub");
+            _hub = Connection.CreateHubProxy(_hubName);
             Log.Info("HubProxy: created");
             RegisterCallback(_hub);
             Log.Info("RegisteCallback: done");
@@ -60,20 +69,20 @@ namespace MarketServerTest.SignalR
             get
             {
                 if (_connection != null) return _connection;
-                var connectionString = "Url".GetConfigurationSetting();
+                //var connectionString = "Url".GetConfigurationSetting();
 
                 // create new connection
-                _connection = new HubConnection(connectionString)
+                _connection = new HubConnection(_connectUrl)
                 {
                     // show message box in separate thread without block and reduce 300 -> 30
                     DeadlockErrorTimeout = TimeSpan.FromSeconds(300)
                 };
 
                 // write to log
-                Log.InfoFormat("Connection: created\n{0}", connectionString);
+                Log.InfoFormat("Connection: created\n{0}", _connectUrl);
 
                 // register event handler
-                _connection.Error += Connection_Error;
+                //_connection.Error += Connection_Error;
                 _connection.StateChanged += change => Console.WriteLine(change.NewState);
                 GetHubProxy();
                 return _connection;
@@ -184,7 +193,7 @@ namespace MarketServerTest.SignalR
             }
         }
 
-        public bool DontShowErrors { get; set; }
+        public bool DontShowErrors { get; set; } = false;
 
         #region Start
         protected bool StartConnection()
@@ -208,6 +217,7 @@ namespace MarketServerTest.SignalR
             catch (AggregateException ex)
             {
                 Log.Error(ex);
+                throw;
             }
 
             ShowConnectionError();
@@ -376,11 +386,7 @@ namespace MarketServerTest.SignalR
                     ShowLoggedOutError();
                     break;
                 default:
-                    if (showDefault)
-                    {
-                        ShowError(ex.GetMessage());
-                    }
-                    return false;
+                    throw new AggregateException(code.GetDescription());
             }
             return true;
         }

@@ -1,21 +1,25 @@
-﻿<Controls:MetroWindow x:Class="MarketServerTest.Login"
+﻿<controls:MetroWindow x:Class="MarketServerTest.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MarketServerTest"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         mc:Ignorable="d"
         Title="Login" Height="300" Width="300">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="43,60,0,0" TextWrapping="Wrap" Text="Логин" VerticalAlignment="Top" Width="224"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="43,104,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="224"/>
-        <TextBlock TextWrapping="Wrap" Text="На время тестирования поля логин и пароль можно оставлять пустыми" HorizontalAlignment="Left" Margin="43,145,0,0" VerticalAlignment="Top" Height="55" Width="223">
-        </TextBlock>
-        <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Center" Margin="0, 210, 0, 0" VerticalAlignment="Top" Width="75" Click="LoginButton_OnClick"/>
-
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="43,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"
+                 Text="{Binding LoginStr}"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="43,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"
+                 Text="{Binding PasswordStr}"/>
+        <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Center" Margin="0, 150, 0, 0" VerticalAlignment="Top" Width="75" 
+                Command="{Binding ConnectToServer}"/>
+        <Button x:Name="ConnectToQuikButton" Content="Подключиться к QUIK" HorizontalAlignment="Center" Margin="0, 200, 0, 0" VerticalAlignment="Top" 
+                Command="{Binding ConnectToQuik}"/>
+        <UserControl dialog:DialogParticipation.Register="{Binding}"/>
     </Grid>
-</Controls:MetroWindow>
+</controls:MetroWindow>
+

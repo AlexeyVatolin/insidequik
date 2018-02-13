@@ -10,7 +10,7 @@ using QuikSharp.DataStructures.Transaction;
 
 namespace Server.Hubs
 {
-    public class TradesHub: Hub<ITrades>
+    public class TradesHub: Hub//<ITrades>
     {
         public void SubscribeToTradesRefresh()
         {

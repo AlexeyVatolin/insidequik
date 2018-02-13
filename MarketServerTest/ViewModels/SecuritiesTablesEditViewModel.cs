@@ -7,7 +7,7 @@ using MarketServerTest.SecurityTables;
 
 namespace MarketServerTest.ViewModels
 {
-    public class SecuritiesTablesEditViewModel
+    public class SecuritiesTablesEditViewModel 
     {
         public ObservableCollection<TradeTableModel> TradeTables { get; set; }
 

@@ -33,6 +33,8 @@ namespace Server.Quik
 
         public static void UnsubscribeFromOrderBook(string ticker)
         {
+            Console.WriteLine("Успешно отписался от " + ticker); //TODO: убрать когда будет проверено
+
             var tool = CreateTool(ticker);
             if (!string.IsNullOrEmpty(tool.Name))
             {

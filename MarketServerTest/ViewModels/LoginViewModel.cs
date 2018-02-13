@@ -12,8 +12,8 @@ namespace MarketServerTest.ViewModels
     public class LoginViewModel : ClientBase
     {
         public event EventHandler ShowMainWindow;
-        public string LoginStr { get; set; }
-        public string PasswordStr { get; set; }
+        public string LoginStr { get; set; } = "admin";
+        public string PasswordStr { get; set; } = "admin";
         private readonly IDialogCoordinator _dialogCoordinator;
         private ProgressDialogController _dialogController;
 
@@ -31,17 +31,11 @@ namespace MarketServerTest.ViewModels
                     _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
                     _dialogController.SetIndeterminate();
                     SetHubName("LoginTestHub");
-                    //var hubConnection = new HubConnection("http://localhost:8080/signalr", false)
-                    //{
-                    //    TraceLevel = TraceLevels.All
-                    //};
-                    //IHubProxy stockTickerHubProxy = hubConnection.CreateHubProxy("LoginTestHub");
-                    //stockTickerHubProxy.On<object>("Login", OnLogin);
-                    //await hubConnection.Start();
+
                     bool sucsess = false;
                     try
                     {
-                        var response = Login(LoginStr, PasswordStr);
+                        var response = await Task.Run(() => Login(LoginStr, PasswordStr));
                         sucsess = true;
                     }
                     catch (AggregateException ex)
@@ -69,7 +63,6 @@ namespace MarketServerTest.ViewModels
                     }
                     if (sucsess)
                     {
-                        await _dialogController.CloseAsync();
                         await Logout();
                         ShowNewMainWindow();
                     }

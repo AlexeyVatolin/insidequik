@@ -32,7 +32,8 @@ namespace MarketServerTest
         public MainWindow()
         {
             InitializeComponent();
-            timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
+            //Временно отключил таймер потому что теперь есть только подключение к серверу, но не к квику
+            //timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
         }
         private void Callback(Object state)
         {
@@ -193,6 +194,11 @@ namespace MarketServerTest
         private void ConnectToServer_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void OrderBook_OnClick(object sender, RoutedEventArgs e)
+        {
+            new OrdersBook(Ticker.Text).Show();
         }
     }
 }

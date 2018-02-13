@@ -17,6 +17,7 @@ namespace Server.Hubs
         public void Subscride(string ticker)
         {
             CountOfTickersSubscribers.AddOrUpdate(ticker, 1, (key, oldValue) => ++oldValue);
+            QuikData.SubscribeToOrderBook(ticker, OnQuoteDo);
             Groups.Add(Context.ConnectionId, ticker);
             
         }

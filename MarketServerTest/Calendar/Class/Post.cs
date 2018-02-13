@@ -12,7 +12,7 @@ namespace finam.ru_economic_calendar
         private string _dateSecret;
         public string Date
         {
-            get { return _date;}
+            get { return _date; }
             set
             {
                 _date = value;

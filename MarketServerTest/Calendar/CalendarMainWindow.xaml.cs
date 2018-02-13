@@ -16,7 +16,7 @@ namespace finam.ru_economic_calendar
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : MetroWindow
+    public partial class CalendarMainWindow : MetroWindow
     {
         public List<UniqTimer> listTimers = new List<UniqTimer>();
         static double width = SystemParameters.FullPrimaryScreenWidth;
@@ -26,7 +26,7 @@ namespace finam.ru_economic_calendar
 
         public static string UserIdTelegram = string.Empty;
         MyTelegram myTel = new MyTelegram();
-        public MainWindow()
+        public CalendarMainWindow()
         {
             InitializeComponent();
             DataContext = new ApplicationViewModel();
@@ -67,7 +67,7 @@ namespace finam.ru_economic_calendar
         //    }
         //}
         async void OnChecked(object sender, RoutedEventArgs e)
-        {           
+        {
             DataGridCell test = (DataGridCell)sender;
             Post post = (Post)test.DataContext;
 
@@ -133,17 +133,17 @@ namespace finam.ru_economic_calendar
             //"01/08/2008 14:50:50.42";
             string date = string.Format("{0}/{1}/{2} {3}", test[0], DateConvert(test[1]), DateTime.Now.Year, post.Time);
             DateTime dt = Convert.ToDateTime(date);
-            if(DateTime.Compare(dt, DateTime.Now) < 0 || DateTime.Compare(dt, DateTime.Now) == 0)
+            if (DateTime.Compare(dt, DateTime.Now) < 0 || DateTime.Compare(dt, DateTime.Now) == 0)
             {
                 DownloadFileCotirovki DFC = new DownloadFileCotirovki();
                 DFC.post = post;
                 DFC.Show();
             }
-            else 
+            else
             {
                 MessageBox.Show("Этой новости ещё не было");
             }
-                      
+
         }
         public string DateConvert(string date)
         {
@@ -182,18 +182,18 @@ namespace finam.ru_economic_calendar
             TelegramSettings ts = new TelegramSettings();
             ts.Show();
             ts.Closed += Ts_Closed;
-              
+
         }
 
         private void Ts_Closed(object sender, EventArgs e)
         {
             UserIdTelegram = ((TelegramSettings)sender).result;
-            if(UserIdTelegram != null)
+            if (UserIdTelegram != null)
             {
                 lb_Telegram.Content = "Hello, " + UserIdTelegram;
                 myTel.userID = UserIdTelegram;
                 myTel.SendMessage("Вы успешно подписались на нашего бота!!!");
-            }    
+            }
         }
 
         private void DataGridRowPreviewMouseDownHandler(object sender, MouseButtonEventArgs e)
@@ -223,6 +223,6 @@ namespace finam.ru_economic_calendar
             return parent;
         }
     }
-    
-    
+
+
 }

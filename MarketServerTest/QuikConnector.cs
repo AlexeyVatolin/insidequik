@@ -319,7 +319,7 @@ namespace MarketServerTest
                 Price = price,
                 Quantity = qty,
                 Account = _tool.AccountID,
-                TransID = 1234               
+                TransID = 777               
                 //ClientCode=_tool.ClientCode+"//"+"info"
             };
 
@@ -423,6 +423,7 @@ namespace MarketServerTest
             stopOrder.Quantity = qty;
             stopOrder.Account = tool.AccountID;
             stopOrder.StopOrderType = StopOrderType.StopLimit;
+            stopOrder.TransId = 777;
             try
             {
                 res = quik.StopOrders.CreateStopOrder(stopOrder).Result;

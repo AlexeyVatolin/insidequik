@@ -1,7 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using MarketServerTest.ViewModels;
 
-namespace MarketServerTest
+namespace MarketServerTest.Views
 {
     /// <summary>
     /// Логика взаимодействия для OrdersBook.xaml

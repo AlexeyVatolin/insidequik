@@ -9,13 +9,13 @@
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Title="INSIDE QUIK" Height="153.549" Width="500.51" MaxWidth="500.51" MaxHeight="153.549"
+        Title="INSIDE QUIK" Height="153.549" Width="605.51" MaxWidth="605.51" MaxHeight="153.549"
         Closing="MainWindow_OnClosing">
     <Window.DataContext>
         <viewModels:TradeTableViewModel/>
     </Window.DataContext>
     <Grid RenderTransformOrigin="0.263,0.507">
-        <Menu Name="Menu" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="493" FontSize="12">
+        <Menu Name="Menu" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="598" FontSize="12">
             <MenuItem Header="Disconnect"  Click="Disconnect_Click"/>
             <MenuItem Header="Connect to server"  Click="ConnectToServer_OnClick"/>
             <MenuItem Header="Создать окно" VerticalAlignment="Center" Foreground="White">

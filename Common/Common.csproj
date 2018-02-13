@@ -57,6 +57,8 @@
     <Compile Include="Helpers\ObjectHelper.cs" />
     <Compile Include="Helpers\TaskHelper.cs" />
     <Compile Include="Interfaces\IOrderBook.cs" />
+    <Compile Include="Interfaces\IOrders.cs" />
+    <Compile Include="Interfaces\ITrades.cs" />
     <Compile Include="Interfaces\IValidate.cs" />
     <Compile Include="Models\ClientOrder.cs" />
     <Compile Include="Models\ClientStopOrder.cs" />

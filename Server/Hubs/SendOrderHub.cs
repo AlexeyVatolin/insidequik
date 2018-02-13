@@ -11,11 +11,13 @@ namespace Server.Hubs
     {
         public void SendOrder(Common.Models.ClientOrder order)
         {
-            long transId = Quik.QuikData.NewOrder(order);
+            long userLongID = 777;//TODO:user id
+            long transId = Quik.QuikData.NewOrder(order, userLongID);
         }
         public void SendStopOrder(Common.Models.ClientStopOrder stopOrder)
         {
-            long transId = Quik.QuikData.NewStopOrder(stopOrder);
+            long userLongID = 777;//TODO:user id
+            long transId = Quik.QuikData.NewStopOrder(stopOrder, userLongID);
         }
     }
 }

@@ -108,7 +108,7 @@ namespace MarketServerTest
         {
             try
             {
-                new OrdersBook(Ticker.Text).Show();
+                new Views.OrdersBook(Ticker.Text).Show();
                 telemetryClient.TrackPageView("Стакан заявок");
             }
             catch (Exception) { }
@@ -198,7 +198,7 @@ namespace MarketServerTest
 
         private void OrderBook_OnClick(object sender, RoutedEventArgs e)
         {
-            new OrdersBook(Ticker.Text).Show();
+            new Views.OrdersBook(Ticker.Text).Show();
         }
     }
 }

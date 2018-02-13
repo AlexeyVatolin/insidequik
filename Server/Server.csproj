@@ -107,6 +107,10 @@
       <Project>{DE9E6389-F482-41E1-B39B-185C4838CCBE}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarketServerTest\MarketServerTest.csproj">
+      <Project>{E0FF2CFF-CACC-41D3-87A5-E9F96D7E7164}</Project>
+      <Name>MarketServerTest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServerCore\ServerCore.csproj">
       <Project>{9558bfbd-ac58-4f82-a7ca-6407fed5db40}</Project>
       <Name>ServerCore</Name>

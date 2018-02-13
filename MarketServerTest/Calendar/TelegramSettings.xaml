@@ -15,7 +15,7 @@
                 <Label FontSize="16" FontWeight="Bold">Telegram InsideStatisticsBot</Label>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Label FontSize="14">Пошаговая инструкция как подлючить бота: </Label>
+                <Label FontSize="14">Пошаговая инструкция как подлючить бота:</Label>
                 <Label Margin="30,0,0,0">1.) Написать боту "userinfobot" и нажмите старт</Label>
                 <Label Margin="30,0,0,0">2.) Скопируйте Id и вставьте в поле idUser ниже</Label>
                 <Label Margin="30,0,0,0">3.) Написать боту "InsideStatisticsBot_Maksim"</Label>
@@ -27,6 +27,6 @@
             </StackPanel>
             <Button Width="100" Click="AddIdClick">добавить</Button>
         </StackPanel>
-        
+
     </Grid>
 </Controls:MetroWindow>

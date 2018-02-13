@@ -6,6 +6,7 @@ using MahApps.Metro.Controls;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System;
+using System.Linq;
 
 namespace MarketServerTest
 {

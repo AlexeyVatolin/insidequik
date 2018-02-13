@@ -18,7 +18,7 @@ namespace finam.ru_economic_calendar
 
         private async void AddIdClick(object sender, RoutedEventArgs e)
         {
-            if(tb_idTelegram.Text != string.Empty)
+            if (tb_idTelegram.Text != string.Empty)
             {
                 string idUser = tb_idTelegram.Text;
                 bool IsDigit = idUser.Length == idUser.Where(c => char.IsDigit(c)).Count();

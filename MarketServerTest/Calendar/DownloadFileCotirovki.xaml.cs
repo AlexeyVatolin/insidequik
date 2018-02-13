@@ -41,11 +41,11 @@ namespace finam.ru_economic_calendar
                 {
                     date1Day = test[0];
                 }
-                
+
                 string date1Month = DateConvert(test[1]);
                 string date1Year = DateTime.Now.Year.ToString();
                 string d1 = date1Year + date1Month + date1Day;
-                string d1str = date1Day + "."  + date1Month + "." + date1Year; ;
+                string d1str = date1Day + "." + date1Month + "." + date1Year; ;
 
                 string nameContr = tb_NameCotirovka.Text;
                 string fileName = nameContr.ToUpper() + "_" + d1 + "_" + d1;
@@ -59,9 +59,9 @@ namespace finam.ru_economic_calendar
                      resp.GetResponseStream(), Encoding.UTF8))
                 {
                     //пишем то что нам пришло в файл
-                    File.WriteAllText(string.Format("Files/{0}.txt",fileName), stream.ReadToEnd());
+                    File.WriteAllText(string.Format("Files/{0}.txt", fileName), stream.ReadToEnd());
                 }
-                
+
                 string value = temp.Tag.ToString();
 
                 InfoModel infoModel = new InfoModel(fileName + ".txt", value, post.Time);

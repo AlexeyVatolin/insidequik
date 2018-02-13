@@ -27,7 +27,8 @@ namespace finam.ru_economic_calendar.Class
         }
         public void SendMessage(string message)
         {
-            if (message != null || message != "") {
+            if (message != null || message != "")
+            {
                 if (userID != null)
                 {
                     Bot.SendTextMessageAsync(userID, message);

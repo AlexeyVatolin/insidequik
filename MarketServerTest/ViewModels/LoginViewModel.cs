@@ -6,37 +6,53 @@ using Common.Models;
 using MahApps.Metro.Controls.Dialogs;
 using MarketServerTest.Helpers;
 using MarketServerTest.SignalR;
+using Common.Interfaces;
+using Unity;
+using MarketServerTest.Interfaces;
 
 namespace MarketServerTest.ViewModels
 {
     public class LoginViewModel : ClientBase
     {
-        public event EventHandler ShowMainWindow;
-        public string LoginStr { get; set; } = "admin";
-        public string PasswordStr { get; set; } = "admin";
         private readonly IDialogCoordinator _dialogCoordinator;
         private ProgressDialogController _dialogController;
-
-        public LoginViewModel(IDialogCoordinator dialogCoordinator)
+        private IUnityContainer _container = new UnityContainer();
+        public event EventHandler ShowMainWindow;
+        public string LoginStr { get; set; } = "admin";
+        //public string PasswordStr { get; set; } = "admin";
+        public string Password
         {
-            this._dialogCoordinator = dialogCoordinator;
+            get
+            {
+                IPasswordSupplier passwordSupplier = _container.Resolve<IPasswordSupplier>();
+                return passwordSupplier.GetPassword();
+            }
+        } 
+
+        public LoginViewModel(IDialogCoordinator dialogCoordinator, IUnityContainer container)
+        {
+            _dialogCoordinator = dialogCoordinator;
+            _container = container;
         }
 
         public ICommand ConnectToServer
         {
+            
             get
             {
+                
                 return new RelayCommand(async (obj) =>
                 {
                     _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
                     _dialogController.SetIndeterminate();
                     SetHubName("LoginTestHub");
 
-                    bool sucsess = false;
+                    bool success = false;
                     try
                     {
-                        var response = await Task.Run(() => Login(LoginStr, PasswordStr));
-                        sucsess = true;
+                        // var response = await Task.Run(() => Login(LoginStr, PasswordStr));
+                        var response = await Task.Run(() => Login(LoginStr, Password));
+                        success = true;
                     }
                     catch (AggregateException ex)
                     {
@@ -61,7 +77,7 @@ namespace MarketServerTest.ViewModels
                             ShowCancellableDialog("Ошибка", "Неверный логин или пароль");
                         }
                     }
-                    if (sucsess)
+                    if (success)
                     {
                         await Logout();
                         ShowNewMainWindow();
@@ -105,5 +121,6 @@ namespace MarketServerTest.ViewModels
             _dialogController.SetTitle(title);
             _dialogController.SetMessage(message);
         }
+        
     }
 }

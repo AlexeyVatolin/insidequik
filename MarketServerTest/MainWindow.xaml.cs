@@ -166,7 +166,8 @@ namespace MarketServerTest
 
         private void Calendar_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("finam.ru_economic_calendar.exe");
+            new CalendarMainWindow().Show();
+            telemetryClient.TrackPageView("Календарь");
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

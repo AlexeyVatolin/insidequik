@@ -13,6 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.AspNet.SignalR.Client;
+using Common.Models;
+using QuikSharp.DataStructures;
 
 namespace MarketServerTest
 {
@@ -38,20 +41,36 @@ namespace MarketServerTest
             TickerBox.Text = ticker;
             PriceBox.Text = price.ToString(CultureInfo.InvariantCulture);
         }
-        private void Send_Click(object sender, RoutedEventArgs e)
+        private async void Send_Click(object sender, RoutedEventArgs e)
         {
-            Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            var hubConnection = new HubConnection("http://localhost:8080/signalr", false)
+            {
+                TraceLevel = TraceLevels.All
+            };
+            IHubProxy stockTickerHubProxy = hubConnection.CreateHubProxy("SendOrderHub");
+            await hubConnection.Start();
+
+            Char separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
             decimal price = Decimal.Parse(PriceBox.Text.Replace('.',separator));
 
-            if (Buy.IsChecked == true)
-                QuikConnector.SendBid(ClassCodeBox.Text,TickerBox.Text, price, 
-                    Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy, 
-                    MarketPrice.IsChecked.Value);
-            if (Sell.IsChecked == true)
-                QuikConnector.SendBid(ClassCodeBox.Text,TickerBox.Text,price, Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell,
-                    MarketPrice.IsChecked.Value);
+            //if (Buy.IsChecked == true)
+            //    QuikConnector.SendBid(ClassCodeBox.Text,TickerBox.Text, price, 
+            //        Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Buy, 
+            //        MarketPrice.IsChecked.Value);
+            //if (Sell.IsChecked == true)
+            //    QuikConnector.SendBid(ClassCodeBox.Text,TickerBox.Text,price, Int32.Parse(QuantityBox.Text), QuikSharp.DataStructures.Operation.Sell,
+            //        MarketPrice.IsChecked.Value);
+            ClientOrder newOrder = new ClientOrder
+            {
+                SecurityCode = TickerBox.Text,
+                ClassCode = ClassCodeBox.Text,
+                Operation = (bool)Buy.IsChecked? Operation.Buy : Operation.Sell,
+                Price = price,
+                Quantity = Int32.Parse(QuantityBox.Text),
+                MarketPrice = MarketPrice.IsChecked.Value
+            };
+            var result = await stockTickerHubProxy.Invoke<object>("SendOrder", newOrder);
 
-            //MessageBox.Show(QuikConnector.PriceMin(TickerBox.Text).ToString());
         }
 
 

@@ -1,25 +1,27 @@
 ﻿<controls:MetroWindow x:Class="MarketServerTest.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        xmlns:marketservertest="clr-namespace:MarketServerTest"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         mc:Ignorable="d"
         Title="Login" Height="300" Width="300">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="43,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"
-                 Text="{Binding LoginStr}"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="43,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"
-                 Text="{Binding PasswordStr}"/>
-        <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Center" Margin="0, 150, 0, 0" VerticalAlignment="Top" Width="75" 
+
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="43,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"
+                 Text="{Binding LoginStr}" HorizontalContentAlignment="Stretch" Controls:TextBoxHelper.Watermark="Логин" FontSize="14"/>
+        <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Center" Margin="108,157,108,0" VerticalAlignment="Top" Width="76" 
                 Command="{Binding ConnectToServer}"/>
         <Button x:Name="ConnectToQuikButton" Content="Подключиться к QUIK" HorizontalAlignment="Center" Margin="0, 200, 0, 0" VerticalAlignment="Top" 
                 Command="{Binding ConnectToQuik}"/>
-        <UserControl dialog:DialogParticipation.Register="{Binding}"/>
+        <marketservertest:MyPasswordBox x:Name="pwdBox" Margin="43,102,0,132" HorizontalAlignment="Left" Width="224" Height="30"/>
+
     </Grid>
 </controls:MetroWindow>
 

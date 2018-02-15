@@ -168,7 +168,6 @@ namespace MarketServerTest
         {
             new CalendarMainWindow().Show();
             telemetryClient.TrackPageView("Календарь");
-
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

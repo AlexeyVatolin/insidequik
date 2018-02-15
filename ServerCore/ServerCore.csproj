@@ -86,7 +86,6 @@
     <Compile Include="Base\DatabaseContext\Context.cs" />
     <Compile Include="Base\DatabaseContext\Entities\User.cs" />
     <Compile Include="Base\DatabaseContext\Entities\UserStatus.cs" />
-    <Compile Include="Base\DatabaseContext\Migration\InitialConfiguration.cs" />
     <Compile Include="Base\DatabaseContext\Migration\MigrationConfiguration.cs" />
     <Compile Include="Base\IdentityConfig\PasswordHasherThatDoingNothing.cs" />
     <Compile Include="Base\IdentityConfig\UserManager.cs" />

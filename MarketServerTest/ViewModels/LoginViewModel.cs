@@ -30,7 +30,7 @@ namespace MarketServerTest.ViewModels
                 {
                     _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
                     _dialogController.SetIndeterminate();
-                    SetHubName("LoginTestHub");
+                    SetHubName("LoginHub");
 
                     bool sucsess = false;
                     try

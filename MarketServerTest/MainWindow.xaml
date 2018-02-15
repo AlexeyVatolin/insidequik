@@ -20,7 +20,6 @@
             <MenuItem Header="Connect to server"  Click="ConnectToServer_OnClick"/>
             <MenuItem Header="Создать окно" VerticalAlignment="Center" Foreground="White">
                 <MenuItem Header="Текущие торги" Click="ShowCurrentTrades_OnClick"/>
-                <MenuItem Header="Стакан" Click="OrderBook_OnClick"/>
                 <MenuItem Header="Заявки" Click="Orders_OnClick"/>
                 <MenuItem Header="Сделки" Click="GetTrades_OnClick"/>
                 <MenuItem Header="Стоп-заявки" Click="GetStopOrders_OnClick"/>

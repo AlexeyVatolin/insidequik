@@ -16,7 +16,7 @@ namespace MarketServerTest.ViewModels
     {
         private readonly IDialogCoordinator _dialogCoordinator;
         private ProgressDialogController _dialogController;
-        private IUnityContainer _container = new UnityContainer();
+        private readonly IUnityContainer _container;
         public event EventHandler ShowMainWindow;
         public string LoginStr { get; set; } = "admin";
         //public string PasswordStr { get; set; } = "admin";
@@ -37,10 +37,8 @@ namespace MarketServerTest.ViewModels
 
         public ICommand ConnectToServer
         {
-            
             get
             {
-                
                 return new RelayCommand(async (obj) =>
                 {
                     _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");

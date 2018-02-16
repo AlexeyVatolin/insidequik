@@ -1,8 +1,10 @@
 ﻿using Common.Interfaces;
-using MarketServerTest;
 using Microsoft.AspNet.SignalR;
 using QuikSharp.DataStructures.Transaction;
 using Server.Quik;
+using ServerCore.Hubs;
+using ServerCore.Hubs.Interfaces;
+using ServerCore.Hubs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,29 +13,29 @@ using System.Threading.Tasks;
 
 namespace Server.Hubs
 {
-    public class OrdersHub: Hub//<IOrders>
+    public class OrdersHub: BaseHub<ClientBase, IHubClientCallbacks>//<IOrders>
     {
-        public void SubscribeToOrdersRefresh(long userId)
+        public void SubscribeToOrdersRefresh()
         {
-            Groups.Add(userId.ToString(), "Orders");
+            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
+            Groups.Add(userID.ToString(), "Orders");
             QuikData.SubscribeToOrdersRefresh(ordersRefresh);
         }
         public void CancelOrder(Order order) //TODO:Создать свою модель
         {
            QuikConnector.Quik.Orders.KillOrder(order);
         }
-        public void InitializeOrders(long userId)
+        public List<Order> InitializeOrders()
         {
-            List<Order> orders=QuikConnector.Quik.Orders.GetOrders().Result;
-            //TODO:выбрать ордеры по id для юзера
-            List<Order> userOrders = orders.Where(x => x.TransID == userId).ToList();
-            Clients.Caller.OnInitialize(userOrders);
+            //List<Order> orders=QuikConnector.Quik.Orders.GetOrders().Result;
+            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
+            List<Order> userOrders = QuikConnector.Quik.Orders.GetOrders().Result.Where(x => x.TransID == userID).ToList();
+            return userOrders;
         }
         private void ordersRefresh(Order order)
         {//TODO: распределение заявок по id 
             //id будет записан в TransId
-            Clients.Group("Orders",order.TransID.ToString()).OnOrders(order);
+            //Clients.Group("Orders",order.TransID.ToString()).OnOrders(order);
         }
-        //private Order order
     }
 }

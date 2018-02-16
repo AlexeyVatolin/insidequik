@@ -9,10 +9,13 @@ namespace ServerCore.Base.DatabaseContext
 {
     public class Context : IdentityDbContext<User>
     {
-        public Context() : base("DefaultConnection")
+        static Context()
         {
-            Configuration.LazyLoadingEnabled = true;
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, MigrationConfiguration>());
+        }
+
+        public Context() : base("InsideDB")
+        {
 #if DEBUG
             Database.Log = text => Debug.WriteLine(text);
 #endif
@@ -31,6 +34,12 @@ namespace ServerCore.Base.DatabaseContext
             var context = new Context();
             return context;
         }
+
+        public static void Init()
+        {
+            Create().Database.Initialize(true);
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

@@ -15,7 +15,7 @@ namespace MarketServerTest.ViewModels
     {
         private readonly IDialogCoordinator _dialogCoordinator;
         private ProgressDialogController _dialogController;
-        private IUnityContainer _container = new UnityContainer();
+        private readonly IUnityContainer _container;
         public event EventHandler ShowMainWindow;
         public string LoginStr { get; set; } = "admin";
         public string Password
@@ -41,7 +41,7 @@ namespace MarketServerTest.ViewModels
                 {
                     _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
                     _dialogController.SetIndeterminate();
-                    SetHubName("LoginTestHub");
+                    SetHubName("LoginHub");
 
                     bool success = false;
                     try

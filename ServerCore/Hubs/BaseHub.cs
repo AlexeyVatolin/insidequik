@@ -64,6 +64,7 @@ namespace ServerCore.Hubs
         /// <returns></returns>
         public virtual object Login(object request)
         {
+            //TODO: зачем передавать WrongUsernameOrPasswordException
             var loginOptionsRequest = JObjectHelper.GetJObject<LoginOptionsRequest, WrongUsernameOrPasswordException>(request);
 
             User user;

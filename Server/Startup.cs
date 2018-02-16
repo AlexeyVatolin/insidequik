@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
 using Owin;
+using ServerCore.Base.DatabaseContext;
 
 namespace Server
 {
@@ -16,6 +17,7 @@ namespace Server
                 EnableDetailedErrors = false
 #endif
             };
+            Context.Init();
             app.MapSignalR("/signalr", hubConfiguration);
             app.UseCors(CorsOptions.AllowAll);
             app.MapSignalR();

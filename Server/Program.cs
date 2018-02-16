@@ -24,7 +24,7 @@ namespace Server
                     bool isConnected = Task.Run(QuikConnector.Connect).Result;
                     Console.WriteLine(isConnected ? "Connected" : "Error while connection, check lua script");
 
-                    Console.WriteLine("Press Ender to exit...");
+                    Console.WriteLine("Press Enter to exit...");
                     Console.ReadLine();
                 }
             }

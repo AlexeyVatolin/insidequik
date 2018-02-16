@@ -54,6 +54,7 @@
     <Compile Include="Extensions\StringHelpers.cs" />
     <Compile Include="Helpers\ExceptionHelpers.cs" />
     <Compile Include="Helpers\HubHelpers.cs" />
+    <Compile Include="Helpers\Notifier.cs" />
     <Compile Include="Helpers\ObjectHelper.cs" />
     <Compile Include="Helpers\TaskHelper.cs" />
     <Compile Include="Interfaces\IOrderBook.cs" />

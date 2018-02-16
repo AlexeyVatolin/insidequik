@@ -11,11 +11,12 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         mc:Ignorable="d"
-        Title="Login" Height="300" Width="300">
+        Title="Login" Height="300" Width="300"
+        dialog:DialogParticipation.Register="{Binding}">
     <Grid>
-
         <TextBox HorizontalAlignment="Left" Height="30" Margin="43,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"
-                 Text="{Binding LoginStr}" HorizontalContentAlignment="Stretch" Controls:TextBoxHelper.Watermark="Логин" FontSize="14"/>
+                 Text="{Binding LoginStr}" HorizontalContentAlignment="Stretch" Controls:TextBoxHelper.Watermark="Логин" FontSize="14"
+                 Controls:TextBoxHelper.ClearTextButton="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.HasText), Mode=OneWay}"/>
         <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Center" Margin="108,157,108,0" VerticalAlignment="Top" Width="76" 
                 Command="{Binding ConnectToServer}"/>
         <Button x:Name="ConnectToQuikButton" Content="Подключиться к QUIK" HorizontalAlignment="Center" Margin="0, 200, 0, 0" VerticalAlignment="Top" 

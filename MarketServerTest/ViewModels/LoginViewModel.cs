@@ -9,7 +9,6 @@ using MarketServerTest.SignalR;
 using Common.Interfaces;
 using Unity;
 using MarketServerTest.Interfaces;
-
 namespace MarketServerTest.ViewModels
 {
     public class LoginViewModel : ClientBase
@@ -19,7 +18,6 @@ namespace MarketServerTest.ViewModels
         private IUnityContainer _container = new UnityContainer();
         public event EventHandler ShowMainWindow;
         public string LoginStr { get; set; } = "admin";
-        //public string PasswordStr { get; set; } = "admin";
         public string Password
         {
             get
@@ -37,10 +35,8 @@ namespace MarketServerTest.ViewModels
 
         public ICommand ConnectToServer
         {
-            
             get
             {
-                
                 return new RelayCommand(async (obj) =>
                 {
                     _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
@@ -50,7 +46,6 @@ namespace MarketServerTest.ViewModels
                     bool success = false;
                     try
                     {
-                        // var response = await Task.Run(() => Login(LoginStr, PasswordStr));
                         var response = await Task.Run(() => Login(LoginStr, Password));
                         success = true;
                     }
@@ -77,6 +72,7 @@ namespace MarketServerTest.ViewModels
                             ShowCancellableDialog("Ошибка", "Неверный логин или пароль");
                         }
                     }
+                    
                     if (success)
                     {
                         await Logout();

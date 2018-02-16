@@ -12,6 +12,7 @@ namespace MarketServerTest
     /// </summary>
     public partial class Login : MetroWindow
     {
+        
         public Login()
         {
             InitializeComponent();

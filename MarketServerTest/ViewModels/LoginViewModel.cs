@@ -6,13 +6,13 @@ using Common.Models;
 using MahApps.Metro.Controls.Dialogs;
 using MarketServerTest.Helpers;
 using MarketServerTest.SignalR;
-using Common.Interfaces;
 using Unity;
 using MarketServerTest.Interfaces;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace MarketServerTest.ViewModels
 {
-    public class LoginViewModel : ClientBase
+    public class LoginViewModel : AuthenticationClientBase
     {
         private readonly IDialogCoordinator _dialogCoordinator;
         private ProgressDialogController _dialogController;
@@ -48,8 +48,7 @@ namespace MarketServerTest.ViewModels
                     bool success = false;
                     try
                     {
-                        // var response = await Task.Run(() => Login(LoginStr, PasswordStr));
-                        var response = await Task.Run(() => Login(LoginStr, Password));
+                        await LoginAsync(LoginStr, Password);
                         success = true;
                     }
                     catch (AggregateException ex)
@@ -77,7 +76,6 @@ namespace MarketServerTest.ViewModels
                     }
                     if (success)
                     {
-                        await Logout();
                         ShowNewMainWindow();
                     }
                 });

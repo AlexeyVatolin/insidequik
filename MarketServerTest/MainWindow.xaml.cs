@@ -13,6 +13,7 @@ using Microsoft.ApplicationInsights;
 using finam.ru_economic_calendar;
 using MarketServerTest.SecurityTables;
 using MarketServerTest.ViewModels;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace MarketServerTest
 {
@@ -21,6 +22,7 @@ namespace MarketServerTest
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private readonly HubConnection connection;
         private Trades trades;
         private Orders orders;
         private StopOrders stopOrders;
@@ -35,6 +37,12 @@ namespace MarketServerTest
             //Временно отключил таймер потому что теперь есть только подключение к серверу, но не к квику
             //timer = new Timer(Callback, null, 1000 * 3, Timeout.Infinite);
         }
+
+        public MainWindow(HubConnection connection)
+        {
+            this.connection = connection;
+        }
+
         private void Callback(Object state)
         {
             // Long running operation

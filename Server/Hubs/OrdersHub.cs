@@ -17,7 +17,7 @@ namespace Server.Hubs
     {
         public void SubscribeToOrdersRefresh()
         {
-            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
+            long userID = long.Parse(CurrentUser.Id);
             Groups.Add(userID.ToString(), "Orders");
             QuikData.SubscribeToOrdersRefresh(ordersRefresh);
         }
@@ -28,7 +28,7 @@ namespace Server.Hubs
         public List<Order> InitializeOrders()
         {
             //List<Order> orders=QuikConnector.Quik.Orders.GetOrders().Result;
-            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
+            long userID = long.Parse(CurrentUser.Id);
             List<Order> userOrders = QuikConnector.Quik.Orders.GetOrders().Result.Where(x => x.TransID == userID).ToList();
             return userOrders;
         }

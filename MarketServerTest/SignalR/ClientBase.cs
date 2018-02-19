@@ -18,7 +18,7 @@ namespace MarketServerTest.SignalR
     public class ClientBase
     {
         protected static readonly ILog Log = LogManager.GetLogger(typeof(ClientBase));
-        private static string SessionId { get; set; }
+        protected static string SessionId { get; set; }
         private AppDomain _domain;
         protected AppDomain Domain
         {

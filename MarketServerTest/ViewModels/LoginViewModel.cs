@@ -8,7 +8,6 @@ using MarketServerTest.Helpers;
 using MarketServerTest.SignalR;
 using Unity;
 using MarketServerTest.Interfaces;
-using Microsoft.AspNet.SignalR.Client;
 
 namespace MarketServerTest.ViewModels
 {
@@ -19,7 +18,6 @@ namespace MarketServerTest.ViewModels
         private readonly IUnityContainer _container;
         public event EventHandler ShowMainWindow;
         public string LoginStr { get; set; } = "admin";
-        //public string PasswordStr { get; set; } = "admin";
         public string Password
         {
             get
@@ -41,42 +39,50 @@ namespace MarketServerTest.ViewModels
             {
                 return new RelayCommand(async (obj) =>
                 {
-                    _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
-                    _dialogController.SetIndeterminate();
-                    SetHubName("LoginHub");
+                    if (LoginStr.Length == 0 || Password.Length == 0)
+                    {
+                        await _dialogCoordinator.ShowMessageAsync(this,"Ошибка", "Не введен логин или пароль!");
+                    }
+                    else
+                    {
+                        _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
+                        _dialogController.SetIndeterminate();
+                        SetHubName("LoginHub");
 
-                    bool success = false;
-                    try
-                    {
-                        await LoginAsync(LoginStr, Password);
-                        success = true;
-                    }
-                    catch (AggregateException ex)
-                    {
-                        if (ex.Message == ErrorCodes.WrongUserNameOrPassword.GetDescription())
+                        bool success = false;
+                        try
                         {
-                            ShowCancellableDialog("Ошибка", "Неверный логин или пароль");
+                            await LoginAsync(LoginStr, Password);
+                            success = true;
                         }
-                        else
+                        catch (AggregateException ex)
                         {
-                            ShowCancellableDialog("Ошибка", "Вознакла ошибка при подлючении к серверу");
+                            if (ex.Message == ErrorCodes.WrongUserNameOrPassword.GetDescription())
+                            {
+                                ShowCancellableDialog("Ошибка", "Неверный логин или пароль");
+                            }
+                            else
+                            {
+                                ShowCancellableDialog("Ошибка", "Вознакла ошибка при подлючении к серверу");
+                            }
                         }
-                    }
-                    catch (NullReferenceException)
-                    {
-                        ShowCancellableDialog("Ошибка", "Ошибка при получении данных с сервера. Попробуйте еще раз");
-                    }
-                    catch (Exception exception)
-                    {
-                        //await _dialogController.CloseAsync();
-                        if (exception.Message == ErrorCodes.WrongUserNameOrPassword.GetDescription())
+                        catch (NullReferenceException)
                         {
-                            ShowCancellableDialog("Ошибка", "Неверный логин или пароль");
+                            ShowCancellableDialog("Ошибка", "Ошибка при получении данных с сервера. Попробуйте еще раз");
                         }
-                    }
-                    if (success)
-                    {
-                        ShowNewMainWindow();
+                        catch (Exception exception)
+                        {
+                            //await _dialogController.CloseAsync();
+                            if (exception.Message == ErrorCodes.WrongUserNameOrPassword.GetDescription())
+                            {
+                                ShowCancellableDialog("Ошибка", "Неверный логин или пароль");
+                            }
+                        }
+
+                        if (success)
+                        {
+                            ShowNewMainWindow();
+                        }
                     }
                 });
             }
@@ -88,17 +94,24 @@ namespace MarketServerTest.ViewModels
             {
                 return new RelayCommand(async (obj) =>
                 {
-                    _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
-                    _dialogController.SetIndeterminate();
-                    bool isConnected = await Task.Run(QuikConnector.Connect);
-                    if (isConnected)
+                    if (LoginStr.Length == 0 || Password.Length == 0)
                     {
-                        await _dialogController.CloseAsync();
-                        ShowNewMainWindow();
+                        await _dialogCoordinator.ShowMessageAsync(this, "Ошибка", "Не введен логин или пароль!");
                     }
                     else
                     {
-                        ShowCancellableDialog("Error", "Some error while connecting to QUIK");
+                        _dialogController = await _dialogCoordinator.ShowProgressAsync(this, "Connecting...", "Please wait...");
+                        _dialogController.SetIndeterminate();
+                        bool isConnected = await Task.Run(QuikConnector.Connect);
+                        if (isConnected)
+                        {
+                            await _dialogController.CloseAsync();
+                            ShowNewMainWindow();
+                        }
+                        else
+                        {
+                            ShowCancellableDialog("Error", "Some error while connecting to QUIK");
+                        }
                     }
                 });
             }

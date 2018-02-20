@@ -22,20 +22,20 @@ namespace MarketServerTest
     /// <summary>
     /// Логика взаимодействия для SendBid.xaml
     /// </summary>
-    public partial class SendBid : MetroWindow
+    public partial class SendOrder : MetroWindow
     {
-        public SendBid()
+        public SendOrder()
         {
             InitializeComponent();
         }
 
-        public SendBid(string ticker)
+        public SendOrder(string ticker)
         {
             InitializeComponent();
             TickerBox.Text = ticker;
         }
 
-        public SendBid(string ticker, double price)
+        public SendOrder(string ticker, double price)
         {
             InitializeComponent();
             TickerBox.Text = ticker;

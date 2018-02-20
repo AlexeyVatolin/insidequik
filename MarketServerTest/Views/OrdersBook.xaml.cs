@@ -19,7 +19,7 @@ namespace MarketServerTest.Views
 
         private void ShowSendOrderWindow(string ticker, double price)
         {
-            SendBid sendOrder = new SendBid(ticker, price);
+            SendOrder sendOrder = new SendOrder(ticker, price);
             sendOrder.Show();
         }
 

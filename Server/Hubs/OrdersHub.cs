@@ -1,7 +1,9 @@
 ﻿using Common.Interfaces;
+using Inside.Core.Base.DatabaseContext.Entities;
 using Microsoft.AspNet.SignalR;
 using QuikSharp.DataStructures.Transaction;
 using Server.Quik;
+using ServerCore.Base.DatabaseContext;
 using ServerCore.Hubs;
 using ServerCore.Hubs.Interfaces;
 using ServerCore.Hubs.Models;
@@ -18,8 +20,11 @@ namespace Server.Hubs
         public void SubscribeToOrdersRefresh()
         {
             long userID = long.Parse(GetCurrentClient().ApplicationUserId);
-            Groups.Add(userID.ToString(), "Orders");
-            QuikData.SubscribeToOrdersRefresh(ordersRefresh);
+            try
+            {
+                QuikData.SubscribeToOrdersRefresh(NewOrder);
+            }
+            catch { }
         }
         public void CancelOrder(Order order) //TODO:Создать свою модель
         {
@@ -27,15 +32,24 @@ namespace Server.Hubs
         }
         public List<Order> InitializeOrders()
         {
-            //List<Order> orders=QuikConnector.Quik.Orders.GetOrders().Result;
-            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
-            List<Order> userOrders = QuikConnector.Quik.Orders.GetOrders().Result.Where(x => x.TransID == userID).ToList();
+            string userID = GetCurrentClient().ApplicationUserId;
+            List<Order> userOrders = QuikConnector.Quik.Orders.GetOrders().Result.Where(x => x.UserId == userID).ToList();
             return userOrders;
         }
-        private void ordersRefresh(Order order)
+        private void NewOrder(Order order)
         {//TODO: распределение заявок по id 
             //id будет записан в TransId
-            //Clients.Group("Orders",order.TransID.ToString()).OnOrders(order);
+            using (Context db = new Context())
+            {
+                OrderHistory orderHistory = new OrderHistory
+                {
+                    OrderId = order.OrderNum,
+                    UserId = order.UserId,
+                    User = db.Users.Find(order.UserId)
+                };
+                db.OrderHistories.Add(orderHistory);
+            }
+            
         }
     }
 }

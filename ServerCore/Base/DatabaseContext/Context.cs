@@ -4,10 +4,12 @@ using System.Diagnostics;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ServerCore.Base.DatabaseContext.Entities;
 using ServerCore.Base.DatabaseContext.Migration;
+using Inside.Core.Base.DatabaseContext.Entities;
+using ServerCore.Base.Interfaces;
 
 namespace ServerCore.Base.DatabaseContext
 {
-    public class Context : IdentityDbContext<User>
+    public class Context : IdentityDbContext<User>, IContext, IDispose
     {
         static Context()
         {
@@ -23,7 +25,7 @@ namespace ServerCore.Base.DatabaseContext
 
         //TODO:посмотреть нужны ли они
         //public DbSet<Event> Events { set; get; }
-        //public DbSet<OrderHistory> OrderHistories { set; get; }
+        public DbSet<OrderHistory> OrderHistories { set; get; }
 
         /// <summary>
         /// Create instance of database class

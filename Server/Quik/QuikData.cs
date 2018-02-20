@@ -100,7 +100,7 @@ namespace Server.Quik
             return bestOffer;
 
         }
-        public static long NewOrder(Common.Models.ClientOrder order, long UserId )
+        public static long NewOrder(Common.Models.ClientOrder order, string userId)
         {
             long res = 0;
             Tool tool = CreateTool(order.SecurityCode, order.ClassCode);
@@ -126,7 +126,7 @@ namespace Server.Quik
                 Price = order.Price,
                 Quantity = order.Quantity,
                 Account = tool.AccountID,
-                TransID = UserId
+                UserId=userId
             };
 
             try
@@ -139,7 +139,7 @@ namespace Server.Quik
             }
             return res;
         }
-        public static long NewStopOrder(Common.Models.ClientStopOrder order, long UserId)
+        public static long NewStopOrder(Common.Models.ClientStopOrder order, string userId)
         {
             long res = 0;
             Tool tool = CreateTool(order.SecurityCode);
@@ -153,7 +153,7 @@ namespace Server.Quik
                 Quantity = order.Quantity,
                 Account = tool.AccountID,
                 StopOrderType = StopOrderType.StopLimit,
-                TransId = UserId
+                UserId=userId
             };
             try
             {

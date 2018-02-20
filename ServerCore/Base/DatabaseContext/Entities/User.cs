@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using Inside.Core.Base.DatabaseContext.Entities;
 
 namespace ServerCore.Base.DatabaseContext.Entities
 {
@@ -39,6 +41,6 @@ namespace ServerCore.Base.DatabaseContext.Entities
         }
         //TODO:посмотреть нужны ли они
         //public ICollection<Event> Events { set; get; }
-        //public ICollection<OrderHistory> OrderHistories { set; get; }
+        public ICollection<OrderHistory> OrderHistories { set; get; }
     }
 }

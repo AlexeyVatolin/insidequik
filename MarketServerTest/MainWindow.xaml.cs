@@ -79,7 +79,7 @@ namespace MarketServerTest
         private void SetNewOrder_OnClick(object sender, RoutedEventArgs e)
         {
             telemetryClient.TrackPageView("Новая заявка");
-            new SendBid().Show();
+            new SendOrder().Show();
         }
 
         private void Orders_OnClick(object sender, RoutedEventArgs e)

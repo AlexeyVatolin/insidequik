@@ -30,7 +30,7 @@ namespace MarketServerTest.ViewModels
             {
                 return new RelayCommand((obj) =>
                 {
-                    new SendBid(SelectedItem.SecCode).Show();
+                    new SendOrder(SelectedItem.SecCode).Show();
                 },
                 (obj) => SelectedItem != null);
             }

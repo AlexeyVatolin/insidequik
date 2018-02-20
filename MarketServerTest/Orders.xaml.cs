@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System;
 using System.Linq;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace MarketServerTest
 {
@@ -33,6 +34,13 @@ namespace MarketServerTest
             */
             InitializeOrdersTable();
             QuikConnector.SubscribeToOrdersRefresh(OrdersRefresh);
+            //var hubConnection = new HubConnection("http://localhost:8080/signalr", false)
+            //{
+            //    TraceLevel = TraceLevels.All
+            //};
+            //IHubProxy stockTickerHubProxy = hubConnection.CreateHubProxy("OrdersHub");
+            //await hubConnection.Start();
+            //var result = await stockTickerHubProxy.Invoke<object>("SendOrder", newOrder);
         }
 
         public void OrdersRefresh(Order order)

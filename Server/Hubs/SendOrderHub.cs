@@ -14,12 +14,12 @@ namespace Server.Hubs
     {
         public void SendOrder(Common.Models.ClientOrder order)
         {
-            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
+            string userID = GetCurrentClient().ApplicationUserId;
             long transId = Quik.QuikData.NewOrder(order, userID);
         }
         public void SendStopOrder(Common.Models.ClientStopOrder stopOrder)
         {
-            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
+            string userID = GetCurrentClient().ApplicationUserId;
             long transId = Quik.QuikData.NewStopOrder(stopOrder, userID);
         }
     }

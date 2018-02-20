@@ -350,8 +350,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="SendBid.xaml.cs">
-      <DependentUpon>SendBid.xaml</DependentUpon>
+    <Compile Include="SendOrder.xaml.cs">
+      <DependentUpon>SendOrder.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -365,7 +365,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SendBid.xaml">
+    <Page Include="SendOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

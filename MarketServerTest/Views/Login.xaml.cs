@@ -4,6 +4,7 @@ using MahApps.Metro.Controls.Dialogs;
 using MarketServerTest.ViewModels;
 using Unity;
 using MarketServerTest.Interfaces;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace MarketServerTest
 {
@@ -12,6 +13,7 @@ namespace MarketServerTest
     /// </summary>
     public partial class Login : MetroWindow
     {
+        
         public Login()
         {
             InitializeComponent();

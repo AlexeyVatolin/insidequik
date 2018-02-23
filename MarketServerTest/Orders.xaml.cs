@@ -32,15 +32,9 @@ namespace MarketServerTest
             OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Sell", Balance = "fjksbfshbd", State = "Completed", ClassCode = "fdjsnfkjsnfjk", Company = "fdjnsjkf", Price = "fdsfjkndsjk", Quantity = "fsfdsfs", Time = "fbdshfbsd", Value = "gnfkgjfdg" });
             OrdersTable.Items.Add(new ColumnsForOrders() { Operation = "Sell", Balance = "fjksbfshbd", State = "Active", ClassCode = "fdjsnfkjsnfjk", Company = "fdjnsjkf", Price = "fdsfjkndsjk", Quantity = "fsfdsfs", Time = "fbdshfbsd", Value = "gnfkgjfdg" });
             */
-            InitializeOrdersTable();
-            QuikConnector.SubscribeToOrdersRefresh(OrdersRefresh);
-            //var hubConnection = new HubConnection("http://localhost:8080/signalr", false)
-            //{
-            //    TraceLevel = TraceLevels.All
-            //};
-            //IHubProxy stockTickerHubProxy = hubConnection.CreateHubProxy("OrdersHub");
-            //await hubConnection.Start();
-            //var result = await stockTickerHubProxy.Invoke<object>("SendOrder", newOrder);
+            //InitializeOrdersTable();
+            //QuikConnector.SubscribeToOrdersRefresh(OrdersRefresh);
+
         }
 
         public void OrdersRefresh(Order order)

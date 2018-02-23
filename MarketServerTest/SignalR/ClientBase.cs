@@ -11,15 +11,14 @@ using Inside.Common.Helpers.Extensions;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR.Client;
-using QuikSharp;
 
 namespace MarketServerTest.SignalR
 {
     public class ClientBase
     {
         protected static readonly ILog Log = LogManager.GetLogger(typeof(ClientBase));
+        protected static string SessionId { get; set; }
         private AppDomain _domain;
         protected AppDomain Domain
         {
@@ -50,17 +49,17 @@ namespace MarketServerTest.SignalR
         private IHubProxy _hub;
         protected IHubProxy Hub => GetHubProxy();
 
-        protected virtual void RegisterCallback(IHubProxy hub)
-        {
-            _hub.RegisterCallback<object>(Disconnect);
-        }
+        //protected virtual void RegisterCallback(IHubProxy hub)
+        //{
+        //      _hub.RegisterCallback<object>(Disconnect);
+        //}
         private IHubProxy GetHubProxy()
         {
             if (_hub != null) return _hub;
             _hub = Connection.CreateHubProxy(_hubName);
             Log.Info("HubProxy: created");
-            RegisterCallback(_hub);
-            Log.Info("RegisteCallback: done");
+            //RegisterCallback(_hub);
+            //Log.Info("RegisteCallback: done");
             return _hub;
         }
         private HubConnection _connection;
@@ -77,6 +76,7 @@ namespace MarketServerTest.SignalR
                     // show message box in separate thread without block and reduce 300 -> 30
                     DeadlockErrorTimeout = TimeSpan.FromSeconds(300)
                 };
+                _connection.Headers.Add("Session-Id", SessionId);
 
                 // write to log
                 Log.InfoFormat("Connection: created\n{0}", _connectUrl);
@@ -128,7 +128,7 @@ namespace MarketServerTest.SignalR
         private void Connection_Error(Exception ex)
         {
             Log.Error("Connection error", ex);
-            ProcessLogout(false);
+            ProcessLogoutAsync(false);
             ShowConnectionError();
         }
 
@@ -148,9 +148,9 @@ namespace MarketServerTest.SignalR
         {
             return Invoke();
         }
-        protected Task<object> LoginInvoke(LoginOptionsRequest request)
+        protected Task<LoginResponse> LoginInvoke(string username, string password)
         {
-            return Invoke<object>("LoginInvoke", request);
+            return Invoke<LoginResponse>("LoginInvoke", username, password);
         }
         #endregion
 
@@ -194,8 +194,7 @@ namespace MarketServerTest.SignalR
         }
 
         public bool DontShowErrors { get; set; } = false;
-
-        #region Start
+        
         protected bool StartConnection()
         {
             if (Connection.ConnectionId != null)
@@ -223,66 +222,8 @@ namespace MarketServerTest.SignalR
             ShowConnectionError();
             return false;
         }
-        public virtual LoginResponse Login(string login, string password)
-        {
-            if (!StartConnection())
-            {
-                return null;
-            }
 
-            var request = new LoginOptionsRequest
-            {
-                Login = login,
-                //todo use md5 or sha
-                Password = password
-            };
-
-            Log.InfoFormat("Login: start\n{0}", request.ToJson());
-
-            try
-            {
-                var task = LoginInvoke(request);
-
-                var response = task.Result.ToObject<LoginResponse>();
-                if (response == null)
-                {
-                    throw new NullReferenceException("Login: LoginResponse");
-                }
-
-                Log.InfoFormat("Login: done\n{0}", response.ToJson());
-
-                Hub.StartCallBacks();
-
-                Balance = response.Balance;
-
-                IsLogged = true;
-                return response;
-            }
-            catch (Exception ex)
-            {
-                TryHandleException(ex);
-            }
-            return null;
-        }
-        #endregion
-
-        #region Actions
-        public event Action<object> LoggedOut;
-        #endregion
-
-        #region Logout
-        protected void OnLoggedOut()
-        {
-            Log.Info("OnLoggedOut");
-            LoggedOut?.Invoke(this);
-        }
-
-        protected virtual void OnLogoutProcessed()
-        {
-            Log.Info("ProcessLogout: done");
-        }
-
-        protected Task ProcessLogout(bool sendToServer = true)
+        protected Task ProcessLogoutAsync(bool sendToServer = true)
         {
             if (!IsLogged)
             {
@@ -300,7 +241,6 @@ namespace MarketServerTest.SignalR
                 {
                     LogoutInvoke().Wait();
                 }
-                OnLoggedOut();
             }
             catch (Exception ex)
             {
@@ -310,20 +250,8 @@ namespace MarketServerTest.SignalR
             return Task.Run(() =>
             {
                 Connection = null;
-                OnLogoutProcessed();
             });
         }
-
-        public Task Logout()
-        {
-            return ProcessLogout();
-        }
-
-        public virtual void Disconnect(object data)
-        {
-            ProcessLogout();
-        }
-        #endregion
 
         #region Error
         protected void ShowError(Exception exception)
@@ -382,7 +310,7 @@ namespace MarketServerTest.SignalR
             switch (code)
             {
                 case ErrorCodes.NotLogged:
-                    ProcessLogout(false);
+                    ProcessLogoutAsync(false);
                     ShowLoggedOutError();
                     break;
                 default:

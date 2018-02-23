@@ -87,7 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hubs\LoginHub.cs" />
+    <Compile Include="Hubs\AuthenticationHub.cs" />
     <Compile Include="Hubs\OrderBooksHub.cs" />
     <Compile Include="Hubs\OrdersHub.cs" />
     <Compile Include="Hubs\SecuritiesHub.cs" />

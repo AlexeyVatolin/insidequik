@@ -15,11 +15,24 @@ using System.Threading.Tasks;
 
 namespace Server.Hubs
 {
-    public class OrdersHub: BaseHub<ClientBase, IHubClientCallbacks>//<IOrders>
+    public class OrdersHub: BaseHub<ClientBase, IHubClientCallbacks>
     {
+        public void SendOrder(Common.Models.ClientOrder order)
+        {
+            string userID = CurrentUser.Id;
+
+            long transId = Quik.QuikData.NewOrder(order, userID);
+        }
+        public void SendStopOrder(Common.Models.ClientStopOrder stopOrder)
+        {
+            string userID = CurrentUser.Id;
+
+            long transId = Quik.QuikData.NewStopOrder(stopOrder, userID);
+        }
         public void SubscribeToOrdersRefresh()
         {
-            long userID = long.Parse(GetCurrentClient().ApplicationUserId);
+
+            string userID = CurrentUser.Id;
             try
             {
                 QuikData.SubscribeToOrdersRefresh(NewOrder);
@@ -32,7 +45,7 @@ namespace Server.Hubs
         }
         public List<Order> InitializeOrders()
         {
-            string userID = GetCurrentClient().ApplicationUserId;
+            string userID = CurrentUser.Id;
             List<Order> userOrders = QuikConnector.Quik.Orders.GetOrders().Result.Where(x => x.UserId == userID).ToList();
             return userOrders;
         }

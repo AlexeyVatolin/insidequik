@@ -95,15 +95,18 @@
     <Compile Include="Base\Interfaces\IDispose.cs" />
     <Compile Include="Extexntions\UserExtentions.cs" />
     <Compile Include="Helpres\JObjectHelper.cs" />
+    <Compile Include="Hubs\AuthenticationBaseHub.cs" />
     <Compile Include="Hubs\BaseHub.cs" />
     <Compile Include="Hubs\Exceptions\BaseExceptions.cs" />
     <Compile Include="Hubs\Extensions\ClientCalls.cs" />
     <Compile Include="Hubs\Extensions\HubExtensions.cs" />
+    <Compile Include="Hubs\Interfaces\IAuthenticationBaseHub.cs" />
     <Compile Include="Hubs\Interfaces\IBaseHub.cs" />
     <Compile Include="Hubs\Interfaces\IClientBase.cs" />
     <Compile Include="Hubs\Interfaces\IHubClientCallbacks.cs" />
     <Compile Include="Hubs\Models\ClientBase.cs" />
     <Compile Include="Hubs\Models\ConnectedClients.cs" />
+    <Compile Include="Hubs\Storages\SessionStorage.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

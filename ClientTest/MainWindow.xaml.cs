@@ -24,7 +24,7 @@ namespace ClientTest
                 };
             IHubProxy stockTickerHubProxy = hubConnection.CreateHubProxy("LoginTestHub");
             //stockTickerHubProxy.On<object>("Login", OnLogin);
-            using (Context db = new Context())
+            //using (Context db = new Context())
             await hubConnection.Start();
             try
             {

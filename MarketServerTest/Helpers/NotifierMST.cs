@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace MarketServerTest.Helpers
 {
-    public class Notifier : INotifyPropertyChanged
+    public class NotifierMST : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 

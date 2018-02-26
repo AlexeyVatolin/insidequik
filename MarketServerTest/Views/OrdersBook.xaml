@@ -10,7 +10,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         mc:Ignorable="d"
-        Height="556.132" Width="148.482">
+        Height="505.467" Width="148.482">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Unloaded">
@@ -64,8 +64,10 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Path=Price}" /> <!--CellTemplate="{Binding StronglyRecommended}"/>-->
-                        <GridViewColumn Header="Кол-во" DisplayMemberBinding="{Binding Path=Quantity}"/> <!--CellTemplate="{Binding StronglyRecommended}"/>-->
+                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Path=Price}" />
+                        <!--CellTemplate="{Binding StronglyRecommended}"/>-->
+                        <GridViewColumn Header="Кол-во" DisplayMemberBinding="{Binding Path=Quantity}"/>
+                        <!--CellTemplate="{Binding StronglyRecommended}"/>-->
                     </GridView>
                 </ListView.View>
             </ListView>

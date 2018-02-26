@@ -2,7 +2,7 @@
 
 namespace MarketServerTest.Models
 {
-    public class SecuritiesModel : Notifier
+    public class SecuritiesModel : NotifierMST
     {
         private string _name;
         private double _lastPrice;

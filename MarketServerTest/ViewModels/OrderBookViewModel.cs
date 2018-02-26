@@ -11,7 +11,7 @@ namespace MarketServerTest.ViewModels
 {
     public class OrderBookViewModel : TickClientBase, IOrderBook
     {
-        public ObservableCollection<OrderBook> OrderBooks { get; set; } = new ObservableCollection<OrderBook>();
+        public ObservableCollection<OrderBookMST> OrderBooks { get; set; } = new ObservableCollection<OrderBookMST>();
         public OrderBook SelectedOrderBook { get; set; }
         public event OpenWindow ShowSendOrderWindow;
         public event OpenWindow ShowSendStopOrderWindow;
@@ -26,7 +26,23 @@ namespace MarketServerTest.ViewModels
 
         public void OnQuote(List<OrderBook> orderBooks)
         {
-            OrderBooks = new ObservableCollection<OrderBook>(orderBooks);
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (orderBooks.Count != OrderBooks.Count)
+                {
+                    foreach (var orderBook in orderBooks) 
+                    {
+                        OrderBooks.Add(new OrderBookMST() {Price = orderBook.Price,  Quantity = orderBook.Quantity, Type = orderBook.Type});
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i<orderBooks.Count;i++)
+                    {
+                        OrderBooks[i] = new OrderBookMST() { Price = orderBooks[i].Price, Quantity = orderBooks[i].Quantity, Type = orderBooks[i].Type };
+                    }
+                }
+            });
         }
 
         public ICommand DisconnectCommand

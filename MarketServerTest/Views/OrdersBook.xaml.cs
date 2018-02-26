@@ -11,6 +11,7 @@ namespace MarketServerTest.Views
         public OrdersBook(string ticker)
         {
             InitializeComponent();
+            Title = ticker;
             OrderBookViewModel viewModel = new OrderBookViewModel(ticker);
             viewModel.ShowSendOrderWindow += ShowSendOrderWindow;
             viewModel.ShowSendStopOrderWindow += ShowSendStopOrderWindow;

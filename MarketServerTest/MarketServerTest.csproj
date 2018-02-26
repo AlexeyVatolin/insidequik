@@ -229,6 +229,7 @@
     <Compile Include="Data\DepoLimit.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Interfaces\IPasswordSupplier.cs" />
+    <Compile Include="Models\OrderBookMST.cs" />
     <Compile Include="MyPasswordBox.xaml.cs">
       <DependentUpon>MyPasswordBox.xaml</DependentUpon>
     </Compile>
@@ -240,7 +241,7 @@
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Notifier.cs" />
+    <Compile Include="Helpers\NotifierMST.cs" />
     <Compile Include="Models\SecuritiesModel.cs" />
     <Compile Include="Models\TradeTableModel.cs" />
     <Compile Include="MoneyLimit.cs" />

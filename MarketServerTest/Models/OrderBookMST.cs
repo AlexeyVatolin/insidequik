@@ -2,7 +2,7 @@
 
 namespace Common.Models
 {
-    public class OrderBook
+    public class OrderBookMST : NotifierMST
     {
         private double _price;
         private double _qantity;
@@ -14,6 +14,7 @@ namespace Common.Models
             set
             {
                 _price = value; 
+                NotifyPropertyChanged();
             }
         }
 
@@ -23,6 +24,7 @@ namespace Common.Models
             set
             {
                 _qantity = value;
+                NotifyPropertyChanged();
             } 
         }
         public string Type
@@ -31,6 +33,7 @@ namespace Common.Models
             set
             {
                 _type = value;
+                NotifyPropertyChanged();
             } 
         }
     }
